@@ -79,10 +79,13 @@ class MainViewController: UIViewController {
         return button
     }()
     
-    
+    //로그인 함수
     @objc func loginAction(){
-        
+        //nil 값 검사
         guard emailTextField.text != "", passwordTextField.text != "" else{return}
+        
+        //인디케이터 시작
+        AppDelegate.instance().showActivityIndicator()
         
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
             
@@ -106,9 +109,11 @@ class MainViewController: UIViewController {
                         print("Create User Error: \(error)")
                     }
                 }
+                //인디케이터 종료
+                AppDelegate.instance().dissmissActivityIndicator()
                 return
             }
-            
+            //유저가 있을때
             if user != nil{
                 print("로그인 성공")
                 print(user as Any)
@@ -116,12 +121,14 @@ class MainViewController: UIViewController {
                 //로그인 성공했을 때
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 let tabBarController = appDelegate.tabBarController
+                //인디케이터 종료
+                AppDelegate.instance().dissmissActivityIndicator()
                 self.present(tabBarController!, animated: true, completion: nil)
             }
         }
     }
     
-    //버튼
+    //가입 버튼
     let signButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("처음이세요? 가입하러가기", for: UIControlState())
@@ -132,7 +139,7 @@ class MainViewController: UIViewController {
     }()
     
     @objc func signAction(){
-        print("로그인 버튼이 눌렀습니다.")
+        print("가입 버튼이 눌렀습니다.")
         let signView = SignViewController()
         self.present(signView, animated: true, completion: nil)
     }

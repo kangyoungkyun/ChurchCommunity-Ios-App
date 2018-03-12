@@ -97,14 +97,15 @@ class SignViewController: UIViewController {
         return button
     }()
     
+    //가입 로직 처리 함수
     @objc func signAction(){
         
         guard nameTextField.text != "", emailTextField.text != "", passwordTextField.text != "" else{return}
-        
+        //인디케이터 시작
+        AppDelegate.instance().showActivityIndicator()
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
             
             if let error = error {
-                
                 //print("error: \(error.localizedDescription)")
                 //가입 폼 유효성 검사
                 if let errCode = AuthErrorCode(rawValue: error._code) {
@@ -120,6 +121,8 @@ class SignViewController: UIViewController {
                         print("Create User Error: \(error)")
                     }
                 }
+                //인디케이터 종료
+                AppDelegate.instance().dissmissActivityIndicator()
                 return
             }
             
@@ -130,15 +133,17 @@ class SignViewController: UIViewController {
                 ChangeRequest.commitChanges(completion: nil)
                 
                 print("가입성공")
-                
+                //tabbarController 가져오기
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 let tabBarController = appDelegate.tabBarController
+                //인디케이터 종료
+                AppDelegate.instance().dissmissActivityIndicator()
                 self.present(tabBarController!, animated: true, completion: nil)
             }
         }
     }
     
-    //취소버튼
+    //뒤로가기 버튼
     let cancelButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("뒤로가기", for: UIControlState())
@@ -147,12 +152,12 @@ class SignViewController: UIViewController {
         button.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
         return button
     }()
+    
     //뒤로가기 함수
     @objc func cancelAction(){
         print("뒤로가기  버튼이 눌렀습니다.")
         self.dismiss(animated: true, completion: nil)
-        //let signView = SignViewController()
-        //self.present(signView, animated: true, completion: nil)
+
     }
     
     override func viewDidLoad() {
