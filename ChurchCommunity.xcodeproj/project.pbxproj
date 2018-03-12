@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5242FF9320573A5800548FD4 /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5242FF9220573A5800548FD4 /* WriteViewController.swift */; };
 		52858A492055E64D005C9BB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A482055E64D005C9BB9 /* AppDelegate.swift */; };
 		52858A4B2055E64D005C9BB9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A4A2055E64D005C9BB9 /* MainViewController.swift */; };
 		52858A4E2055E64D005C9BB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52858A4C2055E64D005C9BB9 /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5242FF9220573A5800548FD4 /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
 		52858A452055E64D005C9BB9 /* ChurchCommunity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChurchCommunity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52858A482055E64D005C9BB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52858A4A2055E64D005C9BB9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				52858A602055E8BC005C9BB9 /* SettingViewController.swift */,
 				52858A8F20562515005C9BB9 /* HideKeyBoard.swift */,
 				52D6121F205640C500F6F031 /* read.txt */,
+				5242FF9220573A5800548FD4 /* WriteViewController.swift */,
 			);
 			path = ChurchCommunity;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5242FF9320573A5800548FD4 /* WriteViewController.swift in Sources */,
 				52858A882055F524005C9BB9 /* SignViewController.swift in Sources */,
 				52858A4B2055E64D005C9BB9 /* MainViewController.swift in Sources */,
 				52858A5D2055E83C005C9BB9 /* MemoryViewController.swift in Sources */,

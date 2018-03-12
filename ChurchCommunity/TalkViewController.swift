@@ -17,9 +17,10 @@ class TalkViewController: UITableViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "logout", style: .plain, target: self, action: #selector(logoutAction))
         
+        
         // self.clearsSelectionOnViewWillAppear = false
 
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "글쓰기", style: .plain, target: self, action: #selector(writeAction))
     }
 
     //로그아웃
@@ -32,6 +33,18 @@ class TalkViewController: UITableViewController {
             print ("Error signing out: %@", signOutError)
         }
     }
+    
+    //글쓰기
+    @objc func writeAction(){
+        print ("글쓰기 창이 열립니다.")
+        //글쓰기 화면
+        let writeView = WriteViewController()
+        //글쓰기 화면을 rootView로 만들어 주기
+        let navController = UINavigationController(rootViewController: writeView)
+        present(navController, animated: true, completion: nil)
+        //navigationController?.pushViewController(WriteViewController, animated: true)
+    }
+    
 
     // MARK: - Table view data source
 
