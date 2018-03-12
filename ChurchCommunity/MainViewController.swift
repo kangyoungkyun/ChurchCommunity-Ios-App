@@ -89,6 +89,7 @@ class MainViewController: UIViewController {
         
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
             
+
             
             if let error = error {
                 
@@ -98,15 +99,25 @@ class MainViewController: UIViewController {
                     
                     switch errCode {
                     case .invalidEmail:
-                        print("이메일 형식을 확인해주세요")
+                        let alert = UIAlertController(title: "알림 ", message:"이메일 형식을 확인해주세요.", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
                     case .wrongPassword :
-                        print("비밀번호를 확인해주세요")
+                        let alert = UIAlertController(title: "알림 ", message:"비밀번호를 확인해주세요.", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
                     case .accountExistsWithDifferentCredential :
-                        print("이메일을 확인해 주세요")
+                        let alert = UIAlertController(title: "알림 ", message:"이메일을 확인해주세요.", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
                     case .userNotFound :
-                        print("존재하지 않는 이메일 입니다.")
+                        let alert = UIAlertController(title: "알림 ", message:"존재하지 않는 이메일입니다.", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
                     default:
-                        print("Create User Error: \(error)")
+                        let alert = UIAlertController(title: "알림 ", message:"다시 시도해주세요.", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
                     }
                 }
                 //인디케이터 종료

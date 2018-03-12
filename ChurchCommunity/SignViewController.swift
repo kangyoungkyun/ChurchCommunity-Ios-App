@@ -112,13 +112,21 @@ class SignViewController: UIViewController {
                     
                     switch errCode {
                     case .invalidEmail:
-                        print("이메일 형식을 확인해주세요")
+                        let alert = UIAlertController(title: "알림 ", message:"이메일 형식을 확인해주세요.", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
                     case .emailAlreadyInUse:
-                        print("이미 존재하는 이메일 입니다.")
+                        let alert = UIAlertController(title: "알림 ", message:"이미 존재하는 이메일입니다.", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
                     case .weakPassword :
-                        print("비밀번호가 보안에 취약합니다.")
+                        let alert = UIAlertController(title: "알림 ", message:"보안에 취약한 비밀번호입니다.", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
                     default:
-                        print("Create User Error: \(error)")
+                        let alert = UIAlertController(title: "알림 ", message:"다시 시도해주세요.", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
                     }
                 }
                 //인디케이터 종료
