@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Firebase
 class WriteViewController: UIViewController,UITextViewDelegate {
     var placeholderLabel : UILabel = {
       let ph = UILabel()
@@ -76,8 +76,12 @@ class WriteViewController: UIViewController,UITextViewDelegate {
 
     //완료 함수
     @objc func writeAction(){
+        
+        //let ChangeRequest = Auth.auth().currentUser!.
+        
           print("writeAction")
     }
+    
     
     func setLayout(){
         

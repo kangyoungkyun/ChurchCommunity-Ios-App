@@ -10,21 +10,27 @@
 8.세션유지 (완료)
 
 ------------- 2018년 3월 13일 (화) ---------
-9.로그인,가입시 인디케이터 처리 해주기 (완료)
+1.로그인,가입시 인디케이터 처리 해주기 (완료)
 
-10.유효성 검사 alert로 처리 해주기(완료)
+2.유효성 검사 alert로 처리 해주기(완료)
 
-11.데이터베이스에 uid와 닉네임 저장
+3.로그인 한 사람만 글쓰기 TalkViewController 에 navItem 이벤트 (완료)
+
+4.글쓰기 페이지 만들기 WriteViewController (완료)
+
+5.글쓰기 페이지에 textView 객체 만들어서 설정해주기 (완료)
+
+6.textView placeholder, 키보드 설정 해주기 (완료)
+
+7.데이터베이스에 uid와 닉네임 저장 (완료)
 - db 설계
 
-12.Post DTO 만들기
+8.Post DTO 만들기
 - struct or class
 
-13.로그인 한 사람만 글 조회 되게 하기
+9.로그인 한 사람만 글 조회 되게 하기
 - UITableview 레이아웃 및 제약 조건 설정
 
-14.로그인 한 사람만 글쓰기 TalkViewController 에 navItem 이벤트
--글쓰기 페이지 만들기 UIViewController
 
 15.배열 만들어서 처리해주기
 

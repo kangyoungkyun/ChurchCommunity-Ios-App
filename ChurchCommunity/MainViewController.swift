@@ -173,6 +173,8 @@ class MainViewController: UIViewController {
         setLayout()
         //로그인 상태 체크
         sessionCheck()
+        
+       
     }
     
      //로그인 상태 체크
