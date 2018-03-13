@@ -1,0 +1,118 @@
+//
+//  TalkCell.swift
+//  ChurchCommunity
+//
+//  Created by MacBookPro on 2018. 3. 13..
+//  Copyright © 2018년 MacBookPro. All rights reserved.
+//
+
+import UIKit
+
+class TalkCell: UITableViewCell {
+    //이름
+    var nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이름"
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    //텍스트
+    var txtLabel: UILabel = {
+        let label = UILabel()
+        
+                    let paragraphStyle = NSMutableParagraphStyle()
+                   //줄 높이
+                    paragraphStyle.lineSpacing = 5
+        
+                    let attribute = NSMutableAttributedString(string: "텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 14),NSAttributedStringKey.foregroundColor:UIColor.black])
+                        //줄간격 셋팅
+        
+                        attribute.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range: NSMakeRange(0, attribute.length))
+        
+        
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 2
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.attributedText = attribute
+        return label
+    }()
+    //날짜
+    var dateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "1시간전"
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = UIColor.lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    //조회수
+    var hitLabel: UILabel = {
+        let label = UILabel()
+        label.text = "6번 읽음"
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = UIColor.lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    //댓글 수
+    var replyHitLabel: UILabel = {
+        let label = UILabel()
+        label.text = "15 댓글"
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = UIColor.lightGray
+        //label.backgroundColor = UIColor.brown
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        
+        //backgroundColor = UIColor.yellow
+        
+        addSubview(nameLabel)
+        addSubview(txtLabel)
+        addSubview(dateLabel)
+        addSubview(hitLabel)
+        addSubview(replyHitLabel)
+        
+        setLayout()
+    }
+
+    
+    
+    func setLayout(){
+        
+        nameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 15).isActive = true
+        nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15).isActive = true
+        nameLabel.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        nameLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        txtLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        txtLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
+        txtLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15).isActive = true
+        txtLabel.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        
+        dateLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
+        dateLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
+        dateLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        dateLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        
+        hitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
+        hitLabel.leadingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 15).isActive = true
+        hitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        hitLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        
+        replyHitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
+        replyHitLabel.leadingAnchor.constraint(equalTo: hitLabel.trailingAnchor, constant: 15).isActive = true
+        replyHitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        replyHitLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}

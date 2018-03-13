@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 class WriteViewController: UIViewController,UITextViewDelegate {
     var placeholderLabel : UILabel = {
-      let ph = UILabel()
+        let ph = UILabel()
         ph.text = "당신의 생각을 들려주세요 :)"
         ph.font = UIFont.systemFont(ofSize: 18)
         ph.sizeToFit()
@@ -44,8 +44,8 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         
         view.backgroundColor = UIColor.white
         
-
-       //텍스트 뷰의 위임자를 자기자신으로 - 반드시 해줘야 함!
+        
+        //텍스트 뷰의 위임자를 자기자신으로 - 반드시 해줘야 함!
         textFiedlView.delegate = self
         
         view.addSubview(textFiedlView)
@@ -63,25 +63,62 @@ class WriteViewController: UIViewController,UITextViewDelegate {
     
     //텍스트 뷰에 글을 쓸때 호출됨
     func textViewDidChange(_ textView: UITextView) {
-      placeholderLabel.isHidden = !textFiedlView.text.isEmpty
+        placeholderLabel.isHidden = !textFiedlView.text.isEmpty
         //print("textViewDidChange")
     }
     
-
+    
     //취소 함수
     @objc func cancelAction(){
         //print("cancelAction")
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     //완료 함수
     @objc func writeAction(){
+        //인디케이터 시작
+        AppDelegate.instance().showActivityIndicator()
         
-        //let ChangeRequest = Auth.auth().currentUser!.
-        
-          print("writeAction")
+        //현재 접속한 유저 정보 가져오기
+        if let CurrentUser = Auth.auth().currentUser{
+            
+            let userId = CurrentUser.uid
+            let userName = CurrentUser.displayName
+            
+            
+            if textFiedlView.text.count == 0{
+                let alert = UIAlertController(title: "알림 ", message:"내용을 확인해주세요.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            let textMsg = textFiedlView.text
+            
+            //데이터 베이스 참조 함수
+            var ref: DatabaseReference!
+            ref = Database.database().reference()
+            //랜덤 키
+            let PostKey = ref.child("posts").childByAutoId().key
+            //부모키 user를 만들고 그 밑에 각자의 아이디로 또 자식을 만든다.
+            let PostReference = ref.child("posts").child(PostKey)
+            
+            //데이터 객체 만들기
+            let postInfo: [String:Any] = ["pid" : PostKey,
+                                         "uid" : userId,
+                                          "name" : userName!,
+                                          "text" : textMsg!,
+                                          "hit": 0,
+                                          "date": ServerValue.timestamp()]
+            //해당 경로에 삽입
+            PostReference.setValue(postInfo)
+            
+            ref.removeAllObservers()
+            //인디케이터 종료
+            AppDelegate.instance().dissmissActivityIndicator()
+            self.dismiss(animated: true, completion: nil)
+        }
     }
-    
     
     func setLayout(){
         
@@ -91,5 +128,4 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         textFiedlView.heightAnchor.constraint(equalToConstant:view.frame.height / 2).isActive = true
         
     }
-
 }

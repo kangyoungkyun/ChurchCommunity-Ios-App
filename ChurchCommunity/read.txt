@@ -25,6 +25,11 @@
 7.데이터베이스에 uid와 닉네임 저장 (완료)
 - db 설계
 
+8. 글쓰기 기능 처리
+
+9. firebase 날짜 처리
+
+
 8.Post DTO 만들기
 - struct or class
 

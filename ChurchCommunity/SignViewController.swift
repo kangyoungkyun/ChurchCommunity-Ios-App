@@ -154,8 +154,10 @@ class SignViewController: UIViewController {
                 //해당 경로에 삽입
                 usersReference.setValue(userInfo)
                 
-
+                ref.removeAllObservers()
+                
                 print("가입성공")
+                
                 //tabbarController 가져오기
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 let tabBarController = appDelegate.tabBarController
