@@ -88,6 +88,32 @@ class TalkViewController: UITableViewController {
         
     }
     
+    //셀을 클릭했을 때
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+        
+        print("셀 클릭")
+        print(indexPath)
+        print(indexPath.row)
+        
+        let cell = tableView.cellForRow(at: indexPath) as? TalkCell
+        
+        let name = cell?.nameLabel.text
+        let text = cell?.txtLabel.text
+        let hit = cell?.hitLabel.text
+        let reply = cell?.replyHitLabel.text
+        let date = cell?.dateLabel.text
+        
+        print(name!,text!,hit!,reply!,date!)
+        
+        //디테일 페이지로 이동
+        let detailTalkViewController = DetailTalkViewController()
+        let test = TestViewController()
+        //글쓰기 화면을 rootView로 만들어 주기
+        navigationController?.pushViewController(detailTalkViewController, animated: true)
+        
+    }
+    
     //포스트 조회 함수
     func showPost(){
         let ref = Database.database().reference()
