@@ -150,7 +150,7 @@ class SignViewController: UIViewController {
                 
                 //데이터 객체 만들기
                 let userInfo: [String:Any] = ["uid" : user.uid,
-                                              "name" : self.nameTextField.text!]
+                                              "name" : self.nameTextField.text ?? "아중감 청년"]
                 //해당 경로에 삽입
                 usersReference.setValue(userInfo)
                 
@@ -216,9 +216,7 @@ class SignViewController: UIViewController {
         //}
         
         // let estimatedServerTimeMs = NSDate().timeIntervalSince1970 * 1000.0
-        
-        
-        
+   
         //print("현재 시간은? \(estimatedServerTimeMs + time!)")
         //if let t = ServerValue.timestamp() as? TimeZone {
       

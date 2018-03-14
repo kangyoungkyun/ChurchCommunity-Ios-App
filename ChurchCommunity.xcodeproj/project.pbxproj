@@ -145,9 +145,9 @@
 				52858A602055E8BC005C9BB9 /* SettingViewController.swift */,
 				52858A8F20562515005C9BB9 /* HideKeyBoard.swift */,
 				5242FF9220573A5800548FD4 /* WriteViewController.swift */,
-				52D6121F205640C500F6F031 /* read.txt */,
 				5242FF942057634D00548FD4 /* TalkCell.swift */,
 				5242FF9620576FFD00548FD4 /* Post.swift */,
+				52D6121F205640C500F6F031 /* read.txt */,
 			);
 			path = ChurchCommunity;
 			sourceTree = "<group>";
