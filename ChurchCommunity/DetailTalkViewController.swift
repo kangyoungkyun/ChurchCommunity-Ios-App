@@ -10,6 +10,16 @@ import UIKit
 
 class DetailTalkViewController: UIViewController {
    
+    //넘어온 데이터
+    var onePost : Post?{
+        didSet{
+            nameLabel.text = onePost?.name
+            txtLabel.text = onePost?.text
+            hitLabel.text = onePost?.hit
+            dateLabel.text = onePost?.date
+        }
+    }
+    
 
     
     var uiScrollView: UIScrollView = {
@@ -82,12 +92,14 @@ class DetailTalkViewController: UIViewController {
     //댓글라인
     var replyLine: UILabel = {
         let label = UILabel()
-        label.text = "댓글"
+        label.text = " 댓글"
         label.textColor = UIColor.white
         label.textAlignment = .left
-        label.backgroundColor = UIColor.brown
-        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.backgroundColor = UIColor.cyan
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.layer.cornerRadius = 13
+        label.clipsToBounds = true
         return label
     }()
     
@@ -112,6 +124,9 @@ class DetailTalkViewController: UIViewController {
     
         self.view.addSubview(uiScrollView)
         
+        //네비게이션 바 색깔 변경
+        self.navigationController?.navigationBar.barTintColor = UIColor.cyan
+        self.navigationController?.navigationBar.isTranslucent = false
         setLayout()
     }
     
@@ -158,13 +173,13 @@ class DetailTalkViewController: UIViewController {
         dateLabel.bottomAnchor.constraint(equalTo:txtLabel.topAnchor, constant: -15).isActive = true
         
         
-        hitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
+        hitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 30).isActive = true
         hitLabel.leadingAnchor.constraint(equalTo: uiScrollView.leadingAnchor).isActive = true
         hitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         hitLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         //hitLabel.bottomAnchor.constraint(equalTo: replyLine.topAnchor).isActive = true
         
-        replyHitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
+        replyHitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 30).isActive = true
         replyHitLabel.leadingAnchor.constraint(equalTo: hitLabel.trailingAnchor, constant: 15).isActive = true
         replyHitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         replyHitLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
@@ -175,7 +190,7 @@ class DetailTalkViewController: UIViewController {
         //replyLine.centerYAnchor.constraint(equalTo: uiScrollView.centerYAnchor).isActive = true
         replyLine.centerXAnchor.constraint(equalTo: uiScrollView.centerXAnchor).isActive = true
         replyLine.widthAnchor.constraint(equalTo: uiScrollView.widthAnchor).isActive = true
-        replyLine.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        replyLine.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
  
         scrollViewBottom.topAnchor.constraint(equalTo: replyLine.bottomAnchor, constant: 15).isActive = true

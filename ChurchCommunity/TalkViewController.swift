@@ -20,16 +20,24 @@ class TalkViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //네비게이션 바 색깔 변경
+        self.navigationController?.navigationBar.barTintColor = UIColor.cyan
+        self.navigationController?.navigationBar.isTranslucent = false
+        
         self.navigationItem.title = "수다방"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "logout", style: .plain, target: self, action: #selector(logoutAction))
-        
+      
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "글쓰기", style: .plain, target: self, action: #selector(writeAction))
         
         tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
         
+       
+        
         //self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 5, 0);
+        tableView.showsHorizontalScrollIndicator = false
+        tableView.showsVerticalScrollIndicator = false
         
         
         //포스트 조회
@@ -105,10 +113,16 @@ class TalkViewController: UITableViewController {
         let date = cell?.dateLabel.text
         
         print(name!,text!,hit!,reply!,date!)
+        let onePost = Post()
+        onePost.name = name
+        onePost.text = text
+        onePost.hit = hit
+        onePost.date = date
+        
         
         //디테일 페이지로 이동
         let detailTalkViewController = DetailTalkViewController()
-        let test = TestViewController()
+        detailTalkViewController.onePost = onePost
         //글쓰기 화면을 rootView로 만들어 주기
         navigationController?.pushViewController(detailTalkViewController, animated: true)
         

@@ -68,7 +68,7 @@ class MainViewController: UIViewController {
     //버튼
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.brown
+        button.backgroundColor = UIColor.cyan
         button.setTitle("로그인", for: UIControlState())
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: UIControlState())

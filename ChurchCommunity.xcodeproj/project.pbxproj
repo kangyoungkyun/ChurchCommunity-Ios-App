@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		520DFE092058A3A600AF5A2E /* DetailTalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520DFE082058A3A600AF5A2E /* DetailTalkViewController.swift */; };
-		520DFE0B2058B44A00AF5A2E /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520DFE0A2058B44A00AF5A2E /* TestViewController.swift */; };
 		5242FF9320573A5800548FD4 /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5242FF9220573A5800548FD4 /* WriteViewController.swift */; };
 		5242FF952057634D00548FD4 /* TalkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5242FF942057634D00548FD4 /* TalkCell.swift */; };
 		5242FF9720576FFD00548FD4 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5242FF9620576FFD00548FD4 /* Post.swift */; };
@@ -49,7 +48,6 @@
 
 /* Begin PBXFileReference section */
 		520DFE082058A3A600AF5A2E /* DetailTalkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTalkViewController.swift; sourceTree = "<group>"; };
-		520DFE0A2058B44A00AF5A2E /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		5242FF9220573A5800548FD4 /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
 		5242FF942057634D00548FD4 /* TalkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkCell.swift; sourceTree = "<group>"; };
 		5242FF9620576FFD00548FD4 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 				5242FF9620576FFD00548FD4 /* Post.swift */,
 				52D6121F205640C500F6F031 /* read.txt */,
 				520DFE082058A3A600AF5A2E /* DetailTalkViewController.swift */,
-				520DFE0A2058B44A00AF5A2E /* TestViewController.swift */,
 			);
 			path = ChurchCommunity;
 			sourceTree = "<group>";
@@ -353,7 +350,6 @@
 				52858A882055F524005C9BB9 /* SignViewController.swift in Sources */,
 				520DFE092058A3A600AF5A2E /* DetailTalkViewController.swift in Sources */,
 				52858A4B2055E64D005C9BB9 /* MainViewController.swift in Sources */,
-				520DFE0B2058B44A00AF5A2E /* TestViewController.swift in Sources */,
 				52858A5D2055E83C005C9BB9 /* MemoryViewController.swift in Sources */,
 				52858A492055E64D005C9BB9 /* AppDelegate.swift in Sources */,
 				52858A5B2055E7EA005C9BB9 /* TalkViewController.swift in Sources */,
