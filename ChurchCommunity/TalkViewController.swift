@@ -101,18 +101,17 @@ class TalkViewController: UITableViewController {
     
         
         print("셀 클릭")
-        print(indexPath)
-        print(indexPath.row)
-        
+       
+        //선택한 셀 정보 가져오기
         let cell = tableView.cellForRow(at: indexPath) as? TalkCell
-        
+        //값 할당
         let name = cell?.nameLabel.text
         let text = cell?.txtLabel.text
         let hit = cell?.hitLabel.text
         let reply = cell?.replyHitLabel.text
         let date = cell?.dateLabel.text
         
-        print(name!,text!,hit!,reply!,date!)
+        print(" 몇 번째 찍혔나요 \(hit!)")
         let onePost = Post()
         onePost.name = name
         onePost.text = text

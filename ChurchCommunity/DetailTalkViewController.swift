@@ -143,8 +143,7 @@ class DetailTalkViewController: UIViewController {
         uiScrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 3.0).isActive = true
         uiScrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -13.0).isActive = true
         uiScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -3.0).isActive = true
-        //uiScrollView.heightAnchor.constraint(equalToConstant: 1000).isActive = true
-   
+        
         uiScrollView.addSubview(nameLabel)
         uiScrollView.addSubview(txtLabel)
         uiScrollView.addSubview(dateLabel)
@@ -161,33 +160,29 @@ class DetailTalkViewController: UIViewController {
         nameLabel.widthAnchor.constraint(equalTo: uiScrollView.widthAnchor).isActive = true
         
  
-        txtLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+
         txtLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
         txtLabel.trailingAnchor.constraint(equalTo: uiScrollView.trailingAnchor).isActive = true
-        //txtLabel.bottomAnchor.constraint(equalTo: hitLabel.topAnchor, constant: 5).isActive = true
-        //txtLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        dateLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor ,constant: 15).isActive = true
+
+        dateLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
         dateLabel.trailingAnchor.constraint(equalTo: txtLabel.trailingAnchor).isActive = true
         dateLabel.heightAnchor.constraint(equalToConstant: 12).isActive = true
-        dateLabel.bottomAnchor.constraint(equalTo:txtLabel.topAnchor, constant: -15).isActive = true
         
         
         hitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 30).isActive = true
         hitLabel.leadingAnchor.constraint(equalTo: uiScrollView.leadingAnchor).isActive = true
         hitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         hitLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        //hitLabel.bottomAnchor.constraint(equalTo: replyLine.topAnchor).isActive = true
+       
         
         replyHitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 30).isActive = true
         replyHitLabel.leadingAnchor.constraint(equalTo: hitLabel.trailingAnchor, constant: 15).isActive = true
         replyHitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         replyHitLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        //replyHitLabel.bottomAnchor.constraint(equalTo: replyLine.topAnchor).isActive = true
+
         
         
         replyLine.topAnchor.constraint(equalTo: hitLabel.bottomAnchor, constant: 35).isActive = true
-        //replyLine.centerYAnchor.constraint(equalTo: uiScrollView.centerYAnchor).isActive = true
         replyLine.centerXAnchor.constraint(equalTo: uiScrollView.centerXAnchor).isActive = true
         replyLine.widthAnchor.constraint(equalTo: uiScrollView.widthAnchor).isActive = true
         replyLine.heightAnchor.constraint(equalToConstant: 30).isActive = true
