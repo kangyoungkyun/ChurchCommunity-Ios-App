@@ -252,6 +252,15 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     @objc func replyBtnAction(){
         print("댓글 버튼 작동 \(textFiedlView.text!)")
         
+        
+        if(textFiedlView.text.count == 0){
+            let alert = UIAlertController(title: "알림 ", message:"내용을 확인해주세요.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        
         //데이터 베이스 참조 함수
         var ref: DatabaseReference!
         ref = Database.database().reference()

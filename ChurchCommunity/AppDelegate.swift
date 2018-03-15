@@ -65,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //로그인 성공 후 기본 레이아웃은 탭바 컨트롤러
         tabBarController = UITabBarController()
         tabBarController?.view.backgroundColor = UIColor.yellow
+        tabBarController?.view.tintColor = UIColor.cyan
         
         
         //collectionView layout - 반드시 넣어줘야 함
@@ -83,19 +84,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         tabBarController?.setViewControllers([talkNavVC,memoryNavVC,notictNavVC,settingNavVC], animated: false)
         
+    
+    
+        
         //탭바 이미지 넣기
-        talkNavVC.tabBarItem.image = UIImage(named:"ic_chat")?.withRenderingMode(.alwaysOriginal)
-        memoryNavVC.tabBarItem.image = UIImage(named:"ic_collections")?.withRenderingMode(.alwaysOriginal)
-        notictNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysOriginal)
-        settingNavVC.tabBarItem.image = UIImage(named:"ic_view_headline")?.withRenderingMode(.alwaysOriginal)
+        talkNavVC.tabBarItem.image = UIImage(named:"ic_chat")?.withRenderingMode(.alwaysTemplate)
+        memoryNavVC.tabBarItem.image = UIImage(named:"ic_collections")?.withRenderingMode(.alwaysTemplate)
+        notictNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
+        settingNavVC.tabBarItem.image = UIImage(named:"ic_view_headline")?.withRenderingMode(.alwaysTemplate)
         
         
         //이미지 선택되었을 때
+        /*
         let image = UIImage(named: "ic_done")?.withRenderingMode(.alwaysOriginal)
         talkNavVC.tabBarItem.selectedImage = image
         memoryNavVC.tabBarItem.selectedImage = image
         notictNavVC.tabBarItem.selectedImage = image
         settingNavVC.tabBarItem.selectedImage = image
+        settingNavVC.tabBarItem.selectedImage = image.
+        */
+        
+        let clickedChat = UIImageView(image: UIImage(named:"ic_chat")!.withRenderingMode(.alwaysOriginal))
+        clickedChat.tintColor = UIColor.cyan
+        clickedChat.backgroundColor = UIColor.cyan
+        talkNavVC.tabBarItem.selectedImage = clickedChat.image
+        
+        let collections = UIImageView(image: UIImage(named:"ic_collections")!.withRenderingMode(.alwaysOriginal))
+        collections.tintColor = UIColor.cyan
+        memoryNavVC.tabBarItem.selectedImage = collections.image
+        let alert = UIImageView(image: UIImage(named:"ic_add_alert")!.withRenderingMode(.alwaysOriginal))
+        alert.tintColor = UIColor.cyan
+        notictNavVC.tabBarItem.selectedImage = alert.image
+        let headline = UIImageView(image: UIImage(named:"ic_view_headline")!.withRenderingMode(.alwaysOriginal))
+        headline.tintColor = UIColor.cyan
+        settingNavVC.tabBarItem.selectedImage = headline.image
+
+        
         
         
         
