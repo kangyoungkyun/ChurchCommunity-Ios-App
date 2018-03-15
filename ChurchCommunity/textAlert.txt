@@ -1,0 +1,44 @@
+let alertController = UIAlertController(
+title: nil,
+message: "알림.",
+preferredStyle: .alert)
+
+
+//let loginAction = UIAlertAction(title: "수정", style: .default) { (_) in
+//let loginTextField        = alertController.textFields![0] as! UITextField
+//let passwordTextField     = alertController.textFields![1] as! UITextField
+
+//login(loginTextField.text, passwordTextField.text)
+//}
+
+//loginAction.isEnabled = false
+
+
+/*
+alertController.addTextField { (textField) in
+textField.placeholder = "Login"
+NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main) { (notification) in
+print("\(textField.text)")
+loginAction.isEnabled = textField.text != ""
+}
+}
+
+alertController.addTextField { (textField) in
+textField.placeholder = "Password"
+textField.isSecureTextEntry = true
+}
+*/
+
+
+let forgotPasswordAction = UIAlertAction(title: "삭제", style: .destructive, handler: nil)
+let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+
+alertController.addAction(loginAction)
+alertController.addAction(forgotPasswordAction)
+alertController.addAction(cancelAction)
+
+self.present(
+alertController,
+animated: true,
+completion: nil)
+

@@ -44,6 +44,8 @@
 		52858A8A2055FA28005C9BB9 /* main_pick.png in Resources */ = {isa = PBXBuildFile; fileRef = 52858A892055FA28005C9BB9 /* main_pick.png */; };
 		52858A8E20561228005C9BB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52858A8D20561228005C9BB9 /* GoogleService-Info.plist */; };
 		52858A9020562515005C9BB9 /* HideKeyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A8F20562515005C9BB9 /* HideKeyBoard.swift */; };
+		52C2EB4A205A5F53005B4904 /* AlertTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C2EB49205A5F53005B4904 /* AlertTableViewController.swift */; };
+		52C2EB4C205A674A005B4904 /* textAlert.txt in Resources */ = {isa = PBXBuildFile; fileRef = 52C2EB4B205A674A005B4904 /* textAlert.txt */; };
 		52D61220205640C500F6F031 /* read.txt in Resources */ = {isa = PBXBuildFile; fileRef = 52D6121F205640C500F6F031 /* read.txt */; };
 		B1A4D96097D35122300563B8 /* Pods_ChurchCommunity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F01414784C01122F8C96A2A /* Pods_ChurchCommunity.framework */; };
 /* End PBXBuildFile section */
@@ -88,6 +90,8 @@
 		52858A892055FA28005C9BB9 /* main_pick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_pick.png; sourceTree = "<group>"; };
 		52858A8D20561228005C9BB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		52858A8F20562515005C9BB9 /* HideKeyBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyBoard.swift; sourceTree = "<group>"; };
+		52C2EB49205A5F53005B4904 /* AlertTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewController.swift; sourceTree = "<group>"; };
+		52C2EB4B205A674A005B4904 /* textAlert.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = textAlert.txt; sourceTree = "<group>"; };
 		52D6121F205640C500F6F031 /* read.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = read.txt; sourceTree = "<group>"; };
 		83D6E73A6D1352F5B9816186 /* Pods-ChurchCommunity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChurchCommunity.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChurchCommunity/Pods-ChurchCommunity.release.xcconfig"; sourceTree = "<group>"; };
 		9F01414784C01122F8C96A2A /* Pods_ChurchCommunity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChurchCommunity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +158,7 @@
 		52858A472055E64D005C9BB9 /* ChurchCommunity */ = {
 			isa = PBXGroup;
 			children = (
+				52C2EB48205A5F20005B4904 /* Func */,
 				520E1B5D205A01EE00478F0F /* DTO */,
 				520E1B62205A16F500478F0F /* Views */,
 				52858A622055EBDE005C9BB9 /* pic */,
@@ -169,10 +174,10 @@
 				52858A5C2055E83C005C9BB9 /* MemoryViewController.swift */,
 				52858A5E2055E892005C9BB9 /* NoticeViewController.swift */,
 				52858A602055E8BC005C9BB9 /* SettingViewController.swift */,
-				52858A8F20562515005C9BB9 /* HideKeyBoard.swift */,
 				5242FF9220573A5800548FD4 /* WriteViewController.swift */,
 				520DFE082058A3A600AF5A2E /* DetailTalkViewController.swift */,
 				52D6121F205640C500F6F031 /* read.txt */,
+				52C2EB4B205A674A005B4904 /* textAlert.txt */,
 			);
 			path = ChurchCommunity;
 			sourceTree = "<group>";
@@ -201,6 +206,15 @@
 				52858A632055EC0F005C9BB9 /* ic_add_alert.png */,
 			);
 			path = pic;
+			sourceTree = "<group>";
+		};
+		52C2EB48205A5F20005B4904 /* Func */ = {
+			isa = PBXGroup;
+			children = (
+				52858A8F20562515005C9BB9 /* HideKeyBoard.swift */,
+				52C2EB49205A5F53005B4904 /* AlertTableViewController.swift */,
+			);
+			path = Func;
 			sourceTree = "<group>";
 		};
 		EAE0E142C9345BB83063B321 /* Frameworks */ = {
@@ -286,6 +300,7 @@
 				52D61220205640C500F6F031 /* read.txt in Resources */,
 				52858A6E2055EC27005C9BB9 /* ic_chat.png in Resources */,
 				52858A502055E64D005C9BB9 /* Assets.xcassets in Resources */,
+				52C2EB4C205A674A005B4904 /* textAlert.txt in Resources */,
 				52858A7F2055EC7D005C9BB9 /* ic_forum_3@.png in Resources */,
 				52858A662055EC0F005C9BB9 /* ic_add_alert.png in Resources */,
 				52858A4E2055E64D005C9BB9 /* Main.storyboard in Resources */,
@@ -371,6 +386,7 @@
 				5242FF9720576FFD00548FD4 /* Post.swift in Sources */,
 				520E1B64205A171D00478F0F /* ReplyCell.swift in Sources */,
 				52858A882055F524005C9BB9 /* SignViewController.swift in Sources */,
+				52C2EB4A205A5F53005B4904 /* AlertTableViewController.swift in Sources */,
 				520DFE092058A3A600AF5A2E /* DetailTalkViewController.swift in Sources */,
 				52858A4B2055E64D005C9BB9 /* MainViewController.swift in Sources */,
 				520E1B5F205A020800478F0F /* Reply.swift in Sources */,

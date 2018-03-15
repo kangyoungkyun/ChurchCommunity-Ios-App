@@ -45,6 +45,8 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         return cell!
     }
+
+    
     //셀의 높이
     func tableView(_ replyView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
@@ -54,6 +56,34 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     //댓글 셀을 선택했을 때
     func tableView(_ replyView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("셀을 선택했습니다~!  \(indexPath.row)")
+        
+        let alertController = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .alert)
+        
+        
+        let modifyAction = UIAlertAction(title: "댓글수정", style: .default) { (alert) in
+            print("수정")
+        }
+        
+        let deleteAction = UIAlertAction(title: "댓글삭제", style: .destructive) { (alert) in
+            print("삭제 눌렀군요")
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (alert) in
+            print("취소 했네용")
+        }
+        
+        alertController.addAction(modifyAction)
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(
+            alertController,
+            animated: true,
+            completion: nil)
+        
+        
         
         //선택한 셀 정보 가져오기
         let cell = replyView.cellForRow(at: indexPath) as? ReplyCell
@@ -67,6 +97,11 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
          let rid = cell?.ridLable.text
         print(name,text,date,pid,uid,rid)
 
+    }
+    
+    //alert controller를 클릭했을 때
+    func didSelectRowAt(indexPath: IndexPath) {
+        print(">>> 선택된 행은 \(indexPath.row)입니다")
     }
     
     
