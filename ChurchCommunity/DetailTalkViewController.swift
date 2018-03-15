@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Firebase
 class DetailTalkViewController: UIViewController {
    
     //넘어온 데이터
@@ -21,6 +21,7 @@ class DetailTalkViewController: UIViewController {
             }
            
             dateLabel.text = onePost?.date
+            pidLabel.text = onePost?.pid
         }
     }
     
@@ -39,7 +40,7 @@ class DetailTalkViewController: UIViewController {
     //pid
     var pidLabel: UILabel = {
         let label = UILabel()
-        label.text = "pid"
+        //label.text = "pid"
         label.isHidden = true
         label.font = UIFont.boldSystemFont(ofSize: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -169,7 +170,28 @@ class DetailTalkViewController: UIViewController {
     //댓글 버튼 작동
     @objc func replyBtnAction(){
         print("댓글 버튼 작동 \(textFiedlView.text!)")
+        
+        //데이터 베이스 참조 함수
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        
+        //랜덤 키
+        let replyKey = ref.child("replys").childByAutoId().key
+        let replyRef = ref.child("replys").child(pidLabel.text!)
 
+        
+        //데이터 객체 만들기
+        let replyInfo: [String:Any] = ["date" : ServerValue.timestamp(),
+                                      "text" : textFiedlView.text!,
+                                      "name" : Auth.auth().currentUser?.displayName,
+                                      "rid": replyKey]
+ 
+        //해당 경로에 삽입
+        replyRef.setValue(replyInfo)
+        
+        ref.removeAllObservers()
+        
+        textFiedlView.text = ""
     }
     
     
