@@ -140,7 +140,6 @@ class TalkViewController: UITableViewController {
         detailTalkViewController.onePost = onePost
         //글쓰기 화면을 rootView로 만들어 주기
         navigationController?.pushViewController(detailTalkViewController, animated: true)
-        
     }
     
     //포스트 조회 함수

@@ -103,7 +103,7 @@ class DetailTalkViewController: UIViewController {
     }()
     
     
-    //댓글라인
+    //댓글라인구분선 =====================================================
     var replyLine: UILabel = {
         let label = UILabel()
         label.text = " 댓글"
@@ -117,7 +117,72 @@ class DetailTalkViewController: UIViewController {
         return label
     }()
     
+    //댓글 레이아웃 containerView
+    let replyContainerView :UIView = {
+        let containerView = UIView()
+        //containerView.backgroundColor = UIColor.cyan
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.layer.cornerRadius = 15
+        containerView.clipsToBounds = true
+        return containerView
+    }()
     
+    
+    //댓글남기기.
+    var placeholderLabel : UILabel = {
+        let ph = UILabel()
+        ph.text = "댓글 남기기:)"
+        ph.font = UIFont.systemFont(ofSize: 18)
+         //ph.translatesAutoresizingMaskIntoConstraints = false
+        ph.sizeToFit()
+        return ph
+    }()
+    
+    
+    //댓글쓰기 텍스트 필드
+    let textFiedlView : UITextView = {
+        let tf = UITextView()
+        //tf.backgroundColor = UIColor.brown
+        tf.backgroundColor = UIColor.lightGray
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.autocorrectionType = .no
+        tf.autocapitalizationType = .none
+        tf.tintColor = .black
+        tf.font = UIFont.systemFont(ofSize: 16)
+        tf.alpha = 0.2
+        tf.textColor = .black
+        //키보드 항상 보이게
+        //tf.becomeFirstResponder()
+        return tf
+    }()
+    
+    //댓글 버튼
+    let replyButton : UIButton = {
+       let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setTitle("쓰기", for: UIControlState())
+        btn.backgroundColor = UIColor.cyan
+        btn.addTarget(self, action: #selector(replyBtnAction), for: .touchUpInside)
+        return btn
+    }()
+    
+    //댓글 버튼 작동
+    @objc func replyBtnAction(){
+        print("댓글 버튼 작동 \(textFiedlView.text!)")
+
+    }
+    
+    
+    
+    //구분선
+    let replySeperateView :UIView = {
+        let containerView = UIView()
+        containerView.backgroundColor = UIColor.lightGray
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        return containerView
+    }()
+    
+
     //스크롤뷰 바텀
     var scrollViewBottom: UILabel = {
         let label = UILabel()
@@ -152,7 +217,7 @@ class DetailTalkViewController: UIViewController {
     
     //레이아웃 조정
     func  setLayout(){
-        
+
         uiScrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 13.0).isActive = true
         uiScrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 3.0).isActive = true
         uiScrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -13.0).isActive = true
@@ -165,6 +230,8 @@ class DetailTalkViewController: UIViewController {
         uiScrollView.addSubview(hitLabel)
         uiScrollView.addSubview(replyHitLabel)
         uiScrollView.addSubview(replyLine)
+        uiScrollView.addSubview(replyContainerView)
+        uiScrollView.addSubview(replySeperateView)
         uiScrollView.addSubview(scrollViewBottom)
         
         nameLabel.topAnchor.constraint(equalTo: uiScrollView.topAnchor, constant: 20).isActive = true
@@ -207,10 +274,41 @@ class DetailTalkViewController: UIViewController {
         replyLine.widthAnchor.constraint(equalTo: uiScrollView.widthAnchor).isActive = true
         replyLine.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
- 
-        scrollViewBottom.topAnchor.constraint(equalTo: replyLine.bottomAnchor, constant: 15).isActive = true
-        scrollViewBottom.leadingAnchor.constraint(equalTo: uiScrollView.trailingAnchor, constant: 15).isActive = true
-        scrollViewBottom.trailingAnchor.constraint(equalTo: uiScrollView.trailingAnchor, constant: 15).isActive = true
+    
+
+        replyContainerView.topAnchor.constraint(equalTo: replyLine.bottomAnchor, constant: 5).isActive = true
+        replyContainerView.centerXAnchor.constraint(equalTo: uiScrollView.centerXAnchor).isActive = true
+        replyContainerView.widthAnchor.constraint(equalTo: uiScrollView.widthAnchor).isActive = true
+        replyContainerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        
+        
+        replyContainerView.addSubview(textFiedlView)
+        replyContainerView.addSubview(replyButton)
+         //replyContainerView.addSubview(seperateView)
+        
+        textFiedlView.topAnchor.constraint(equalTo: replyContainerView.topAnchor).isActive = true
+        textFiedlView.leadingAnchor.constraint(equalTo: replyContainerView.leadingAnchor).isActive = true
+        textFiedlView.heightAnchor.constraint(equalTo: replyContainerView.heightAnchor).isActive = true
+        textFiedlView.widthAnchor.constraint(equalTo: replyContainerView.widthAnchor, multiplier:4/5).isActive = true
+        
+        replyButton.topAnchor.constraint(equalTo: replyContainerView.topAnchor).isActive = true
+        replyButton.leadingAnchor.constraint(equalTo: textFiedlView.trailingAnchor).isActive = true
+        replyButton.heightAnchor.constraint(equalTo: replyContainerView.heightAnchor).isActive = true
+        replyButton.widthAnchor.constraint(equalTo: replyContainerView.widthAnchor, multiplier:1/5).isActive = true
+        
+        
+        replySeperateView.topAnchor.constraint(equalTo: replyContainerView.bottomAnchor, constant:15).isActive = true
+        replySeperateView.leadingAnchor.constraint(equalTo: replyContainerView.leadingAnchor).isActive = true
+        replySeperateView.trailingAnchor.constraint(equalTo: replyContainerView.trailingAnchor).isActive = true
+        replySeperateView.heightAnchor.constraint(equalToConstant: 0.3).isActive = true
+        replySeperateView.widthAnchor.constraint(equalTo: replyContainerView.widthAnchor).isActive = true
+        
+        
+        
+        scrollViewBottom.topAnchor.constraint(equalTo: replyContainerView.bottomAnchor, constant: 15).isActive = true
+        scrollViewBottom.leadingAnchor.constraint(equalTo: uiScrollView.leadingAnchor, constant: 15).isActive = true
+        scrollViewBottom.trailingAnchor.constraint(equalTo: uiScrollView.trailingAnchor, constant: -15).isActive = true
         scrollViewBottom.bottomAnchor.constraint(equalTo: uiScrollView.bottomAnchor,constant: -500).isActive = true
         
         
