@@ -39,7 +39,5 @@ class AlertTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.didSelectRowAt(indexPath: indexPath)
-    }
+
 }

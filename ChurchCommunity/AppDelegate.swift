@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //로그인 성공 후 기본 레이아웃은 탭바 컨트롤러
         tabBarController = UITabBarController()
         tabBarController?.view.backgroundColor = UIColor.yellow
-        tabBarController?.view.tintColor = UIColor.cyan
+        tabBarController?.view.tintColor = UIColor.white
         
         
         //collectionView layout - 반드시 넣어줘야 함
@@ -95,15 +95,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         //이미지 선택되었을 때
-        /*
+        
         let image = UIImage(named: "ic_done")?.withRenderingMode(.alwaysOriginal)
         talkNavVC.tabBarItem.selectedImage = image
         memoryNavVC.tabBarItem.selectedImage = image
         notictNavVC.tabBarItem.selectedImage = image
         settingNavVC.tabBarItem.selectedImage = image
-        settingNavVC.tabBarItem.selectedImage = image.
-        */
+       
         
+        
+        /*
         let clickedChat = UIImageView(image: UIImage(named:"ic_chat")!.withRenderingMode(.alwaysOriginal))
         clickedChat.tintColor = UIColor.cyan
         clickedChat.backgroundColor = UIColor.cyan
@@ -118,7 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let headline = UIImageView(image: UIImage(named:"ic_view_headline")!.withRenderingMode(.alwaysOriginal))
         headline.tintColor = UIColor.cyan
         settingNavVC.tabBarItem.selectedImage = headline.image
-
+        */
         
         
         

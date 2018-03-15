@@ -41,7 +41,7 @@ class TalkViewController: UITableViewController {
         
         
         //포스트 조회
-        showPost()
+        //showPost()
     }
     
     //로그아웃
@@ -73,12 +73,20 @@ class TalkViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        print("numberOfRowsInSection \(posts.count)")
         return posts.count
     }
     
     //테이블 뷰 셀의 구성 및 데이터 할당 부분
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TalkCell
+        
+        print("cellForRowAt")
+         print(posts.count)
+        print(posts[indexPath.row].date)
+        print(posts[indexPath.row].name)
+        print(posts[indexPath.row].text)
+        print(posts[indexPath.row].hit)
         
         cell?.txtLabel.text = posts[indexPath.row].text
         cell?.hitLabel.text = "\(posts[indexPath.row].hit!) 번 읽음"
@@ -118,10 +126,10 @@ class TalkViewController: UITableViewController {
         let hitNum = Int(xs[0])! + 1
         
        //fb db 연결 후 posts 테이블에 key가 pid인 데이터의 hit 개수 변경해주기
-        
-        let hiting = ["hit" : hitNum]
-        let ref = Database.database().reference()
-        ref.child("posts").child(pid!).updateChildValues(hiting)
+        //let hiting = ["hit" : hitNum]
+        //여기가 문제
+        //let ref = Database.database().reference()
+        //ref.child("posts").child(pid!).updateChildValues(hiting)
         
         let xss = replyHitLabel!.characters.split(separator:" ").map{ String($0) }
         let replyNum = Int(xss[0])!
@@ -134,7 +142,7 @@ class TalkViewController: UITableViewController {
         onePost.pid = pid
         onePost.reply = String(replyNum)
         
-        ref.removeAllObservers()
+        //ref.removeAllObservers()
         
         //디테일 페이지로 이동
         let detailTalkViewController = DetailTalkViewController()
@@ -145,6 +153,7 @@ class TalkViewController: UITableViewController {
     
     //포스트 조회 함수
     func showPost(){
+        print("showpost")
         let ref = Database.database().reference()
         ref.child("posts").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
             self.posts.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
@@ -154,8 +163,10 @@ class TalkViewController: UITableViewController {
                 let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
                 
+                
                 if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"], let reply = childValue["reply"] {
 
+                    print("hit: \(hit)")
                     //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
                     if let t = date as? TimeInterval {
                         let date = NSDate(timeIntervalSince1970: t/1000)

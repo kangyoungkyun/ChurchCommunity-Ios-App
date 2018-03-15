@@ -57,18 +57,25 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     func tableView(_ replyView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("셀을 선택했습니다~!  \(indexPath.row)")
         
+        //선택한 셀 정보 가져오기
+        let cell = replyView.cellForRow(at: indexPath) as? ReplyCell
+        let rid = cell?.ridLable.text
+        
         let alertController = UIAlertController(
             title: nil,
             message: nil,
             preferredStyle: .alert)
         
-        
         let modifyAction = UIAlertAction(title: "댓글수정", style: .default) { (alert) in
-            print("수정")
+
+            print("댓글 수정")
         }
         
         let deleteAction = UIAlertAction(title: "댓글삭제", style: .destructive) { (alert) in
-            print("삭제 눌렀군요")
+            
+            let ref = Database.database().reference()
+            ref.child("replys").child(rid!).removeValue()
+            
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (alert) in
             print("취소 했네용")
@@ -84,31 +91,21 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             completion: nil)
         
         
-        
-        //선택한 셀 정보 가져오기
-        let cell = replyView.cellForRow(at: indexPath) as? ReplyCell
-        
+
         //값 할당
         let name = cell?.nameLabel.text
         let text = cell?.txtLabel.text
         let date = cell?.dateLabel.text
         let pid = cell?.pidLabel.text
          let uid = cell?.uidLabel.text
-         let rid = cell?.ridLable.text
+
+        
         print(name,text,date,pid,uid,rid)
 
     }
     
-    //alert controller를 클릭했을 때
-    func didSelectRowAt(indexPath: IndexPath) {
-        print(">>> 선택된 행은 \(indexPath.row)입니다")
-    }
     
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
+
     //테이블 뷰
     let replyView: UITableView = {
         let table = UITableView()
@@ -295,15 +292,19 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             return
         }
         
-        
         //데이터 베이스 참조 함수
         var ref: DatabaseReference!
         ref = Database.database().reference()
         
         //랜덤 키
-        let replyKey = ref.child("replys").childByAutoId().key
-        let replyRef = ref.child("replys").child(replyKey)
+        let replyRef = ref.child("replys").child(pidLabel.text!)
         
+        let replyKey = ref.child("replys").childByAutoId().key
+        print(replyKey)
+        //let following = ["following/\(key)" : self.user[indexPath.row].userID]
+        
+        //follwer 폴더에 랜덤key: 나의 id 추가
+        //let follower = ["follower/\(key)" : uid]
         
         //데이터 객체 만들기
         let replyInfo: [String:Any] = ["date" : ServerValue.timestamp(),
@@ -313,8 +314,9 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
                                        "rid": replyKey,
                                        "pid":pidLabel.text!]
         
+      
         //해당 경로에 삽입
-        replyRef.setValue(replyInfo)
+        replyRef.child(replyKey).setValue(replyInfo)
         
         //============================================== 댓글 달때 초기에 0 이다. 처음 댓글 입력하면 +1 되게 해주는 로직
         
@@ -337,17 +339,13 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         self.replys.insert(replyToShow, at: 0) //
         //============================================== 댓글 달때 초기에 0 이다. 처음 댓글 입력하면 +1 되게 해주는 로직 끝==================
-        
-        
-        
-        ref.child("posts").child(pidLabel.text!).updateChildValues(["reply": replys.count])
+
+        //ref.child("posts").child(pidLabel.text!).updateChildValues(["reply": replys.count])
         
         ref.removeAllObservers()
         
         textFiedlView.text = ""
     }
-    
-    
     
     //구분선
     let replySeperateView :UIView = {
@@ -356,7 +354,6 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         containerView.translatesAutoresizingMaskIntoConstraints = false
         return containerView
     }()
-    
     
     //스크롤뷰 바텀
     var scrollViewBottom: UILabel = {
@@ -396,7 +393,6 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         hideKeyboard()
         setLayout()
-        
         fetchReply()
     }
     
@@ -518,18 +514,33 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
     }
     
+    var replyCount: Int?
     //댓글 가져오기
     func fetchReply(){
         let ref = Database.database().reference()
-        ref.child("replys").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
+        ref.child("replys").child(pidLabel.text!).queryOrdered(byChild: "date").observe(.value) { (snapshot) in
             self.replys.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
+            
+            print("너 댓글 몃개니 \(Int(snapshot.childrenCount))")
+
+            if(Int(snapshot.childrenCount) == 0){
+                print(Int(snapshot.childrenCount))
+              self.replyCount = 0
+                ref.child("posts").child(self.pidLabel.text!).updateChildValues(["reply": self.replyCount])
+                
+            }else{
+                 print(Int(snapshot.childrenCount))
+                  self.replyCount = Int(snapshot.childrenCount) //배열 총개수 할당
+                ref.child("posts").child(self.pidLabel.text!).updateChildValues(["reply": self.replyCount])
+                
+            }
+
             for child in snapshot.children{
                 let replyToShow = Reply() //데이터를 담을 클래스
                 let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
-                //let childKey = childSnapshot.key
                 
-                if(self.pidLabel.text == childValue["pid"] as? String){
+       
                     if let name = childValue["name"],  let date = childValue["date"], let rid = childValue["rid"], let text = childValue["text"], let pid = childValue["pid"],let uid = childValue["uid"]{
                         
                         //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
@@ -548,14 +559,19 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
                         replyToShow.uid = uid as? String
                     }
                     self.replys.insert(replyToShow, at: 0) //
-                }
+           
             }
             self.replyView.reloadData()
         }
         
+        /*
+        if(replyCount == nil){
+            replyCount = 0
+        }
+        
+        
+        print("ㅇ므.......\(replyCount)")*/
         ref.removeAllObservers()
     }
     
 }
-
-
