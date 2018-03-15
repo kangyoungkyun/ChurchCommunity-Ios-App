@@ -22,5 +22,7 @@ class Post: NSObject {
     
     var uid: String!
     
+    var reply: String!
+    
     
 }

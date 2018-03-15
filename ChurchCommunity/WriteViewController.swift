@@ -105,11 +105,12 @@ class WriteViewController: UIViewController,UITextViewDelegate {
             
             //데이터 객체 만들기
             let postInfo: [String:Any] = ["pid" : PostKey,
-                                         "uid" : userId,
+                                          "uid" : userId,
                                           "name" : userName!,
                                           "text" : textMsg!,
                                           "hit": 0,
-                                          "date": ServerValue.timestamp()]
+                                          "date": ServerValue.timestamp(),
+                                          "reply":0]
             //해당 경로에 삽입
             PostReference.setValue(postInfo)
             

@@ -10,7 +10,6 @@ import UIKit
 
 class ReplyCell: UITableViewCell {
 
-    
     //pid
     var pidLabel: UILabel = {
         let label = UILabel()
@@ -24,7 +23,7 @@ class ReplyCell: UITableViewCell {
     //이름
     var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "이름"
+        label.text = "이런..,"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -54,7 +53,7 @@ class ReplyCell: UITableViewCell {
     //날짜
     var dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "1시간전"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 11)
         label.textColor = UIColor.lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -75,17 +74,7 @@ class ReplyCell: UITableViewCell {
     
     //--------------------------------
     
-    /*
-    //댓글 수
-    var replyHitLabel: UILabel = {
-        let label = UILabel()
-        label.text = "15 댓글"
-        label.font = UIFont.systemFont(ofSize: 11)
-        label.textColor = UIColor.lightGray
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    */
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         
@@ -97,8 +86,7 @@ class ReplyCell: UITableViewCell {
         addSubview(dateLabel)
         addSubview(ridLable)
         setLayout()
-        //self.estimatedRowHeight = 80
-        //self.rowHeight = UITableViewAutomaticDimension
+
     }
     
     

@@ -85,6 +85,7 @@ class TalkViewController: UITableViewController {
         cell?.dateLabel.text = posts[indexPath.row].date
         cell?.nameLabel.text = posts[indexPath.row].name
         cell?.pidLabel.text = posts[indexPath.row].pid
+        cell?.replyHitLabel.text = "\(posts[indexPath.row].reply!) 개 댓글"
         
         return cell!
     }
@@ -107,9 +108,9 @@ class TalkViewController: UITableViewController {
         let name = cell?.nameLabel.text
         let text = cell?.txtLabel.text
         let hit = cell?.hitLabel.text
-        //let reply = cell?.replyHitLabel.text
         let date = cell?.dateLabel.text
         let pid = cell?.pidLabel.text
+        let replyHitLabel = cell?.replyHitLabel.text
         
       
         //조회수 문자를 배열로 변경
@@ -122,7 +123,8 @@ class TalkViewController: UITableViewController {
         let ref = Database.database().reference()
         ref.child("posts").child(pid!).updateChildValues(hiting)
         
-        
+        let xss = replyHitLabel!.characters.split(separator:" ").map{ String($0) }
+        let replyNum = Int(xss[0])!
         
         let onePost = Post()
         onePost.name = name
@@ -130,6 +132,7 @@ class TalkViewController: UITableViewController {
         onePost.hit = String(hitNum)
         onePost.date = date
         onePost.pid = pid
+        onePost.reply = String(replyNum)
         
         ref.removeAllObservers()
         
@@ -151,7 +154,7 @@ class TalkViewController: UITableViewController {
                 let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
                 
-                if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"] {
+                if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"], let reply = childValue["reply"] {
 
                     //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
                     if let t = date as? TimeInterval {
@@ -167,11 +170,13 @@ class TalkViewController: UITableViewController {
                     postToShow.pid = pid as! String
                     postToShow.text = text as! String
                     postToShow.uid = uid as! String
+                    postToShow.reply = String(describing: reply)
                 }
                 self.posts.insert(postToShow, at: 0) //
             }
             self.tableView.reloadData()
         }
+     
         ref.removeAllObservers()
 }
 
