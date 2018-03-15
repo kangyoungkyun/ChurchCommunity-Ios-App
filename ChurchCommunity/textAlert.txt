@@ -42,3 +42,75 @@ alertController,
 animated: true,
 completion: nil)
 
+
+
+
+
+
+
+
+
+
+
+func promptForAnswer() {
+let ac = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .alert)
+
+
+ac.addTextField { textField in
+let heightConstraint = NSLayoutConstraint(item: textField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)
+
+textField.addConstraint(heightConstraint)
+
+
+}
+
+let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned ac] _ in
+let answer = ac.textFields![0]
+print(answer)
+}
+
+ac.addAction(submitAction)
+
+present(ac, animated: true)
+}
+
+
+
+
+
+
+
+extension CGRect {
+init(_ x:CGFloat, _ y:CGFloat, _ w:CGFloat, _ h:CGFloat) {
+self.init(x:x, y:y, width:w, height:h)
+}
+
+func popUpController()
+{
+
+let alertController = UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+
+let margin:CGFloat = 8.0
+let rect = CGRect(margin, margin, alertController.view.bounds.size.width - margin * 15.0, 100.0)
+let customView = UITextView(frame: rect)
+
+customView.backgroundColor = UIColor.clear
+customView.font = UIFont(name: "Helvetica", size: 15)
+
+alertController.view.addSubview(customView)
+
+let somethingAction = UIAlertAction(title: "수정", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in print("something")
+
+print(customView.text)
+
+})
+
+let cancelAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+
+alertController.addAction(somethingAction)
+alertController.addAction(cancelAction)
+
+self.present(alertController, animated: true, completion:{})
+
+
+}

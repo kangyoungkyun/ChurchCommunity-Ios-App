@@ -17,7 +17,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     
     let tableViewFooterView: UIView = {
         let view = UIView()
-        view.frame = CGRect(x: 0, y: 0, width: 300, height: 0.5)
+        view.frame = CGRect(x: 0, y: 0, width: 300, height: Int(0.5))
           view.backgroundColor = UIColor.lightGray
         return view
     }()
@@ -52,6 +52,41 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         return UITableViewAutomaticDimension
         
     }
+
+    //////
+    func popUpController()
+    {
+        
+        let alertController = UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        
+        let margin:CGFloat = 8.0
+        let rect = CGRect(margin, margin, alertController.view.bounds.size.width - margin * 15.0, 100.0)
+        let customView = UITextView(frame: rect)
+        
+        customView.backgroundColor = UIColor.clear
+        customView.font = UIFont(name: "Helvetica", size: 15)
+        
+        alertController.view.addSubview(customView)
+        
+        let somethingAction = UIAlertAction(title: "수정", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in print("something")
+            
+            print(customView.text)
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+        
+        alertController.addAction(somethingAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion:{})
+        
+        
+    }
+
+    
+    
+    
     
     //댓글 셀을 선택했을 때
     func tableView(_ replyView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -60,6 +95,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         //선택한 셀 정보 가져오기
         let cell = replyView.cellForRow(at: indexPath) as? ReplyCell
         let rid = cell?.ridLable.text
+        let uid = cell?.uidLabel.text
         
         let alertController = UIAlertController(
             title: nil,
@@ -69,12 +105,37 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         let modifyAction = UIAlertAction(title: "댓글수정", style: .default) { (alert) in
 
             print("댓글 수정")
+            
+            if(Auth.auth().currentUser?.uid == uid){
+                
+                self.popUpController()
+                
+            }else{
+                
+                let alert = UIAlertController(title: "알림 ", message:"본인의 글만 수정할 수 있습니다.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                
+            }
         }
         
+        
+        
         let deleteAction = UIAlertAction(title: "댓글삭제", style: .destructive) { (alert) in
-            
-            let ref = Database.database().reference()
-            ref.child("replys").child(rid!).removeValue()
+            if(Auth.auth().currentUser?.uid == uid){
+                let ref = Database.database().reference()
+                ref.child("replys").child(self.pidLabel.text!).child(rid!).removeValue()
+                let alert = UIAlertController(title: "알림 ", message:"성공적으로 삭제되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }else{
+                
+                let alert = UIAlertController(title: "알림 ", message:"본인의 글만 삭제할 수 있습니다.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                
+            }
+
             
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (alert) in
@@ -97,7 +158,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         let text = cell?.txtLabel.text
         let date = cell?.dateLabel.text
         let pid = cell?.pidLabel.text
-         let uid = cell?.uidLabel.text
+        
 
         
         print(name,text,date,pid,uid,rid)
@@ -283,8 +344,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     //댓글 버튼 작동
     @objc func replyBtnAction(){
         print("댓글 버튼 작동 \(textFiedlView.text!)")
-        
-        
+
         if(textFiedlView.text.count == 0){
             let alert = UIAlertController(title: "알림 ", message:"내용을 확인해주세요.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
@@ -574,4 +634,12 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         ref.removeAllObservers()
     }
     
+}
+
+
+
+extension CGRect {
+    init(_ x:CGFloat, _ y:CGFloat, _ w:CGFloat, _ h:CGFloat) {
+        self.init(x:x, y:y, width:w, height:h)
+}
 }
