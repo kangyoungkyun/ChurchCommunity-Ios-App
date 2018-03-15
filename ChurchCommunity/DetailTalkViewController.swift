@@ -8,8 +8,43 @@
 
 import UIKit
 import Firebase
-class DetailTalkViewController: UIViewController {
-   
+class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
+    
+    var replys = [Reply]()
+    let cellId = "cellId"
+    
+    func tableView(_ replyView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return replys.count
+    }
+    func tableView(_ replyView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+        let cell = replyView.dequeueReusableCell(withIdentifier:cellId, for: indexPath) as? ReplyCell
+        
+        cell?.pidLabel.text = replys[indexPath.row].pid
+        cell?.ridLable.text = replys[indexPath.row].rid
+        cell?.txtLabel.text = replys[indexPath.row].text
+        cell?.dateLabel.text = replys[indexPath.row].date
+        cell?.nameLabel.text = replys[indexPath.row].name
+        
+        //cell?.textLabel?.text = "댓글 테스트 입니다."
+        
+        return cell!
+    }
+    //셀의 높이
+     func tableView(_ replyView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+        
+    }
+    //테이블 뷰
+    let replyView: UITableView = {
+            let table = UITableView()
+            table.backgroundColor = UIColor.brown
+            table.translatesAutoresizingMaskIntoConstraints = false
+            return table
+    }()
+    
+    
+    
     //넘어온 데이터
     var onePost : Post?{
         didSet{
@@ -26,7 +61,7 @@ class DetailTalkViewController: UIViewController {
     }
     
 
-    
+    //전체 뷰 : 스크롤뷰
     var uiScrollView: UIScrollView = {
         let uiscroll = UIScrollView()
  
@@ -63,7 +98,7 @@ class DetailTalkViewController: UIViewController {
         //줄 높이
         paragraphStyle.lineSpacing = 4
         
-        let attribute = NSMutableAttributedString(string: "텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍텍스트텍스트텍스트텍스트텍스트텍스트텍텍스트텍스트텍스트텍스트텍스트텍텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.black])
+        let attribute = NSMutableAttributedString(string: "텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍텍스트텍트텍스트텍스트텍스트텍스트텍텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.black])
         //줄간격 셋팅
         
         attribute.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range: NSMakeRange(0, attribute.length))
@@ -176,15 +211,18 @@ class DetailTalkViewController: UIViewController {
         ref = Database.database().reference()
         
         //랜덤 키
+       
         let replyKey = ref.child("replys").childByAutoId().key
-        let replyRef = ref.child("replys").child(pidLabel.text!)
+         let replyRef = ref.child("replys").child(replyKey)
+        //let Pid = ref.child("replys").child(pidLabel.text!)
 
         
         //데이터 객체 만들기
         let replyInfo: [String:Any] = ["date" : ServerValue.timestamp(),
                                       "text" : textFiedlView.text!,
                                       "name" : Auth.auth().currentUser?.displayName,
-                                      "rid": replyKey]
+                                      "rid": replyKey,
+                                      "pid":pidLabel.text!]
  
         //해당 경로에 삽입
         replyRef.setValue(replyInfo)
@@ -205,6 +243,8 @@ class DetailTalkViewController: UIViewController {
     }()
     
 
+
+    
     //스크롤뷰 바텀
     var scrollViewBottom: UILabel = {
         let label = UILabel()
@@ -215,6 +255,7 @@ class DetailTalkViewController: UIViewController {
         return label
     }()
 
+    //진입점
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "수다글"
@@ -228,8 +269,24 @@ class DetailTalkViewController: UIViewController {
         //네비게이션 바 색깔 변경
         self.navigationController?.navigationBar.barTintColor = UIColor.cyan
         self.navigationController?.navigationBar.isTranslucent = false
+        
+        replyView.delegate = self
+        replyView.dataSource = self
+        
+        replyView.register(ReplyCell.self, forCellReuseIdentifier: cellId)
+        self.replyView.estimatedRowHeight = 80
+        self.replyView.rowHeight = UITableViewAutomaticDimension
+        
+        replyView.showsHorizontalScrollIndicator = false
+        replyView.showsVerticalScrollIndicator = false
+        hideKeyboard()
         setLayout()
+        
+        //fetchReply()
     }
+    
+    
+
     
     //수다방으로 가기
     @objc func goTalkViewController(){
@@ -243,7 +300,8 @@ class DetailTalkViewController: UIViewController {
         uiScrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 13.0).isActive = true
         uiScrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 3.0).isActive = true
         uiScrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -13.0).isActive = true
-        uiScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -3.0).isActive = true
+        uiScrollView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        //uiScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -3.0).isActive = true
         
         uiScrollView.addSubview(pidLabel)
         uiScrollView.addSubview(nameLabel)
@@ -255,6 +313,7 @@ class DetailTalkViewController: UIViewController {
         uiScrollView.addSubview(replyContainerView)
         uiScrollView.addSubview(replySeperateView)
         uiScrollView.addSubview(scrollViewBottom)
+        uiScrollView.addSubview(replyView)
         
         nameLabel.topAnchor.constraint(equalTo: uiScrollView.topAnchor, constant: 20).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: uiScrollView.leadingAnchor).isActive = true
@@ -304,22 +363,23 @@ class DetailTalkViewController: UIViewController {
         replyContainerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         
-        
+        //-------  * 댓글 감싸는 컨테이너 뷰
         replyContainerView.addSubview(textFiedlView)
         replyContainerView.addSubview(replyButton)
-         //replyContainerView.addSubview(seperateView)
         
+        //-------  * 댓글 입력 필드
         textFiedlView.topAnchor.constraint(equalTo: replyContainerView.topAnchor).isActive = true
         textFiedlView.leadingAnchor.constraint(equalTo: replyContainerView.leadingAnchor).isActive = true
         textFiedlView.heightAnchor.constraint(equalTo: replyContainerView.heightAnchor).isActive = true
         textFiedlView.widthAnchor.constraint(equalTo: replyContainerView.widthAnchor, multiplier:4/5).isActive = true
         
+        //-------  * 댓글 버튼
         replyButton.topAnchor.constraint(equalTo: replyContainerView.topAnchor).isActive = true
         replyButton.leadingAnchor.constraint(equalTo: textFiedlView.trailingAnchor).isActive = true
         replyButton.heightAnchor.constraint(equalTo: replyContainerView.heightAnchor).isActive = true
         replyButton.widthAnchor.constraint(equalTo: replyContainerView.widthAnchor, multiplier:1/5).isActive = true
         
-        
+        //-------  * 댓글 구분선
         replySeperateView.topAnchor.constraint(equalTo: replyContainerView.bottomAnchor, constant:15).isActive = true
         replySeperateView.leadingAnchor.constraint(equalTo: replyContainerView.leadingAnchor).isActive = true
         replySeperateView.trailingAnchor.constraint(equalTo: replyContainerView.trailingAnchor).isActive = true
@@ -327,15 +387,64 @@ class DetailTalkViewController: UIViewController {
         replySeperateView.widthAnchor.constraint(equalTo: replyContainerView.widthAnchor).isActive = true
         
         
+        //-------  * 댓글 리스트 뷰
+        replyView.topAnchor.constraint(equalTo: replySeperateView.bottomAnchor, constant:15).isActive = true
+        replyView.leadingAnchor.constraint(equalTo: uiScrollView.leadingAnchor).isActive = true
+        replyView.trailingAnchor.constraint(equalTo: uiScrollView.trailingAnchor).isActive = true
+        replyView.widthAnchor.constraint(equalTo: uiScrollView.widthAnchor).isActive = true
         
+        replyView.bottomAnchor.constraint(equalTo: uiScrollView.bottomAnchor).isActive = true
+        
+        
+        //스크롤뷰 바닥
         scrollViewBottom.topAnchor.constraint(equalTo: replyContainerView.bottomAnchor, constant: 15).isActive = true
         scrollViewBottom.leadingAnchor.constraint(equalTo: uiScrollView.leadingAnchor, constant: 15).isActive = true
         scrollViewBottom.trailingAnchor.constraint(equalTo: uiScrollView.trailingAnchor, constant: -15).isActive = true
         scrollViewBottom.bottomAnchor.constraint(equalTo: uiScrollView.bottomAnchor,constant: -500).isActive = true
         
-        
      
+    }
+    
+    //댓글 가져오기
+    func fetchReply(){
+        let ref = Database.database().reference()
+        ref.child("replys").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
+            self.replys.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
+            for child in snapshot.children{
+
+                let replyToShow = Reply() //데이터를 담을 클래스
+                let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
+                let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
+                //let childKey = childSnapshot.key
+                
+                if(self.pidLabel.text == childValue["pid"] as? String){
+                    if let name = childValue["name"],  let date = childValue["date"], let rid = childValue["rid"], let text = childValue["text"], let pid = childValue["pid"]{
+                        
+                        //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
+                        if let t = date as? TimeInterval {
+                            let date = NSDate(timeIntervalSince1970: t/1000)
+                            print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
+                            let dayTimePeriodFormatter = DateFormatter()
+                            dayTimePeriodFormatter.dateFormat = "YYY-MMM-d hh:mm a"
+                            let dateString = dayTimePeriodFormatter.string(from: date as Date)
+                            replyToShow.date = dateString
+                        }
+                        replyToShow.name = name as? String
+                        replyToShow.rid = rid as? String
+                        replyToShow.text = text as? String
+                        replyToShow.pid = pid as? String
+                    }
+                }
+                self.replys.insert(replyToShow, at: 0) //
+            }
+            self.replyView.reloadData()
+        }
+        ref.removeAllObservers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchReply()
+    }
     }
 
 
-}

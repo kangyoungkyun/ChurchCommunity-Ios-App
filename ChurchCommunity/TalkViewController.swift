@@ -80,8 +80,6 @@ class TalkViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TalkCell
         
-        //let post=posts.reversed()[indexPath.row]
-        //self.posts = self.posts.reversed()
         cell?.txtLabel.text = posts[indexPath.row].text
         cell?.hitLabel.text = "\(posts[indexPath.row].hit!) 번 읽음"
         cell?.dateLabel.text = posts[indexPath.row].date
