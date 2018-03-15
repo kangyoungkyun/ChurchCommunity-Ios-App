@@ -15,7 +15,11 @@ class DetailTalkViewController: UIViewController {
         didSet{
             nameLabel.text = onePost?.name
             txtLabel.text = onePost?.text
-            hitLabel.text = onePost?.hit
+            
+            if let hit = onePost?.hit{
+                 hitLabel.text = "\(hit) 번 읽음"
+            }
+           
             dateLabel.text = onePost?.date
         }
     }
@@ -30,6 +34,16 @@ class DetailTalkViewController: UIViewController {
         uiscroll.showsVerticalScrollIndicator = false
 
         return uiscroll
+    }()
+    
+    //pid
+    var pidLabel: UILabel = {
+        let label = UILabel()
+        label.text = "pid"
+        label.isHidden = true
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     //이름
@@ -144,6 +158,7 @@ class DetailTalkViewController: UIViewController {
         uiScrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -13.0).isActive = true
         uiScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -3.0).isActive = true
         
+        uiScrollView.addSubview(pidLabel)
         uiScrollView.addSubview(nameLabel)
         uiScrollView.addSubview(txtLabel)
         uiScrollView.addSubview(dateLabel)
@@ -179,6 +194,11 @@ class DetailTalkViewController: UIViewController {
         replyHitLabel.leadingAnchor.constraint(equalTo: hitLabel.trailingAnchor, constant: 15).isActive = true
         replyHitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         replyHitLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        
+        pidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
+        pidLabel.leadingAnchor.constraint(equalTo: replyHitLabel.trailingAnchor, constant: 15).isActive = true
+        pidLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        pidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
 
         
         

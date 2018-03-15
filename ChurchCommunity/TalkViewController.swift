@@ -83,9 +83,10 @@ class TalkViewController: UITableViewController {
         //let post=posts.reversed()[indexPath.row]
         //self.posts = self.posts.reversed()
         cell?.txtLabel.text = posts[indexPath.row].text
-        cell?.hitLabel.text = "\(posts[indexPath.row].hit!) 번읽음"
+        cell?.hitLabel.text = "\(posts[indexPath.row].hit!) 번 읽음"
         cell?.dateLabel.text = posts[indexPath.row].date
         cell?.nameLabel.text = posts[indexPath.row].name
+        cell?.pidLabel.text = posts[indexPath.row].pid
         
         return cell!
     }
@@ -108,16 +109,31 @@ class TalkViewController: UITableViewController {
         let name = cell?.nameLabel.text
         let text = cell?.txtLabel.text
         let hit = cell?.hitLabel.text
-        let reply = cell?.replyHitLabel.text
+        //let reply = cell?.replyHitLabel.text
         let date = cell?.dateLabel.text
+        let pid = cell?.pidLabel.text
         
-        print(" 몇 번째 찍혔나요 \(hit!)")
+      
+        //조회수 문자를 배열로 변경
+        let xs = hit!.characters.split(separator:" ").map{ String($0) }
+        let hitNum = Int(xs[0])! + 1
+        
+       //fb db 연결 후 posts 테이블에 key가 pid인 데이터의 hit 개수 변경해주기
+        
+        let hiting = ["hit" : hitNum]
+        let ref = Database.database().reference()
+        ref.child("posts").child(pid!).updateChildValues(hiting)
+        
+        
+        
         let onePost = Post()
         onePost.name = name
         onePost.text = text
-        onePost.hit = hit
+        onePost.hit = String(hitNum)
         onePost.date = date
+        onePost.pid = pid
         
+        ref.removeAllObservers()
         
         //디테일 페이지로 이동
         let detailTalkViewController = DetailTalkViewController()

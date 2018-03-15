@@ -9,6 +9,17 @@
 import UIKit
 
 class TalkCell: UITableViewCell {
+    
+    //pid
+    var pidLabel: UILabel = {
+        let label = UILabel()
+        label.text = "pid"
+        label.isHidden = true
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     //이름
     var nameLabel: UILabel = {
         let label = UILabel()
@@ -35,6 +46,7 @@ class TalkCell: UITableViewCell {
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         label.attributedText = attribute
+        //label.tag = "pidTag"
         return label
     }()
     //날짜
@@ -70,6 +82,7 @@ class TalkCell: UITableViewCell {
         
         //선택됐을 때 no hover
         selectionStyle = .none
+        addSubview(pidLabel)
         addSubview(nameLabel)
         addSubview(txtLabel)
         addSubview(dateLabel)
@@ -106,6 +119,11 @@ class TalkCell: UITableViewCell {
         replyHitLabel.leadingAnchor.constraint(equalTo: hitLabel.trailingAnchor, constant: 15).isActive = true
         replyHitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         replyHitLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        
+        pidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
+        pidLabel.leadingAnchor.constraint(equalTo: replyHitLabel.trailingAnchor, constant: 15).isActive = true
+        pidLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        pidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
     }
     
