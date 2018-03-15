@@ -53,8 +53,9 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
     }
 
-    //////
-    func popUpController()
+    //수정 alert controller 창
+    var modifyText:String?
+    func popUpController(txt:String,rid:String)
     {
         
         let alertController = UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.alert)
@@ -65,12 +66,14 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         customView.backgroundColor = UIColor.clear
         customView.font = UIFont(name: "Helvetica", size: 15)
-        
+        customView.text = txt
         alertController.view.addSubview(customView)
         
-        let somethingAction = UIAlertAction(title: "수정", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in print("something")
-            
-            print(customView.text)
+        let somethingAction = UIAlertAction(title: "수정", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in //print("something")
+            self.modifyText = customView.text
+            let ref = Database.database().reference()
+            print("수정된 글은~? \(self.modifyText)")
+            ref.child("replys").child(self.pidLabel.text!).child(rid).updateChildValues(["text":self.modifyText])
             
         })
         
@@ -96,6 +99,10 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         let cell = replyView.cellForRow(at: indexPath) as? ReplyCell
         let rid = cell?.ridLable.text
         let uid = cell?.uidLabel.text
+        let name = cell?.nameLabel.text
+        let text = cell?.txtLabel.text
+        let date = cell?.dateLabel.text
+        let pid = cell?.pidLabel.text
         
         let alertController = UIAlertController(
             title: nil,
@@ -108,7 +115,8 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             
             if(Auth.auth().currentUser?.uid == uid){
                 
-                self.popUpController()
+                self.popUpController(txt: text!,rid:rid!)
+             
                 
             }else{
                 
@@ -139,7 +147,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (alert) in
-            print("취소 했네용")
+            print("취소")
         }
         
         alertController.addAction(modifyAction)
@@ -150,18 +158,6 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             alertController,
             animated: true,
             completion: nil)
-        
-        
-
-        //값 할당
-        let name = cell?.nameLabel.text
-        let text = cell?.txtLabel.text
-        let date = cell?.dateLabel.text
-        let pid = cell?.pidLabel.text
-        
-
-        
-        print(name,text,date,pid,uid,rid)
 
     }
     
@@ -171,7 +167,6 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     let replyView: UITableView = {
         let table = UITableView()
         table.backgroundColor = UIColor.clear
-    
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -623,14 +618,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             }
             self.replyView.reloadData()
         }
-        
-        /*
-        if(replyCount == nil){
-            replyCount = 0
-        }
-        
-        
-        print("ㅇ므.......\(replyCount)")*/
+
         ref.removeAllObservers()
     }
     
