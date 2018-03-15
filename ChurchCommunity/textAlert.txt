@@ -114,3 +114,8 @@ self.present(alertController, animated: true, completion:{})
 
 
 }
+
+
+
+//테이블 뷰 싱글텝 더블텝
+https://stackoverflow.com/questions/43153530/single-and-double-taps-on-uitableviewcell-in-swift-3/43299342

@@ -126,10 +126,10 @@ class TalkViewController: UITableViewController {
         let hitNum = Int(xs[0])! + 1
         
        //fb db 연결 후 posts 테이블에 key가 pid인 데이터의 hit 개수 변경해주기
-        //let hiting = ["hit" : hitNum]
+        let hiting = ["hit" : hitNum]
         //여기가 문제
-        //let ref = Database.database().reference()
-        //ref.child("posts").child(pid!).updateChildValues(hiting)
+        let ref = Database.database().reference()
+        ref.child("posts").child(pid!).updateChildValues(hiting)
         
         let xss = replyHitLabel!.characters.split(separator:" ").map{ String($0) }
         let replyNum = Int(xss[0])!

@@ -31,6 +31,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     }
     func tableView(_ replyView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = replyView.dequeueReusableCell(withIdentifier:cellId, for: indexPath) as? ReplyCell
+        //cell?.isExclusiveTouch = true
         
         if(replys.count == 0 ){
         cell?.txtLabel.text = "댓글이 없습니다."
@@ -73,7 +74,8 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             self.modifyText = customView.text
             let ref = Database.database().reference()
             print("수정된 글은~? \(self.modifyText)")
-            ref.child("replys").child(self.pidLabel.text!).child(rid).updateChildValues(["text":self.modifyText])
+            ref.child("replys").child(self.pidLabel.text!).child(rid).updateChildValues(["text":self.modifyText,
+                                                                                         "date":ServerValue.timestamp()])
             
         })
         
@@ -86,11 +88,6 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         
     }
-
-    
-    
-    
-    
     //댓글 셀을 선택했을 때
     func tableView(_ replyView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("셀을 선택했습니다~!  \(indexPath.row)")
