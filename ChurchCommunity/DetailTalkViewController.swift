@@ -35,6 +35,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         if(replys.count == 0 ){
         cell?.txtLabel.text = "댓글이 없습니다."
         }else{
+            cell?.uidLabel.text = replys[indexPath.row].uid
             cell?.pidLabel.text = replys[indexPath.row].pid
             cell?.ridLable.text = replys[indexPath.row].rid
             cell?.txtLabel.text = replys[indexPath.row].text
@@ -53,6 +54,19 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     //댓글 셀을 선택했을 때
     func tableView(_ replyView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("셀을 선택했습니다~!  \(indexPath.row)")
+        
+        //선택한 셀 정보 가져오기
+        let cell = replyView.cellForRow(at: indexPath) as? ReplyCell
+        
+        //값 할당
+        let name = cell?.nameLabel.text
+        let text = cell?.txtLabel.text
+        let date = cell?.dateLabel.text
+        let pid = cell?.pidLabel.text
+         let uid = cell?.uidLabel.text
+         let rid = cell?.ridLable.text
+        print(name,text,date,pid,uid,rid)
+
     }
     
     
@@ -88,9 +102,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
                 replyHitLabel.text = "\(replyNum) 개 댓글"
                  replyLine.text = "  \(replyNum)  댓글"
             }
-            
-           
-            
+
         }
     }
     
@@ -253,6 +265,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         let replyInfo: [String:Any] = ["date" : ServerValue.timestamp(),
                                        "text" : textFiedlView.text!,
                                        "name" : Auth.auth().currentUser?.displayName,
+                                       "uid" : Auth.auth().currentUser?.uid,
                                        "rid": replyKey,
                                        "pid":pidLabel.text!]
         
@@ -276,6 +289,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         replyToShow.rid = replyKey
         replyToShow.text =  textFiedlView.text!
         replyToShow.pid = pidLabel.text!
+        replyToShow.uid = Auth.auth().currentUser?.uid
         
         self.replys.insert(replyToShow, at: 0) //
         //============================================== 댓글 달때 초기에 0 이다. 처음 댓글 입력하면 +1 되게 해주는 로직 끝==================
@@ -472,7 +486,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
                 //let childKey = childSnapshot.key
                 
                 if(self.pidLabel.text == childValue["pid"] as? String){
-                    if let name = childValue["name"],  let date = childValue["date"], let rid = childValue["rid"], let text = childValue["text"], let pid = childValue["pid"]{
+                    if let name = childValue["name"],  let date = childValue["date"], let rid = childValue["rid"], let text = childValue["text"], let pid = childValue["pid"],let uid = childValue["uid"]{
                         
                         //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
                         if let t = date as? TimeInterval {
@@ -487,6 +501,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
                         replyToShow.rid = rid as? String
                         replyToShow.text = text as? String
                         replyToShow.pid = pid as? String
+                        replyToShow.uid = uid as? String
                     }
                     self.replys.insert(replyToShow, at: 0) //
                 }

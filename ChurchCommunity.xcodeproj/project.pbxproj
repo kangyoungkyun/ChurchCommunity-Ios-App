@@ -154,8 +154,8 @@
 		52858A472055E64D005C9BB9 /* ChurchCommunity */ = {
 			isa = PBXGroup;
 			children = (
-				520E1B62205A16F500478F0F /* Views */,
 				520E1B5D205A01EE00478F0F /* DTO */,
+				520E1B62205A16F500478F0F /* Views */,
 				52858A622055EBDE005C9BB9 /* pic */,
 				52858A482055E64D005C9BB9 /* AppDelegate.swift */,
 				52858A4A2055E64D005C9BB9 /* MainViewController.swift */,

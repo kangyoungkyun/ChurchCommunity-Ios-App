@@ -19,6 +19,8 @@ class Reply: NSObject {
     var rid: String?
   
     var text: String?
+    
+    var uid: String?
    
 
 }

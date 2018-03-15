@@ -10,6 +10,16 @@ import UIKit
 
 class ReplyCell: UITableViewCell {
 
+    //uid
+    var uidLabel: UILabel = {
+        let label = UILabel()
+        label.text = "uid"
+        label.isHidden = true
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     //pid
     var pidLabel: UILabel = {
         let label = UILabel()
@@ -81,6 +91,7 @@ class ReplyCell: UITableViewCell {
         //선택됐을 때 no hover
         selectionStyle = .none
         addSubview(pidLabel)
+        addSubview(uidLabel)
         addSubview(nameLabel)
         addSubview(txtLabel)
         addSubview(dateLabel)
@@ -92,17 +103,23 @@ class ReplyCell: UITableViewCell {
     
     
     func setLayout(){
+
         
         ridLable.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
         ridLable.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15).isActive = true
-        ridLable.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        ridLable.widthAnchor.constraint(equalToConstant: 40).isActive = true
         ridLable.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
         
         pidLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
         pidLabel.leadingAnchor.constraint(equalTo: ridLable.trailingAnchor, constant: 15).isActive = true
-        pidLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        pidLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
         pidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        
+        uidLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
+        uidLabel.leadingAnchor.constraint(equalTo: pidLabel.trailingAnchor, constant: 15).isActive = true
+        uidLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        uidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
         
         nameLabel.topAnchor.constraint(equalTo: self.ridLable.bottomAnchor).isActive = true
