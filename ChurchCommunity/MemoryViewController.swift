@@ -14,9 +14,14 @@ class MemoryViewController: UICollectionViewController,UICollectionViewDelegateF
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Register cell classes
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        self.navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "추억방"
+        
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        // Do any additional setup after loading the view.
+       
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -28,7 +33,7 @@ class MemoryViewController: UICollectionViewController,UICollectionViewDelegateF
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
     
         // Configure the cell
-     cell.backgroundColor = UIColor.yellow
+     cell.backgroundColor = UIColor.lightGray
         return cell
     }
 

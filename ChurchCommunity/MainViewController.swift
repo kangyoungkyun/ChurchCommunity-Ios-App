@@ -5,7 +5,12 @@
 //  Created by MacBookPro on 2018. 3. 12..
 //  Copyright © 2018년 MacBookPro. All rights reserved.
 //
-
+extension UIColor {
+    var redValue: CGFloat{ return CIColor(color: self).red }
+    var greenValue: CGFloat{ return CIColor(color: self).green }
+    var blueValue: CGFloat{ return CIColor(color: self).blue }
+    var alphaValue: CGFloat{ return CIColor(color: self).alpha }
+}
 import UIKit
 import Firebase
 class MainViewController: UIViewController {
@@ -68,7 +73,7 @@ class MainViewController: UIViewController {
     //버튼
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.cyan
+        button.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         button.setTitle("로그인", for: UIControlState())
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: UIControlState())

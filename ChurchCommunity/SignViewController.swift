@@ -86,7 +86,7 @@ class SignViewController: UIViewController {
     //버튼
     let signButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.cyan
+        button.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         button.setTitle("가입", for: UIControlState())
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: UIControlState())

@@ -19,7 +19,8 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     let searchController : UISearchController = {
       let uisearchController = UISearchController(searchResultsController: nil)
         uisearchController.searchBar.placeholder = "검색"
-        
+        //uisearchController.searchBar.barTintColor = UIColor.white
+      uisearchController.searchBar.backgroundColor =  UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         return uisearchController
     }()
     
@@ -48,10 +49,11 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         searchController.searchBar.delegate = self
         
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = UIColor.cyan
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         self.navigationController?.navigationBar.isTranslucent = false
         
-        //self.navigationItem.titleView = searchBar
+        //let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+        //navigationController?.navigationBar.titleTextAttributes = textAttributes
         self.navigationItem.title = "수다방"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = searchController
@@ -109,7 +111,10 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     //테이블 뷰 셀의 구성 및 데이터 할당 부분
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TalkCell
-        
+        //cell 클릭했을 때 색깔 바꿔주기
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        cell?.selectedBackgroundView = bgColorView
         
         if(searchController.isActive && searchController.searchBar.text != ""){
            cell?.dateLabel.text = searchPosts[indexPath.row].date
@@ -148,6 +153,14 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
        
         //선택한 셀 정보 가져오기
         let cell = tableView.cellForRow(at: indexPath) as? TalkCell
+        
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        cell?.selectedBackgroundView = bgColorView
+        
+        
+        //cell?.contentView.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        
         //값 할당
         let name = cell?.nameLabel.text
         let text = cell?.txtLabel.text

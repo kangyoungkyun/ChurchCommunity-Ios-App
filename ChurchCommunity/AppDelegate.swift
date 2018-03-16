@@ -64,9 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //로그인 성공 후 기본 레이아웃은 탭바 컨트롤러
         tabBarController = UITabBarController()
-        tabBarController?.view.backgroundColor = UIColor.yellow
+        tabBarController?.view.backgroundColor = UIColor.white
         tabBarController?.view.tintColor = UIColor.white
-        
+        tabBarController?.tabBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        //tabBarController?.tabBar.ba UIColor(red: 255, green: 153, blue: 153, alpha: 1)
         
         //collectionView layout - 반드시 넣어줘야 함
         let layout = UICollectionViewFlowLayout()
@@ -75,6 +76,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let memoryVC = MemoryViewController(collectionViewLayout: layout)
         let notictVC = NoticeViewController(collectionViewLayout: layout)
         let settingVC = SettingViewController()
+        
+        //let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+        //navigationController?.navigationBar.titleTextAttributes = textAttributes
         
         let talkNavVC = UINavigationController(rootViewController: talkVC)
         let memoryNavVC = UINavigationController(rootViewController: memoryVC)

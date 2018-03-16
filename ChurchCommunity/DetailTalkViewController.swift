@@ -283,7 +283,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         label.text = "  댓글"
         label.textColor = UIColor.white
         label.textAlignment = .left
-        label.backgroundColor = UIColor.cyan
+        label.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.layer.cornerRadius = 13
@@ -335,7 +335,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("쓰기", for: UIControlState())
-        btn.backgroundColor = UIColor.cyan
+        btn.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         btn.addTarget(self, action: #selector(replyBtnAction), for: .touchUpInside)
         return btn
     }()
@@ -436,7 +436,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         self.view.addSubview(uiScrollView)
         
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = UIColor.cyan
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         self.navigationController?.navigationBar.isTranslucent = false
         
         replyView.delegate = self

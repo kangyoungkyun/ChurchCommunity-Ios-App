@@ -29,7 +29,7 @@ class NoticeViewController: UICollectionViewController,UICollectionViewDelegateF
         //firebase 데이터 베이스 초기화
         ref = Database.database().reference()
         
-        self.navigationController?.navigationBar.barTintColor = UIColor.cyan
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         self.navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "소식방"
