@@ -63,7 +63,7 @@ class NoticeViewController: UICollectionViewController,UICollectionViewDelegateF
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? NoticeCell
-        cell?.backgroundColor = UIColor.lightGray
+        cell?.backgroundColor = UIColor.white
        
         cell?.noticeImageView.downloadImage(from: notices[indexPath.row].noticeUrl)
         return cell!
