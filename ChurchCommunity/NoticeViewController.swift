@@ -31,7 +31,7 @@ class NoticeViewController: UICollectionViewController,UICollectionViewDelegateF
         
         self.navigationController?.navigationBar.barTintColor = UIColor.cyan
         self.navigationController?.navigationBar.isTranslucent = false
-       
+        navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "소식방"
         print("소식방")
         

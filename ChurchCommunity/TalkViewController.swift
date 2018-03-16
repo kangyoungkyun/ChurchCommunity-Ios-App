@@ -8,10 +8,25 @@
 
 import UIKit
 import Firebase
-class TalkViewController: UITableViewController {
+class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     var posts = [Post]()
     let cellId = "cellId"
+    
+
+    
+    let searchController : UISearchController = {
+      let uisearchController = UISearchController(searchResultsController: nil)
+        uisearchController.searchBar.placeholder = "검색"
+        
+        return uisearchController
+    }()
+    
+    //검색버튼 눌렀을 때
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("서치바 \(String(describing: searchController.searchBar.text!))")
+        searchController.searchBar.text = ""
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         showPost()
@@ -19,12 +34,18 @@ class TalkViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        
+        searchController.searchBar.delegate = self
         
         //네비게이션 바 색깔 변경
         self.navigationController?.navigationBar.barTintColor = UIColor.cyan
         self.navigationController?.navigationBar.isTranslucent = false
         
+        //self.navigationItem.titleView = searchBar
         self.navigationItem.title = "수다방"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.searchController = searchController
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "logout", style: .plain, target: self, action: #selector(logoutAction))
       
