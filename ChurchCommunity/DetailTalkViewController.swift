@@ -395,8 +395,6 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         self.replys.insert(replyToShow, at: 0) //
         //============================================== 댓글 달때 초기에 0 이다. 처음 댓글 입력하면 +1 되게 해주는 로직 끝 ==================
         
-        //ref.child("posts").child(pidLabel.text!).updateChildValues(["reply": replys.count])
-        
         ref.removeAllObservers()
         
         textFiedlView.text = ""
@@ -426,9 +424,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(goTalkViewController))
         
-        
-        print("로그인한 유저 아이디 \(Auth.auth().currentUser?.uid)")
-        print("현재 글쓴사람 유저 아이디 \(uidLabel.text)")
+
         //로그인 한 유저의. id와 지금 쓴글의 사람의 uid와 같으면 오른쪽 설정바 보이게
         if(Auth.auth().currentUser?.uid == uidLabel.text){
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "설정", style: .plain, target: self, action: #selector(goSettingAlertAction))
@@ -737,7 +733,6 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     }
     
 }
-
 
 extension CGRect {
     init(_ x:CGFloat, _ y:CGFloat, _ w:CGFloat, _ h:CGFloat) {

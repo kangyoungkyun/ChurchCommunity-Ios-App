@@ -126,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         talkNavVC.tabBarItem.title = "수다방"
         memoryNavVC.tabBarItem.title = "추억방"
-        notictNavVC.tabBarItem.title = "알림방"
+        notictNavVC.tabBarItem.title = "소식방"
         settingNavVC.tabBarItem.title = "더보기"
         
         return true
