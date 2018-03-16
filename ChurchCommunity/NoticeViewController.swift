@@ -66,6 +66,8 @@ class NoticeViewController: UICollectionViewController,UICollectionViewDelegateF
         cell?.backgroundColor = UIColor.white
        
         cell?.noticeImageView.downloadImage(from: notices[indexPath.row].noticeUrl)
+        cell?.noticeLabel.text = notices[indexPath.row].nid
+        cell?.dateLabel.text = notices[indexPath.row].date
         return cell!
     }
     
@@ -145,7 +147,7 @@ class NoticeViewController: UICollectionViewController,UICollectionViewDelegateF
                 let noticeToShow = Notices() //데이터를 담을 클래스
                 let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
-                
+                 let childKey = childSnapshot.key
                 if let date = childValue["date"],  let imgurl = childValue["imgurl"]{
                     
                     if let t = date as? TimeInterval {
@@ -157,6 +159,7 @@ class NoticeViewController: UICollectionViewController,UICollectionViewDelegateF
                         noticeToShow.date = dateString
                     }
                     noticeToShow.noticeUrl = imgurl as! String
+                    noticeToShow.nid = childKey
                 }
                 self.notices.insert(noticeToShow, at: 0) //
             }

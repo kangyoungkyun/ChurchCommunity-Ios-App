@@ -10,7 +10,7 @@ import UIKit
 
 class Notices: NSObject {
 
-    
+    var nid: String!
     var date: String!
     
     var noticeUrl: String!

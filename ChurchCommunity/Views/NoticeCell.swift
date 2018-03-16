@@ -16,6 +16,7 @@ class NoticeCell: UICollectionViewCell {
     var noticeLabel: UILabel = {
         let label = UILabel()
         label.text = "ythmg"
+        label.isHidden = true
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -82,20 +83,21 @@ class NoticeCell: UICollectionViewCell {
         noticeImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
         noticeImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
         noticeImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
-        noticeImageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 0).isActive = true
+        noticeImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1/1.2).isActive = true
+       // noticeImageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 0).isActive = true
 
         nameLabel.topAnchor.constraint(equalTo: noticeImageView.bottomAnchor).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
         nameLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         //nameLabel.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        nameLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
+        nameLabel.bottomAnchor.constraint(equalTo: noticeSeperateView.topAnchor, constant: -5).isActive = true
         
         
         dateLabel.topAnchor.constraint(equalTo: noticeImageView.bottomAnchor).isActive = true
         dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
-        dateLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        dateLabel.widthAnchor.constraint(equalToConstant: 120).isActive = true
         //dateLabel.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        dateLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
+        dateLabel.bottomAnchor.constraint(equalTo: noticeSeperateView.topAnchor, constant: -5).isActive = true
         
         
         noticeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
