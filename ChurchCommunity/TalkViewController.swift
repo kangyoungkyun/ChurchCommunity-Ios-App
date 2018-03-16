@@ -33,8 +33,6 @@ class TalkViewController: UITableViewController {
         
         tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
         
-       
-        
         //self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 5, 0);
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
@@ -67,13 +65,11 @@ class TalkViewController: UITableViewController {
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+       
         return 1
     }
-    
+    //행 개수
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        print("numberOfRowsInSection \(posts.count)")
         return posts.count
     }
     
@@ -94,6 +90,7 @@ class TalkViewController: UITableViewController {
         cell?.nameLabel.text = posts[indexPath.row].name
         cell?.pidLabel.text = posts[indexPath.row].pid
         cell?.replyHitLabel.text = "\(posts[indexPath.row].reply!) 개 댓글"
+        cell?.uidLabel.text = posts[indexPath.row].uid
         
         return cell!
     }
@@ -119,6 +116,7 @@ class TalkViewController: UITableViewController {
         let date = cell?.dateLabel.text
         let pid = cell?.pidLabel.text
         let replyHitLabel = cell?.replyHitLabel.text
+        let uid = cell?.uidLabel.text
         
       
         //조회수 문자를 배열로 변경
@@ -141,6 +139,7 @@ class TalkViewController: UITableViewController {
         onePost.date = date
         onePost.pid = pid
         onePost.reply = String(replyNum)
+        onePost.uid = uid
         
         //ref.removeAllObservers()
         

@@ -10,6 +10,16 @@ import UIKit
 
 class TalkCell: UITableViewCell {
     
+    //uid
+    var uidLabel: UILabel = {
+        let label = UILabel()
+        label.text = "uid"
+        label.isHidden = true
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     //pid
     var pidLabel: UILabel = {
         let label = UILabel()
@@ -82,6 +92,7 @@ class TalkCell: UITableViewCell {
         
         //선택됐을 때 no hover
         selectionStyle = .none
+         addSubview(uidLabel)
         addSubview(pidLabel)
         addSubview(nameLabel)
         addSubview(txtLabel)
@@ -124,6 +135,11 @@ class TalkCell: UITableViewCell {
         pidLabel.leadingAnchor.constraint(equalTo: replyHitLabel.trailingAnchor, constant: 15).isActive = true
         pidLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         pidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        
+        uidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
+        uidLabel.leadingAnchor.constraint(equalTo: pidLabel.trailingAnchor, constant: 15).isActive = true
+        uidLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        uidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
     }
     

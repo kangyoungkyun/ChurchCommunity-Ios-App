@@ -13,12 +13,12 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     var replys = [Reply]()
     let cellId = "cellId"
     
-
     
+    // ==========================================================================.   글 상세 화면에 subview로 넣은 테이블 뷰 =====================================.
     let tableViewFooterView: UIView = {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 300, height: Int(0.5))
-          view.backgroundColor = UIColor.lightGray
+        view.backgroundColor = UIColor.lightGray
         return view
     }()
     
@@ -34,7 +34,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         //cell?.isExclusiveTouch = true
         
         if(replys.count == 0 ){
-        cell?.txtLabel.text = "댓글이 없습니다."
+            cell?.txtLabel.text = "댓글이 없습니다."
         }else{
             cell?.uidLabel.text = replys[indexPath.row].uid
             cell?.pidLabel.text = replys[indexPath.row].pid
@@ -46,15 +46,15 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         return cell!
     }
-
+    
     
     //셀의 높이
     func tableView(_ replyView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
         
     }
-
-    //수정 alert controller 창
+    
+    //댓글 수정 alert controller 창
     var modifyText:String?
     func popUpController(txt:String,rid:String)
     {
@@ -96,10 +96,10 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         let cell = replyView.cellForRow(at: indexPath) as? ReplyCell
         let rid = cell?.ridLable.text
         let uid = cell?.uidLabel.text
-        let name = cell?.nameLabel.text
+        //let name = cell?.nameLabel.text
         let text = cell?.txtLabel.text
-        let date = cell?.dateLabel.text
-        let pid = cell?.pidLabel.text
+        // let date = cell?.dateLabel.text
+        //let pid = cell?.pidLabel.text
         
         let alertController = UIAlertController(
             title: nil,
@@ -107,13 +107,11 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             preferredStyle: .alert)
         
         let modifyAction = UIAlertAction(title: "댓글수정", style: .default) { (alert) in
-
             print("댓글 수정")
             
             if(Auth.auth().currentUser?.uid == uid){
                 
                 self.popUpController(txt: text!,rid:rid!)
-             
                 
             }else{
                 
@@ -123,8 +121,6 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
                 
             }
         }
-        
-        
         
         let deleteAction = UIAlertAction(title: "댓글삭제", style: .destructive) { (alert) in
             if(Auth.auth().currentUser?.uid == uid){
@@ -140,7 +136,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
                 self.present(alert, animated: true, completion: nil)
                 
             }
-
+            
             
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (alert) in
@@ -155,11 +151,11 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             alertController,
             animated: true,
             completion: nil)
-
+        
     }
     
     
-
+    
     //테이블 뷰
     let replyView: UITableView = {
         let table = UITableView()
@@ -168,7 +164,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         return table
     }()
     
-    
+    // ==========================================================================. .  글상세 화면에 subview로 넣은 테이블 뷰 =====================================. =====================================.
     
     //넘어온 데이터
     var onePost : Post?{
@@ -185,9 +181,11 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             
             if let replyNum = onePost?.reply{
                 replyHitLabel.text = "\(replyNum) 개 댓글"
-                 replyLine.text = "  \(replyNum)  댓글"
+                replyLine.text = "  \(replyNum)  댓글"
             }
-
+            
+            uidLabel.text = onePost?.uid
+            
         }
     }
     
@@ -201,6 +199,15 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         uiscroll.showsVerticalScrollIndicator = false
         
         return uiscroll
+    }()
+    //pid
+    var uidLabel: UILabel = {
+        let label = UILabel()
+        //label.text = "pid"
+        label.isHidden = true
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     //pid
@@ -270,7 +277,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     }()
     
     
-    //댓글라인구분선 =====================================================
+    // =====================================================  댓글라인구분선  =====================================================
     var replyLine: UILabel = {
         let label = UILabel()
         label.text = "  댓글"
@@ -336,7 +343,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     //댓글 버튼 작동
     @objc func replyBtnAction(){
         print("댓글 버튼 작동 \(textFiedlView.text!)")
-
+        
         if(textFiedlView.text.count == 0){
             let alert = UIAlertController(title: "알림 ", message:"내용을 확인해주세요.", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
@@ -353,10 +360,6 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         let replyKey = ref.child("replys").childByAutoId().key
         print(replyKey)
-        //let following = ["following/\(key)" : self.user[indexPath.row].userID]
-        
-        //follwer 폴더에 랜덤key: 나의 id 추가
-        //let follower = ["follower/\(key)" : uid]
         
         //데이터 객체 만들기
         let replyInfo: [String:Any] = ["date" : ServerValue.timestamp(),
@@ -366,7 +369,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
                                        "rid": replyKey,
                                        "pid":pidLabel.text!]
         
-      
+        
         //해당 경로에 삽입
         replyRef.child(replyKey).setValue(replyInfo)
         
@@ -390,8 +393,8 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         replyToShow.uid = Auth.auth().currentUser?.uid
         
         self.replys.insert(replyToShow, at: 0) //
-        //============================================== 댓글 달때 초기에 0 이다. 처음 댓글 입력하면 +1 되게 해주는 로직 끝==================
-
+        //============================================== 댓글 달때 초기에 0 이다. 처음 댓글 입력하면 +1 되게 해주는 로직 끝 ==================
+        
         //ref.child("posts").child(pidLabel.text!).updateChildValues(["reply": replys.count])
         
         ref.removeAllObservers()
@@ -416,12 +419,21 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         return label
     }()
     
-    //진입점
+    // ======================================================        진입점        ======================================================
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "수다글"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(goTalkViewController))
+        
+        
+        print("로그인한 유저 아이디 \(Auth.auth().currentUser?.uid)")
+        print("현재 글쓴사람 유저 아이디 \(uidLabel.text)")
+        //로그인 한 유저의. id와 지금 쓴글의 사람의 uid와 같으면 오른쪽 설정바 보이게
+        if(Auth.auth().currentUser?.uid == uidLabel.text){
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "설정", style: .plain, target: self, action: #selector(goSettingAlertAction))
+        }
+        
         
         self.view.backgroundColor = UIColor.white
         
@@ -464,6 +476,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         uiScrollView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         //uiScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -3.0).isActive = true
         
+        uiScrollView.addSubview(uidLabel)
         uiScrollView.addSubview(pidLabel)
         uiScrollView.addSubview(nameLabel)
         uiScrollView.addSubview(txtLabel)
@@ -509,6 +522,10 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         pidLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         pidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
+        uidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
+        uidLabel.leadingAnchor.constraint(equalTo: pidLabel.trailingAnchor, constant: 15).isActive = true
+        uidLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        uidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
         
         replyLine.topAnchor.constraint(equalTo: hitLabel.bottomAnchor, constant: 35).isActive = true
@@ -574,57 +591,156 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             self.replys.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
             
             print("너 댓글 몃개니 \(Int(snapshot.childrenCount))")
-
+            
             if(Int(snapshot.childrenCount) == 0){
                 print(Int(snapshot.childrenCount))
-              self.replyCount = 0
+                self.replyCount = 0
                 ref.child("posts").child(self.pidLabel.text!).updateChildValues(["reply": self.replyCount])
                 
             }else{
-                 print(Int(snapshot.childrenCount))
-                  self.replyCount = Int(snapshot.childrenCount) //배열 총개수 할당
+                print(Int(snapshot.childrenCount))
+                self.replyCount = Int(snapshot.childrenCount) //배열 총개수 할당
                 ref.child("posts").child(self.pidLabel.text!).updateChildValues(["reply": self.replyCount])
                 
             }
-
+            
             for child in snapshot.children{
                 let replyToShow = Reply() //데이터를 담을 클래스
                 let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
                 
-       
-                    if let name = childValue["name"],  let date = childValue["date"], let rid = childValue["rid"], let text = childValue["text"], let pid = childValue["pid"],let uid = childValue["uid"]{
-                        
-                        //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
-                        if let t = date as? TimeInterval {
-                            let date = NSDate(timeIntervalSince1970: t/1000)
-                            print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
-                            let dayTimePeriodFormatter = DateFormatter()
-                            dayTimePeriodFormatter.dateFormat = "YYY-MMM-d hh:mm a"
-                            let dateString = dayTimePeriodFormatter.string(from: date as Date)
-                            replyToShow.date = dateString
-                        }
-                        replyToShow.name = name as? String
-                        replyToShow.rid = rid as? String
-                        replyToShow.text = text as? String
-                        replyToShow.pid = pid as? String
-                        replyToShow.uid = uid as? String
+                
+                if let name = childValue["name"],  let date = childValue["date"], let rid = childValue["rid"], let text = childValue["text"], let pid = childValue["pid"],let uid = childValue["uid"]{
+                    
+                    //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
+                    if let t = date as? TimeInterval {
+                        let date = NSDate(timeIntervalSince1970: t/1000)
+                        print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
+                        let dayTimePeriodFormatter = DateFormatter()
+                        dayTimePeriodFormatter.dateFormat = "YYY-MMM-d hh:mm a"
+                        let dateString = dayTimePeriodFormatter.string(from: date as Date)
+                        replyToShow.date = dateString
                     }
-                    self.replys.insert(replyToShow, at: 0) //
-           
+                    replyToShow.name = name as? String
+                    replyToShow.rid = rid as? String
+                    replyToShow.text = text as? String
+                    replyToShow.pid = pid as? String
+                    replyToShow.uid = uid as? String
+                }
+                self.replys.insert(replyToShow, at: 0) //
+                
             }
             self.replyView.reloadData()
         }
-
+        
         ref.removeAllObservers()
+    }
+    
+    
+    
+    //글 설정 네비게이션 바 버튼 아이템을 눌렀을 때
+    @objc func goSettingAlertAction(){
+        print(" 글 설정 얼러트 창 뛰우기")
+        let alertController = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .alert)
+        
+        let modifyAction = UIAlertAction(title: "글수정", style: .default) { (alert) in
+            print("댓글 수정")
+            
+            self.settingAlertAction(txt: self.txtLabel.text!, pid: self.pidLabel.text!)
+        }
+        
+        let deleteAction = UIAlertAction(title: "글삭제", style: .destructive) { (alert) in
+            
+            let xss = self.replyHitLabel.text?.characters.split(separator:" ").map{ String($0) }
+            let replyNum = Int(xss![0])!
+            //댓글이 없을 때만 본인의 글을 지울 수 있다.
+            if(replyNum == 0){
+                let ref = Database.database().reference()
+                ref.child("posts").child(self.pidLabel.text!).removeValue()
+                let alert = UIAlertController(title: "알림 ", message:"삭제되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
+                let alertAction = UIAlertAction(title: "확인", style: UIAlertActionStyle.default,handler: { (action) in
+                    self.navigationController?.popViewController(animated: true)
+                } )
+                
+                alert.addAction(alertAction)
+                self.present(alert, animated: true, completion: nil)
+            }else{
+                
+                let alert = UIAlertController(title: "알림 ", message:"댓글이 있는 글은 삭제할 수 없습니다.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (alert) in
+            print("취소")
+        }
+        
+        alertController.addAction(modifyAction)
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(
+            alertController,
+            animated: true,
+            completion: nil)
+        
+    }
+    
+    
+    //수다방 글 수정 alert controller 창
+    var modifyMainText:String?
+    func settingAlertAction(txt:String, pid:String)
+    {
+        
+        let alertController = UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        
+        let margin:CGFloat = 8.0
+        let rect = CGRect(margin, margin, alertController.view.bounds.size.width - margin * 15.0, 100.0)
+        let customView = UITextView(frame: rect)
+        
+        customView.backgroundColor = UIColor.clear
+        customView.font = UIFont(name: "Helvetica", size: 15)
+        customView.text = txt
+        alertController.view.addSubview(customView)
+        
+        let somethingAction = UIAlertAction(title: "수정", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in //print("something")
+            self.modifyText = customView.text
+            
+            let ref = Database.database().reference()
+            ref.child("posts").child(pid).updateChildValues(["text":self.modifyText,
+                                                         "date":ServerValue.timestamp()])
+            let alert = UIAlertController(title: "알림 ", message:"수정되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
+            let alertAction = UIAlertAction(title: "확인", style: UIAlertActionStyle.default,handler: { (action) in
+            self.navigationController?.popViewController(animated: true)
+            } )
+            
+            alert.addAction(alertAction)
+            self.present(alert, animated: true, completion: nil)
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+        
+        alertController.addAction(somethingAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion:{})
+        
+        
     }
     
 }
 
 
-
 extension CGRect {
     init(_ x:CGFloat, _ y:CGFloat, _ w:CGFloat, _ h:CGFloat) {
         self.init(x:x, y:y, width:w, height:h)
-}
+    }
 }
