@@ -11,6 +11,7 @@ import Firebase
 class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     var posts = [Post]()
+    var searchPosts = [Post]()
     let cellId = "cellId"
     
 
@@ -24,8 +25,15 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     //검색버튼 눌렀을 때
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchPosts.removeAll()
         print("서치바 \(String(describing: searchController.searchBar.text!))")
-        searchController.searchBar.text = ""
+        searchPosts = posts.filter({ (post) -> Bool in
+            guard let text = searchController.searchBar.text else{return false}
+            return post.text.contains(text)
+        })
+        self.tableView.reloadData()
+        print("필터 개수는? \(searchPosts.count)")
+        //searchController.searchBar.text = ""
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +44,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         super.viewDidLoad()
     
         
+        searchPosts.removeAll()
         searchController.searchBar.delegate = self
         
         //네비게이션 바 색깔 변경
@@ -91,6 +100,9 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     }
     //행 개수
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(searchController.isActive && searchController.searchBar.text != ""){
+            return searchPosts.count
+        }
         return posts.count
     }
     
@@ -98,20 +110,26 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TalkCell
         
-        print("cellForRowAt")
-         print(posts.count)
-        print(posts[indexPath.row].date)
-        print(posts[indexPath.row].name)
-        print(posts[indexPath.row].text)
-        print(posts[indexPath.row].hit)
         
-        cell?.txtLabel.text = posts[indexPath.row].text
-        cell?.hitLabel.text = "\(posts[indexPath.row].hit!) 번 읽음"
-        cell?.dateLabel.text = posts[indexPath.row].date
-        cell?.nameLabel.text = posts[indexPath.row].name
-        cell?.pidLabel.text = posts[indexPath.row].pid
-        cell?.replyHitLabel.text = "\(posts[indexPath.row].reply!) 개 댓글"
-        cell?.uidLabel.text = posts[indexPath.row].uid
+        if(searchController.isActive && searchController.searchBar.text != ""){
+           cell?.dateLabel.text = searchPosts[indexPath.row].date
+            cell?.nameLabel.text = searchPosts[indexPath.row].name
+            cell?.replyHitLabel.text = "\(searchPosts[indexPath.row].reply!) 개 댓글"
+            cell?.pidLabel.text = searchPosts[indexPath.row].pid
+            cell?.hitLabel.text = "\(searchPosts[indexPath.row].hit!) 번 읽음"
+            cell?.txtLabel.text = searchPosts[indexPath.row].text
+             cell?.uidLabel.text = searchPosts[indexPath.row].uid
+            
+        }else{
+            cell?.txtLabel.text = posts[indexPath.row].text
+            cell?.hitLabel.text = "\(posts[indexPath.row].hit!) 번 읽음"
+            cell?.dateLabel.text = posts[indexPath.row].date
+            cell?.nameLabel.text = posts[indexPath.row].name
+            cell?.pidLabel.text = posts[indexPath.row].pid
+            cell?.replyHitLabel.text = "\(posts[indexPath.row].reply!) 개 댓글"
+            cell?.uidLabel.text = posts[indexPath.row].uid
+            
+        }
         
         return cell!
     }
