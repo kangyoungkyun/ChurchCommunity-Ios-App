@@ -81,8 +81,12 @@ class NoticeViewController: UICollectionViewController,UICollectionViewDelegateF
         return 20
     }
     
+    //셀을 클릭했을 때
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("선택한 셀은 과연~! \(indexPath.row)")
+        let cell = collectionView.cellForItem(at: indexPath) as? NoticeCell
+        let nid = cell?.noticeLabel.text
+        print("선택된 사진의 id는 \(nid!) 입니다" )
     }
     
     
@@ -169,10 +173,6 @@ class NoticeViewController: UICollectionViewController,UICollectionViewDelegateF
     }
     
 }
-
-
-
-
 
 
 //이미지뷰 확장
