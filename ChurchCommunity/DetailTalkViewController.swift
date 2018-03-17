@@ -223,6 +223,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     //이름
     var nameLabel: UILabel = {
         let label = UILabel()
+        label.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         label.text = "이름"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false

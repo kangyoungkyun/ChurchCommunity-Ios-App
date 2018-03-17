@@ -12,6 +12,7 @@ class SignViewController: UIViewController {
     let mainTitle : UILabel = {
         let title =  UILabel()
         title.text = "아중감 청년부 가입"
+        title.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         title.font = UIFont.boldSystemFont(ofSize: 18)
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
@@ -40,7 +41,7 @@ class SignViewController: UIViewController {
     //이름 구분선 만들기
     let nameSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.lightGray
+        view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -60,7 +61,7 @@ class SignViewController: UIViewController {
     //이메일 구분선 만들기
     let emailSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.lightGray
+       view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -78,7 +79,7 @@ class SignViewController: UIViewController {
     //이메일 구분선 만들기
     let passwordSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.lightGray
+        view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

@@ -123,3 +123,55 @@ https://stackoverflow.com/questions/43153530/single-and-double-taps-on-uitablevi
 
 
 https://www.raywenderlich.com/category/ios
+
+
+
+
+
+
+
+
+
+
+
+//테이블 뷰 셀안에서 이름을 클릭했을때 델리게이트 지정해주는 법
+// 1.
+protocol PlayVideoCellProtocol {
+func playVideoButtonDidSelect()
+}
+
+class TableViewCell {
+// ...
+
+// 2.
+var delegate: PlayVideoCellProtocol!
+
+// 3.
+@IBAction func playVideo(sender: AnyObject) {
+self.delegate.playVideoButtonDidSelect()
+}
+
+// ...
+}
+
+
+class TableViewController: SuperClass, PlayVideoCellProtocol {
+
+// ...
+
+// 4.
+func playVideoButtonDidSelect() {
+let viewController = ViewController() // Or however you want to create it.
+self.presentViewController(viewController, animated: true, completion: nil)
+}
+
+func tableView(tableView: UITableView, cellForRowAtIndexPath: NSIndexPath) -> UITableViewCell {
+//... Your cell configuration
+
+// 5.
+cell.delegate = self
+
+//...
+}
+//...
+}

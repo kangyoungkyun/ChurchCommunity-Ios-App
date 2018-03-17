@@ -53,6 +53,9 @@
 		52A71211205CA41F00E43E8F /* addbtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A71210205CA41F00E43E8F /* addbtn.png */; };
 		52A71213205CA42D00E43E8F /* addpic.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A71212205CA42D00E43E8F /* addpic.png */; };
 		52A71215205CA43A00E43E8F /* addca.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A71214205CA43A00E43E8F /* addca.png */; };
+		52A71217205CC33500E43E8F /* UserPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A71216205CC33500E43E8F /* UserPageViewController.swift */; };
+		52A71219205CC44600E43E8F /* nopic.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A71218205CC44500E43E8F /* nopic.png */; };
+		52A7121B205CCE4800E43E8F /* Start1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52A7121A205CCE4800E43E8F /* Start1.jpg */; };
 		52C2EB4A205A5F53005B4904 /* AlertTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C2EB49205A5F53005B4904 /* AlertTableViewController.swift */; };
 		52C2EB4C205A674A005B4904 /* textAlert.txt in Resources */ = {isa = PBXBuildFile; fileRef = 52C2EB4B205A674A005B4904 /* textAlert.txt */; };
 		52D61220205640C500F6F031 /* read.txt in Resources */ = {isa = PBXBuildFile; fileRef = 52D6121F205640C500F6F031 /* read.txt */; };
@@ -108,6 +111,9 @@
 		52A71210205CA41F00E43E8F /* addbtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addbtn.png; sourceTree = "<group>"; };
 		52A71212205CA42D00E43E8F /* addpic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addpic.png; sourceTree = "<group>"; };
 		52A71214205CA43A00E43E8F /* addca.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addca.png; sourceTree = "<group>"; };
+		52A71216205CC33500E43E8F /* UserPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageViewController.swift; sourceTree = "<group>"; };
+		52A71218205CC44500E43E8F /* nopic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nopic.png; sourceTree = "<group>"; };
+		52A7121A205CCE4800E43E8F /* Start1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Start1.jpg; sourceTree = "<group>"; };
 		52C2EB49205A5F53005B4904 /* AlertTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewController.swift; sourceTree = "<group>"; };
 		52C2EB4B205A674A005B4904 /* textAlert.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = textAlert.txt; sourceTree = "<group>"; };
 		52D6121F205640C500F6F031 /* read.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = read.txt; sourceTree = "<group>"; };
@@ -199,6 +205,7 @@
 				52D6121F205640C500F6F031 /* read.txt */,
 				52C2EB4B205A674A005B4904 /* textAlert.txt */,
 				52A7120A205C9E1100E43E8F /* MyPageViewController.swift */,
+				52A71216205CC33500E43E8F /* UserPageViewController.swift */,
 			);
 			path = ChurchCommunity;
 			sourceTree = "<group>";
@@ -206,6 +213,8 @@
 		52858A622055EBDE005C9BB9 /* pic */ = {
 			isa = PBXGroup;
 			children = (
+				52A7121A205CCE4800E43E8F /* Start1.jpg */,
+				52A71218205CC44500E43E8F /* nopic.png */,
 				52A71214205CA43A00E43E8F /* addca.png */,
 				52A71212205CA42D00E43E8F /* addpic.png */,
 				52A71210205CA41F00E43E8F /* addbtn.png */,
@@ -339,11 +348,13 @@
 				52858A722055EC3F005C9BB9 /* ic_collections_3@.png in Resources */,
 				52858A792055EC5D005C9BB9 /* ic_done_3@.png in Resources */,
 				52858A8E20561228005C9BB9 /* GoogleService-Info.plist in Resources */,
+				52A7121B205CCE4800E43E8F /* Start1.jpg in Resources */,
 				52858A6C2055EC27005C9BB9 /* ic_chat_2@.png in Resources */,
 				52858A732055EC3F005C9BB9 /* ic_collections_2@.png in Resources */,
 				52A7120D205CA3FA00E43E8F /* addus.png in Resources */,
 				52858A782055EC5D005C9BB9 /* ic_done_2@.png in Resources */,
 				52A71213205CA42D00E43E8F /* addpic.png in Resources */,
+				52A71219205CC44600E43E8F /* nopic.png in Resources */,
 				52A71215205CA43A00E43E8F /* addca.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,6 +435,7 @@
 				520DFE092058A3A600AF5A2E /* DetailTalkViewController.swift in Sources */,
 				52858A4B2055E64D005C9BB9 /* MainViewController.swift in Sources */,
 				520E1B5F205A020800478F0F /* Reply.swift in Sources */,
+				52A71217205CC33500E43E8F /* UserPageViewController.swift in Sources */,
 				52858A5D2055E83C005C9BB9 /* MemoryViewController.swift in Sources */,
 				52299E5B205B6F9F00B9D118 /* Notices.swift in Sources */,
 				52858A492055E64D005C9BB9 /* AppDelegate.swift in Sources */,

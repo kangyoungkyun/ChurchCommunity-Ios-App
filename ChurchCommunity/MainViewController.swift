@@ -19,6 +19,7 @@ class MainViewController: UIViewController {
         let title =  UILabel()
         title.text = "아중감 청년부 로그인"
         title.font = UIFont.boldSystemFont(ofSize: 18)
+        title.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
@@ -47,7 +48,7 @@ class MainViewController: UIViewController {
     //이메일 구분선 만들기
     let emailSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.lightGray
+       view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -65,7 +66,7 @@ class MainViewController: UIViewController {
     //이메일 구분선 만들기
     let passwordSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.lightGray
+        view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -148,6 +149,7 @@ class MainViewController: UIViewController {
     let signButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("처음이세요? 가입하러가기", for: UIControlState())
+        //button.setTitleColor(UIColor, for: <#T##UIControlState#>)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         button.addTarget(self, action: #selector(signAction), for: .touchUpInside)

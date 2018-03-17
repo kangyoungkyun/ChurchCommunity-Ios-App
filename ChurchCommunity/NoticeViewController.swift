@@ -43,6 +43,7 @@ class NoticeViewController: UICollectionViewController,UICollectionViewDelegateF
         }
         self.collectionView!.register(NoticeCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView?.backgroundColor = UIColor.white
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "로그아웃", style: .plain, target: self, action: #selector(logoutAction))
         
         showNotice()
     }
@@ -89,7 +90,7 @@ class NoticeViewController: UICollectionViewController,UICollectionViewDelegateF
         print("선택된 사진의 id는 \(nid!) 입니다" )
     }
     
-    
+    //사진 추가 네비게이션 바 버튼 클릭
     @objc func addNoticePick(){
         
         picker.allowsEditing = true
@@ -171,6 +172,20 @@ class NoticeViewController: UICollectionViewController,UICollectionViewDelegateF
         }
         ref.removeAllObservers()
     }
+    
+    //로그아웃
+    @objc func logoutAction(){
+        
+         let firebaseAuth = Auth.auth()
+         do {
+         try firebaseAuth.signOut()
+         self.dismiss(animated: true, completion: nil)
+         } catch let signOutError as NSError {
+         print ("Error signing out: %@", signOutError)
+         }
+        
+    }
+    
     
 }
 

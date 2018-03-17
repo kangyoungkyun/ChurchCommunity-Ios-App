@@ -8,19 +8,31 @@
 
 import UIKit
 import Firebase
-class TalkViewController: UITableViewController,UISearchBarDelegate {
+class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCellProtocol {
+    
+        //테이블 뷰 셀에서 이름이 클릭되었을 때
+    func userClickCell(uid: String) {
+        
+        let viewController = UserPageViewController()
+       viewController.userUid = uid
+        //userProfile 화면을 rootView로 만들어 주기
+        navigationController?.pushViewController(viewController, animated: true)
+        }
+
+  
+    
     
     var posts = [Post]()
     var searchPosts = [Post]()
     let cellId = "cellId"
     
-
+    
     
     let searchController : UISearchController = {
-      let uisearchController = UISearchController(searchResultsController: nil)
+        let uisearchController = UISearchController(searchResultsController: nil)
         uisearchController.searchBar.placeholder = "검색"
         //uisearchController.searchBar.barTintColor = UIColor.white
-      uisearchController.searchBar.backgroundColor =  UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        uisearchController.searchBar.backgroundColor =  UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         return uisearchController
     }()
     
@@ -43,7 +55,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         tableView.separatorColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         searchPosts.removeAll()
         searchController.searchBar.delegate = self
@@ -58,8 +70,8 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = searchController
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "MY", style: .plain, target: self, action: #selector(logoutAction))
-      
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "MY", style: .plain, target: self, action: #selector(myPageAction))
+        
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "글쓰기", style: .plain, target: self, action: #selector(writeAction))
         
@@ -74,8 +86,8 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         //showPost()
     }
     
-    //로그아웃
-    @objc func logoutAction(){
+    //마이 페이지
+    @objc func myPageAction(){
         
         
         let myPageView = MyPageViewController()
@@ -84,14 +96,14 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         present(navController, animated: true, completion: nil)
         
         /*
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-            self.dismiss(animated: true, completion: nil)
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }*/
-    
+         let firebaseAuth = Auth.auth()
+         do {
+         try firebaseAuth.signOut()
+         self.dismiss(animated: true, completion: nil)
+         } catch let signOutError as NSError {
+         print ("Error signing out: %@", signOutError)
+         }*/
+        
     }
     
     //글쓰기
@@ -106,7 +118,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-       
+        
         return 1
     }
     //행 개수
@@ -119,20 +131,25 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     //테이블 뷰 셀의 구성 및 데이터 할당 부분
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TalkCell
+        
+        cell?.delegate = self
+        
         //cell 클릭했을 때 색깔 바꿔주기
         let bgColorView = UIView()
         bgColorView.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         cell?.selectedBackgroundView = bgColorView
         
         if(searchController.isActive && searchController.searchBar.text != ""){
-           cell?.dateLabel.text = searchPosts[indexPath.row].date
+            cell?.dateLabel.text = searchPosts[indexPath.row].date
             cell?.nameLabel.text = searchPosts[indexPath.row].name
             cell?.replyHitLabel.text = "\(searchPosts[indexPath.row].reply!) 개 댓글"
             cell?.pidLabel.text = searchPosts[indexPath.row].pid
             cell?.hitLabel.text = "\(searchPosts[indexPath.row].hit!) 번 읽음"
             cell?.txtLabel.text = searchPosts[indexPath.row].text
-             cell?.uidLabel.text = searchPosts[indexPath.row].uid
+            cell?.uidLabel.text = searchPosts[indexPath.row].uid
             
         }else{
             cell?.txtLabel.text = posts[indexPath.row].text
@@ -156,10 +173,10 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     //셀을 클릭했을 때
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
+        
         
         print("셀 클릭")
-       
+        
         //선택한 셀 정보 가져오기
         let cell = tableView.cellForRow(at: indexPath) as? TalkCell
         
@@ -179,12 +196,12 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         let replyHitLabel = cell?.replyHitLabel.text
         let uid = cell?.uidLabel.text
         
-      
+        
         //조회수 문자를 배열로 변경
         let xs = hit!.characters.split(separator:" ").map{ String($0) }
         let hitNum = Int(xs[0])! + 1
         
-       //fb db 연결 후 posts 테이블에 key가 pid인 데이터의 hit 개수 변경해주기
+        //fb db 연결 후 posts 테이블에 key가 pid인 데이터의 hit 개수 변경해주기
         let hiting = ["hit" : hitNum]
         //여기가 문제
         let ref = Database.database().reference()
@@ -225,7 +242,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
                 
                 
                 if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"], let reply = childValue["reply"] {
-
+                    
                     print("hit: \(hit)")
                     //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
                     if let t = date as? TimeInterval {
@@ -247,9 +264,9 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
             }
             self.tableView.reloadData()
         }
-     
+        
         ref.removeAllObservers()
-}
-
+    }
+    
 }
 

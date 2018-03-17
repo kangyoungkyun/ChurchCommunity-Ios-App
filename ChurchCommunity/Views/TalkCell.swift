@@ -6,9 +6,17 @@
 //  Copyright © 2018년 MacBookPro. All rights reserved.
 //
 
+// 1.
+protocol userClickCellProtocol {
+    func userClickCell(uid: String)
+}
+
+
 import UIKit
 
 class TalkCell: UITableViewCell {
+    
+    var delegate: userClickCellProtocol!
     
     //uid
     var uidLabel: UILabel = {
@@ -31,14 +39,30 @@ class TalkCell: UITableViewCell {
     }()
     
     //이름
-    var nameLabel: UILabel = {
+    lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "이름"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        
+        
+        //이미지 터치 하면 이벤트 발생하게
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectName))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tapGesture)
+        
         return label
     }()
+    
+    //이름이 클릭되었을 때
+    @objc func handleSelectName(){
+        print("이름이 클릭되었어요 \(String(describing: nameLabel.text))")
+        print("id가 클릭되었어요 \(String(describing: uidLabel.text))")
+        self.delegate.userClickCell(uid: uidLabel.text!)
+        
+    }
+    
     //텍스트
     var txtLabel: UILabel = {
         let label = UILabel()
