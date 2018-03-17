@@ -10,6 +10,10 @@ import UIKit
 import Firebase
 class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCellProtocol {
     
+    
+var activityIndicatorView: UIActivityIndicatorView!
+    
+    
         //테이블 뷰 셀에서 이름이 클릭되었을 때
     func userClickCell(uid: String) {
         
@@ -46,16 +50,37 @@ class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCel
         //searchController.searchBar.text = ""
     }
     
-    //override func viewWillAppear(_ animated: Bool) {
-        
-     
-        
-    //}
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        showPost()
         
+
+        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(activityIndicatorView)
+        activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: -60).isActive = true
+        activityIndicatorView.bringSubview(toFront: self.view)
+        activityIndicatorView.startAnimating()
+        tableView.separatorStyle = .none
+        
+        print("start 인디케이터")
+        
+        DispatchQueue.main.async {
+             print("start DispatchQueue")
+            OperationQueue.main.addOperation() {
+                 print("start OperationQueue")
+                self.tableView.separatorStyle = .singleLine
+                 Thread.sleep(forTimeInterval: 1.5)
+                   print("start forTimeInterval")
+                self.activityIndicatorView.stopAnimating()
+                self.tableView.reloadData()
+            }
+        }
+        
+
+        showPost()
         tableView.separatorColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         searchPosts.removeAll()
         searchController.searchBar.delegate = self
@@ -79,7 +104,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCel
         //self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 5, 0);
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
-        
+          print("end view didLoad")
     }
     
     //마이 페이지
@@ -223,8 +248,8 @@ class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCel
     
     //포스트 조회 함수
     func showPost(){
-       AppDelegate.instance().showActivityIndicator()
-        print("showpost")
+       //AppDelegate.instance().showActivityIndicator()
+            print("start showPost")
         let ref = Database.database().reference()
         ref.child("posts").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
             self.posts.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
@@ -257,9 +282,12 @@ class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCel
                 self.posts.insert(postToShow, at: 0) //
             }
             self.tableView.reloadData()
+            
         }
-        AppDelegate.instance().dissmissActivityIndicator()
-        ref.removeAllObservers()
+       
+       
+        print("end showPost")
+        //activityIndicatorView.stopAnimating()
     }
     
 }

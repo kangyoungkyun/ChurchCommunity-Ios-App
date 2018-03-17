@@ -323,3 +323,43 @@ print("성공")
 }
 
 }
+
+
+
+
+
+
+//파이어베이스에 사진 여러장 업로드
+https://stackoverflow.com/questions/37769701/uploading-multiple-images-simultaneously-with-google-firebase
+
+
+
+
+
+//테이블 뷰 인디케이터
+
+var activityIndicatorView: UIActivityIndicatorView!
+
+
+activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+self.view.addSubview(activityIndicatorView)
+activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: -60).isActive = true
+activityIndicatorView.bringSubview(toFront: self.view)
+activityIndicatorView.startAnimating()
+tableView.separatorStyle = .none
+
+print("start 인디케이터")
+
+DispatchQueue.main.async {
+print("start DispatchQueue")
+OperationQueue.main.addOperation() {
+print("start OperationQueue")
+self.tableView.separatorStyle = .singleLine
+Thread.sleep(forTimeInterval: 1.5)
+print("start forTimeInterval")
+self.activityIndicatorView.stopAnimating()
+self.tableView.reloadData()
+}
+}

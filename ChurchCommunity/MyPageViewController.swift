@@ -30,7 +30,7 @@ import Firebase
 import UIKit
 
 class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource{
-    
+    var activityIndicatorView: UIActivityIndicatorView!
     var birthData = [birthDate]()
     
     //피커뷰 개수
@@ -256,12 +256,32 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         //저장 바 버튼
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_save.png"), style: .plain, target: self, action:  #selector(editAction))
         
+        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(activityIndicatorView)
+        activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: -60).isActive = true
+        activityIndicatorView.bringSubview(toFront: self.view)
+        activityIndicatorView.startAnimating()
+      
+        print("start 인디케이터")
         
+        DispatchQueue.main.async {
+            print("start DispatchQueue")
+            OperationQueue.main.addOperation() {
+                print("start OperationQueue")
+               
+                Thread.sleep(forTimeInterval: 1.9)
+                print("start forTimeInterval")
+                self.activityIndicatorView.stopAnimating()
+                
+            }
+        }
         
         
         view.backgroundColor = UIColor.white
         
-        AppDelegate.instance().showActivityIndicator()
+       
         
         self.view.addSubview(nameLabel)
         self.view.addSubview(emailLabel)
@@ -323,7 +343,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
             self.birthTextField.resignFirstResponder()
             self.self.nameTextField.resignFirstResponder()
             self.self.mesageTextField.resignFirstResponder()
-            AppDelegate.instance().dissmissActivityIndicator()
+           
         })
         
         self.present(alert, animated: true, completion: nil)
@@ -369,7 +389,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
     }
     
     func uploadAction(image:UIImage){
-        AppDelegate.instance().showActivityIndicator()
+       
         print("사진 업로드 입니다.")
         let noticsRef = storage.reference().child("users")
         let ref = Database.database().reference()
@@ -401,7 +421,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
             })
         })
         uploadTask.resume()
-        AppDelegate.instance().dissmissActivityIndicator()
+       
     }
     
     
@@ -503,7 +523,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         }
         ref.removeAllObservers()
         //인디케이터 끝
-        AppDelegate.instance().dissmissActivityIndicator()
+      
     }
     
     

@@ -12,6 +12,8 @@ private let reuseIdentifier = "Cell"
 
 class NoticeViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+var activityIndicatorView: UIActivityIndicatorView!
+    
     var notices = [Notices]()
     //사진 라이브러리 객체
     let picker = UIImagePickerController()
@@ -25,6 +27,30 @@ class NoticeViewController: UICollectionViewController,UICollectionViewDelegateF
     override func viewDidLoad() {
         super.viewDidLoad()
         picker.delegate = self
+        
+        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(activityIndicatorView)
+        activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: -60).isActive = true
+        activityIndicatorView.bringSubview(toFront: self.view)
+        activityIndicatorView.startAnimating()
+        
+        
+        print("start 인디케이터")
+        
+        DispatchQueue.main.async {
+            print("start DispatchQueue")
+            OperationQueue.main.addOperation() {
+                print("start OperationQueue")
+               
+                Thread.sleep(forTimeInterval: 2.0)
+                print("start forTimeInterval")
+                self.activityIndicatorView.stopAnimating()
+                self.collectionView?.reloadData()
+            }
+        }
+        
         
         //firebase 데이터 베이스 초기화
         ref = Database.database().reference()
@@ -144,6 +170,7 @@ class NoticeViewController: UICollectionViewController,UICollectionViewDelegateF
     
     
     func showNotice(){
+       
         let ref = Database.database().reference()
         ref.child("notics").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
             self.notices.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
@@ -171,6 +198,7 @@ class NoticeViewController: UICollectionViewController,UICollectionViewDelegateF
             self.collectionView?.reloadData()
         }
         ref.removeAllObservers()
+
     }
     
     //로그아웃

@@ -430,8 +430,6 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
 
  self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(goTalkViewController))
         
-        
-
 
         //로그인 한 유저의. id와 지금 쓴글의 사람의 uid와 같으면 오른쪽 설정바 보이게
         if(Auth.auth().currentUser?.uid == uidLabel.text){

@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "myCell"
 
 class MemoryViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout {
 
@@ -26,7 +26,7 @@ class MemoryViewController: UICollectionViewController,UICollectionViewDelegateF
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 3
+        return 2
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

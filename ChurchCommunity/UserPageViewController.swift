@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 class UserPageViewController: UIViewController {
-
+ var activityIndicatorView: UIActivityIndicatorView!
     
     var userUid: String?
     
@@ -148,6 +148,28 @@ class UserPageViewController: UIViewController {
         
         view.backgroundColor = UIColor.white
         
+        
+        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(activityIndicatorView)
+        activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: -80).isActive = true
+        activityIndicatorView.bringSubview(toFront: self.view)
+        activityIndicatorView.startAnimating()
+        
+        print("start 인디케이터")
+        
+        DispatchQueue.main.async {
+            print("start DispatchQueue")
+            OperationQueue.main.addOperation() {
+                print("start OperationQueue")
+                
+                Thread.sleep(forTimeInterval: 1.9)
+                print("start forTimeInterval")
+                self.activityIndicatorView.stopAnimating()
+                
+            }
+        }
         
         self.view.addSubview(nameLabel)
 
