@@ -44,7 +44,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        
+        tableView.separatorColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         searchPosts.removeAll()
         searchController.searchBar.delegate = self
         
@@ -58,7 +58,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = searchController
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "logout", style: .plain, target: self, action: #selector(logoutAction))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "MY", style: .plain, target: self, action: #selector(logoutAction))
       
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "글쓰기", style: .plain, target: self, action: #selector(writeAction))
@@ -76,13 +76,22 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     //로그아웃
     @objc func logoutAction(){
+        
+        
+        let myPageView = MyPageViewController()
+        //글쓰기 화면을 rootView로 만들어 주기
+        let navController = UINavigationController(rootViewController: myPageView)
+        present(navController, animated: true, completion: nil)
+        
+        /*
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
             self.dismiss(animated: true, completion: nil)
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
-        }
+        }*/
+    
     }
     
     //글쓰기

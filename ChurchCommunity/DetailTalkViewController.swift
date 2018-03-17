@@ -73,8 +73,8 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         let somethingAction = UIAlertAction(title: "수정", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in //print("something")
             self.modifyText = customView.text
             let ref = Database.database().reference()
-            print("수정된 글은~? \(self.modifyText)")
-            ref.child("replys").child(self.pidLabel.text!).child(rid).updateChildValues(["text":self.modifyText,
+            //print("수정된 글은~? \(self.modifyText)")
+            ref.child("replys").child(self.pidLabel.text!).child(rid).updateChildValues(["text":self.modifyText ?? "",
                                                                                          "date":ServerValue.timestamp()])
             
         })
@@ -317,14 +317,16 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     let textFiedlView : UITextView = {
         let tf = UITextView()
         //tf.backgroundColor = UIColor.brown
-        tf.backgroundColor = UIColor.lightGray
+        tf.backgroundColor = UIColor.lightGray.withAlphaComponent(0.48)
+
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.autocorrectionType = .no
         tf.autocapitalizationType = .none
         tf.tintColor = .black
         tf.font = UIFont.systemFont(ofSize: 16)
-        tf.alpha = 0.2
+        //tf.alpha = 0.5
         tf.textColor = .black
+    
         //키보드 항상 보이게
         //tf.becomeFirstResponder()
         return tf
@@ -364,8 +366,8 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         //데이터 객체 만들기
         let replyInfo: [String:Any] = ["date" : ServerValue.timestamp(),
                                        "text" : textFiedlView.text!,
-                                       "name" : Auth.auth().currentUser?.displayName,
-                                       "uid" : Auth.auth().currentUser?.uid,
+                                       "name" : Auth.auth().currentUser?.displayName ?? "",
+                                       "uid" : Auth.auth().currentUser?.uid ?? "",
                                        "rid": replyKey,
                                        "pid":pidLabel.text!]
         
@@ -591,12 +593,12 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             if(Int(snapshot.childrenCount) == 0){
                 print(Int(snapshot.childrenCount))
                 self.replyCount = 0
-                ref.child("posts").child(self.pidLabel.text!).updateChildValues(["reply": self.replyCount])
+                ref.child("posts").child(self.pidLabel.text!).updateChildValues(["reply": self.replyCount ?? 0])
                 
             }else{
                 print(Int(snapshot.childrenCount))
                 self.replyCount = Int(snapshot.childrenCount) //배열 총개수 할당
-                ref.child("posts").child(self.pidLabel.text!).updateChildValues(["reply": self.replyCount])
+                ref.child("posts").child(self.pidLabel.text!).updateChildValues(["reply": self.replyCount ?? 0])
                 
             }
             
@@ -710,7 +712,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             self.modifyText = customView.text
             
             let ref = Database.database().reference()
-            ref.child("posts").child(pid).updateChildValues(["text":self.modifyText,
+            ref.child("posts").child(pid).updateChildValues(["text":self.modifyText ?? "",
                                                          "date":ServerValue.timestamp()])
             let alert = UIAlertController(title: "알림 ", message:"수정되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
             let alertAction = UIAlertAction(title: "확인", style: UIAlertActionStyle.default,handler: { (action) in

@@ -48,6 +48,11 @@
 		52858A9020562515005C9BB9 /* HideKeyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A8F20562515005C9BB9 /* HideKeyBoard.swift */; };
 		52A6EF8B205C10AB00718863 /* start.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A6EF8A205C10AB00718863 /* start.png */; };
 		52A6EF8D205C121D00718863 /* start001.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A6EF8C205C121C00718863 /* start001.png */; };
+		52A7120B205C9E1100E43E8F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A7120A205C9E1100E43E8F /* MyPageViewController.swift */; };
+		52A7120D205CA3FA00E43E8F /* addus.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A7120C205CA3F900E43E8F /* addus.png */; };
+		52A71211205CA41F00E43E8F /* addbtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A71210205CA41F00E43E8F /* addbtn.png */; };
+		52A71213205CA42D00E43E8F /* addpic.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A71212205CA42D00E43E8F /* addpic.png */; };
+		52A71215205CA43A00E43E8F /* addca.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A71214205CA43A00E43E8F /* addca.png */; };
 		52C2EB4A205A5F53005B4904 /* AlertTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C2EB49205A5F53005B4904 /* AlertTableViewController.swift */; };
 		52C2EB4C205A674A005B4904 /* textAlert.txt in Resources */ = {isa = PBXBuildFile; fileRef = 52C2EB4B205A674A005B4904 /* textAlert.txt */; };
 		52D61220205640C500F6F031 /* read.txt in Resources */ = {isa = PBXBuildFile; fileRef = 52D6121F205640C500F6F031 /* read.txt */; };
@@ -98,6 +103,11 @@
 		52858A8F20562515005C9BB9 /* HideKeyBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyBoard.swift; sourceTree = "<group>"; };
 		52A6EF8A205C10AB00718863 /* start.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start.png; sourceTree = "<group>"; };
 		52A6EF8C205C121C00718863 /* start001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start001.png; sourceTree = "<group>"; };
+		52A7120A205C9E1100E43E8F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		52A7120C205CA3F900E43E8F /* addus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addus.png; sourceTree = "<group>"; };
+		52A71210205CA41F00E43E8F /* addbtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addbtn.png; sourceTree = "<group>"; };
+		52A71212205CA42D00E43E8F /* addpic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addpic.png; sourceTree = "<group>"; };
+		52A71214205CA43A00E43E8F /* addca.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addca.png; sourceTree = "<group>"; };
 		52C2EB49205A5F53005B4904 /* AlertTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewController.swift; sourceTree = "<group>"; };
 		52C2EB4B205A674A005B4904 /* textAlert.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = textAlert.txt; sourceTree = "<group>"; };
 		52D6121F205640C500F6F031 /* read.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = read.txt; sourceTree = "<group>"; };
@@ -188,6 +198,7 @@
 				520DFE082058A3A600AF5A2E /* DetailTalkViewController.swift */,
 				52D6121F205640C500F6F031 /* read.txt */,
 				52C2EB4B205A674A005B4904 /* textAlert.txt */,
+				52A7120A205C9E1100E43E8F /* MyPageViewController.swift */,
 			);
 			path = ChurchCommunity;
 			sourceTree = "<group>";
@@ -195,6 +206,10 @@
 		52858A622055EBDE005C9BB9 /* pic */ = {
 			isa = PBXGroup;
 			children = (
+				52A71214205CA43A00E43E8F /* addca.png */,
+				52A71212205CA42D00E43E8F /* addpic.png */,
+				52A71210205CA41F00E43E8F /* addbtn.png */,
+				52A7120C205CA3F900E43E8F /* addus.png */,
 				52A6EF8A205C10AB00718863 /* start.png */,
 				52A6EF8C205C121C00718863 /* start001.png */,
 				52858A892055FA28005C9BB9 /* main_pick.png */,
@@ -320,12 +335,16 @@
 				52858A4E2055E64D005C9BB9 /* Main.storyboard in Resources */,
 				52858A842055ED5D005C9BB9 /* ic_view_headline_2x.png in Resources */,
 				52858A6D2055EC27005C9BB9 /* ic_chat_3@.png in Resources */,
+				52A71211205CA41F00E43E8F /* addbtn.png in Resources */,
 				52858A722055EC3F005C9BB9 /* ic_collections_3@.png in Resources */,
 				52858A792055EC5D005C9BB9 /* ic_done_3@.png in Resources */,
 				52858A8E20561228005C9BB9 /* GoogleService-Info.plist in Resources */,
 				52858A6C2055EC27005C9BB9 /* ic_chat_2@.png in Resources */,
 				52858A732055EC3F005C9BB9 /* ic_collections_2@.png in Resources */,
+				52A7120D205CA3FA00E43E8F /* addus.png in Resources */,
 				52858A782055EC5D005C9BB9 /* ic_done_2@.png in Resources */,
+				52A71213205CA42D00E43E8F /* addpic.png in Resources */,
+				52A71215205CA43A00E43E8F /* addca.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5242FF9320573A5800548FD4 /* WriteViewController.swift in Sources */,
+				52A7120B205C9E1100E43E8F /* MyPageViewController.swift in Sources */,
 				5242FF9720576FFD00548FD4 /* Post.swift in Sources */,
 				520E1B64205A171D00478F0F /* ReplyCell.swift in Sources */,
 				52858A882055F524005C9BB9 /* SignViewController.swift in Sources */,
