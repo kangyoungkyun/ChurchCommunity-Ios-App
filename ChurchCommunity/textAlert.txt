@@ -80,6 +80,10 @@ present(ac, animated: true)
 
 
 
+
+
+
+
 extension CGRect {
 init(_ x:CGFloat, _ y:CGFloat, _ w:CGFloat, _ h:CGFloat) {
 self.init(x:x, y:y, width:w, height:h)
@@ -175,3 +179,45 @@ cell.delegate = self
 }
 //...
 }
+
+
+
+
+
+
+//완료되면 textfield 커서 사라지고, 키보드 내리기
+self.birthTextField.selectedTextRange = nil
+self.self.nameTextField.selectedTextRange = nil
+self.self.mesageTextField.selectedTextRange = nil
+
+self.birthTextField.resignFirstResponder()
+self.self.nameTextField.resignFirstResponder()
+self.self.mesageTextField.resignFirstResponder()
+
+
+
+
+
+
+//alercontroller안에 피커뷰 넣기
+
+
+let message = "\n\n\n\n\n\n"
+let alert = UIAlertController(title: "Please Select City", message: message, preferredStyle: UIAlertControllerStyle.actionSheet)
+alert.isModalInPopover = true
+
+let pickerFrame = UIPickerView(frame: CGRect(x: 5, y: 20, width: SCREEN_WIDTH - 20, height: 140)) // CGRectMake(left, top, width, height) - left and top are like margins
+pickerFrame.tag = 555
+//set the pickers datasource and delegate
+pickerFrame.delegate = self
+
+//Add the picker to the alert controller
+alert.view.addSubview(pickerFrame)
+let okAction = UIAlertAction(title: "OK", style: .default, handler: {
+(alert: UIAlertAction!) -> Void in
+//Perform Action
+})
+alert.addAction(okAction)
+let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+alert.addAction(cancelAction)
+self.parent!.present(alert, animated: true, completion: { _ in })

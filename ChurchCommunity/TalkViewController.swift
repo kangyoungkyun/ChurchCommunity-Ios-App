@@ -19,13 +19,10 @@ class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCel
         navigationController?.pushViewController(viewController, animated: true)
         }
 
-  
-    
-    
+
     var posts = [Post]()
     var searchPosts = [Post]()
     let cellId = "cellId"
-    
     
     
     let searchController : UISearchController = {
@@ -39,18 +36,20 @@ class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCel
     //검색버튼 눌렀을 때
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchPosts.removeAll()
-        print("서치바 \(String(describing: searchController.searchBar.text!))")
+        //print("서치바 \(String(describing: searchController.searchBar.text!))")
         searchPosts = posts.filter({ (post) -> Bool in
             guard let text = searchController.searchBar.text else{return false}
             return post.text.contains(text)
         })
         self.tableView.reloadData()
-        print("필터 개수는? \(searchPosts.count)")
+       // print("필터 개수는? \(searchPosts.count)")
         //searchController.searchBar.text = ""
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         showPost()
+        
     }
     
     override func viewDidLoad() {
@@ -230,6 +229,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCel
     
     //포스트 조회 함수
     func showPost(){
+       AppDelegate.instance().showActivityIndicator()
         print("showpost")
         let ref = Database.database().reference()
         ref.child("posts").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
@@ -243,11 +243,11 @@ class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCel
                 
                 if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"], let reply = childValue["reply"] {
                     
-                    print("hit: \(hit)")
+                    //print("hit: \(hit)")
                     //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
                     if let t = date as? TimeInterval {
                         let date = NSDate(timeIntervalSince1970: t/1000)
-                        print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
+                       // print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
                         let dayTimePeriodFormatter = DateFormatter()
                         dayTimePeriodFormatter.dateFormat = "YYY-MMM-d hh:mm a"
                         let dateString = dayTimePeriodFormatter.string(from: date as Date)
@@ -264,8 +264,9 @@ class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCel
             }
             self.tableView.reloadData()
         }
-        
+        AppDelegate.instance().dissmissActivityIndicator()
         ref.removeAllObservers()
+        
     }
     
 }

@@ -5,6 +5,16 @@
 //  Created by MacBookPro on 2018. 3. 17..
 //  Copyright © 2018년 MacBookPro. All rights reserved.
 //
+
+class birthDate {
+    var month : [String]
+    var days: [String]
+    init(month: [String], days:[String]){
+        self.month = month
+        self.days = days
+    }
+}
+
 extension UIImageView {
     
     func roundedImage() {
@@ -19,7 +29,46 @@ extension UIImageView {
 import Firebase
 import UIKit
 
-class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource{
+    
+    var birthData = [birthDate]()
+    
+    //피커뷰 개수
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+    
+    //피커뷰의 각 행개수
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if component == 0 {
+            return birthData[0].month.count
+        }else{
+            return birthData[0].days.count
+        }
+    }
+    //피커뷰의 데이터 넣기
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if component == 0 {
+            return birthData[0].month[row]
+        }else{
+            return birthData[0].days[row]
+        }
+    }
+    //해당 피커뷰를 선택했을 때
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        pickerView.reloadComponent(1)
+        
+        let selectedMonth = pickerView.selectedRow(inComponent: 0)
+        let selectedDay = pickerView.selectedRow(inComponent: 1)
+        let months = birthData[0].month[selectedMonth]
+        let day = birthData[0].days[selectedDay]
+        
+        birthTextField.text = "\(months) \(day)"
+    }
+    
+    
+    
+    
     let storage = Storage.storage()
     //이름
     var nameLabel: UILabel = {
@@ -35,7 +84,6 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
     //이메일
     var emailLabel: UILabel = {
         let label = UILabel()
-       
         label.text = "Email"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -100,12 +148,47 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
     }()
     //==================================================================================
     //생일 텍스트 필드
-    let birthTextField : UITextField = {
+    lazy var birthTextField : UITextField = {
         let tf = UITextField()
-        tf.placeholder = "12월 11일"
+        tf.placeholder = "생일을 지정해주세요."
         tf.translatesAutoresizingMaskIntoConstraints = false
+        //tf.isEnabled = false
+        
+        //생일 텍스트 필드 이벤트 발생하게
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectBirth))
+        tf.isUserInteractionEnabled = true
+        tf.addGestureRecognizer(tapGesture)
+        
         return tf
     }()
+    
+    //생일란을 선택했을 때 발생하는 이벤트
+    @objc func handleSelectBirth (){
+       // print("생일 이벤트~!")
+        let message = "\n\n\n\n\n\n"
+        let alert = UIAlertController(title: "태어난 달과 일을 선택해주세요.", message: message, preferredStyle: UIAlertControllerStyle.actionSheet)
+        alert.isModalInPopover = true
+        
+        
+        let pickerFrame = UIPickerView() // CGRectMake(left, top, width, height) - left and top are like margins
+ 
+        //set the pickers datasource and delegate
+        pickerFrame.delegate = self
+        pickerFrame.dataSource = self
+        
+        
+        //Add the picker to the alert controller
+        alert.view.addSubview(pickerFrame)
+
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.parent!.present(alert, animated: true) {
+            print("성공")
+
+        }
+        
+    }
+    
     //생일 구분선 만들기
     let birthSeperatorView : UIView = {
         let view = UIView()
@@ -144,9 +227,6 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         imageView.image = UIImage(named: "addpic.png")
         
         
-        //imageView.roundedImage()
-        
-        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         
@@ -157,22 +237,14 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         return imageView
     }()
     
+    //마이페이지 사진 동그랗게
     override func viewWillLayoutSubviews() {
         profileImageView.roundedImage()
     }
     
     
-    /*
-     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
-     self.profileImageView.clipsToBounds = YES;
-     */
-    override func viewWillAppear(_ animated: Bool) {
-        //profileImageView.roundedImage()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //profileImageView.roundedImage()
         //바탕화면 누르면 키보드 숨기기
         hideKeyboard()
         self.navigationController?.navigationBar.tintColor = .white
@@ -182,10 +254,11 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(cancelAction))
         
         //완료 바 버튼
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "설정", style: .plain, target: self, action: #selector(settingAction))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(editAction))
         
         view.backgroundColor = UIColor.white
         
+        AppDelegate.instance().showActivityIndicator()
         
         self.view.addSubview(nameLabel)
         self.view.addSubview(emailLabel)
@@ -205,8 +278,18 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         self.view.addSubview(profileImageView)
         
         
+        self.nameTextField.delegate = self
+        self.birthTextField.delegate = self
+        self.mesageTextField.delegate = self
+        
         showMyUserData()
         setLayout()
+        
+        
+        //생일 더미 데이터 넣어주기
+        birthData.append(birthDate(month: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+                                   days: ["1일","2일","3일","4일","5일","6일","7일","8일","9일","10일","11일","12일","13일","14일","15일","16일","17일","18일",
+                                          "19일","20일","21일","22일","23일","24일","25일","26일","27일","28일","29일","30일","31일"]))
         
     }
     
@@ -216,10 +299,32 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         self.dismiss(animated: true, completion: nil)
     }
     
-    //설정
-    @objc func settingAction(){
+    //수정 및 저장
+    @objc func editAction(){
+        AppDelegate.instance().showActivityIndicator()
         print("settingAction")
-        //self.dismiss(animated: true, completion: nil)
+        let key = Auth.auth().currentUser?.uid
+        let ref = Database.database().reference()
+        ref.child("users").child(key!).updateChildValues(["name" : nameTextField.text!,
+                                                          "msg":mesageTextField.text!,
+                                                          "birth":birthTextField.text!])
+        let alert = UIAlertController(title: "알림 ", message:"프로필 변경완료", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "알림", style: .default) { (alert) in
+            
+            
+            //완료되면 textfield 커서 사라지고, 키보드 내리기
+            self.birthTextField.selectedTextRange = nil
+            self.self.nameTextField.selectedTextRange = nil
+            self.self.mesageTextField.selectedTextRange = nil
+            
+            self.birthTextField.resignFirstResponder()
+            self.self.nameTextField.resignFirstResponder()
+            self.self.mesageTextField.resignFirstResponder()
+            AppDelegate.instance().dissmissActivityIndicator()
+        })
+        
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     
@@ -261,6 +366,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
     }
     
     func uploadAction(image:UIImage){
+        AppDelegate.instance().showActivityIndicator()
         print("사진 업로드 입니다.")
         let noticsRef = storage.reference().child("users")
         let ref = Database.database().reference()
@@ -292,7 +398,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
             })
         })
         uploadTask.resume()
-        
+        AppDelegate.instance().dissmissActivityIndicator()
     }
     
     
@@ -312,7 +418,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         nameTextField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 2).isActive = true
         nameTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         //구분선
-        nameSeperatorView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor,constant:10).isActive = true
+        nameSeperatorView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor,constant:5).isActive = true
         nameSeperatorView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
         nameSeperatorView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         nameSeperatorView.heightAnchor.constraint(equalToConstant: 2).isActive = true
@@ -327,7 +433,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         emailTextField.leftAnchor.constraint(equalTo: emailLabel.rightAnchor, constant: 2).isActive = true
         emailTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         //구분선
-        emailSeperatorView.topAnchor.constraint(equalTo: emailLabel.bottomAnchor,constant:10).isActive = true
+        emailSeperatorView.topAnchor.constraint(equalTo: emailLabel.bottomAnchor,constant:5).isActive = true
         emailSeperatorView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
         emailSeperatorView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         emailSeperatorView.heightAnchor.constraint(equalToConstant: 2).isActive = true
@@ -341,7 +447,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         birthTextField.leftAnchor.constraint(equalTo: birthLabel.rightAnchor, constant: 2).isActive = true
         birthTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         //구분선
-        birthSeperatorView.topAnchor.constraint(equalTo: birthLabel.bottomAnchor,constant:10).isActive = true
+        birthSeperatorView.topAnchor.constraint(equalTo: birthLabel.bottomAnchor,constant:5).isActive = true
         birthSeperatorView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
         birthSeperatorView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         birthSeperatorView.heightAnchor.constraint(equalToConstant: 2).isActive = true
@@ -356,7 +462,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         mesageTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         
         //구분선
-        mesageSeperatorView.topAnchor.constraint(equalTo: mesageLabel.bottomAnchor,constant:10).isActive = true
+        mesageSeperatorView.topAnchor.constraint(equalTo: mesageLabel.bottomAnchor,constant:5).isActive = true
         mesageSeperatorView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
         mesageSeperatorView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         mesageSeperatorView.heightAnchor.constraint(equalToConstant: 2).isActive = true
@@ -365,7 +471,8 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
     
     //유저 가져오기
     func showMyUserData(){
-
+        //인디케이터 시작
+        
         let myEmail = Auth.auth().currentUser?.email
         let myKey = Auth.auth().currentUser?.uid
         let ref = Database.database().reference()
@@ -379,12 +486,23 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
                 self.profileImageView.downloadImage(from: childValue["imgurl"] as! String)
             }
             
-            self.nameTextField.text = childValue["name"] as! String
+            self.nameTextField.text = childValue["name"] as! String!
             self.emailTextField.text = myEmail
+            
+            if(childValue["birth"] as? String == nil && childValue["msg"] as? String == nil){
+                self.birthTextField.text = ""
+                self.mesageTextField.text = ""
+            }else{
+                self.birthTextField.text = childValue["birth"] as? String
+                self.mesageTextField.text = childValue["msg"] as? String
+            }
             
         }
         ref.removeAllObservers()
+        //인디케이터 끝
+        AppDelegate.instance().dissmissActivityIndicator()
     }
+    
     
     
     

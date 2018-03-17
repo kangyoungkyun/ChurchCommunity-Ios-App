@@ -149,7 +149,7 @@ class MainViewController: UIViewController {
     let signButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("처음이세요? 가입하러가기", for: UIControlState())
-        //button.setTitleColor(UIColor, for: <#T##UIControlState#>)
+      
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         button.addTarget(self, action: #selector(signAction), for: .touchUpInside)

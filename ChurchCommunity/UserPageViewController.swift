@@ -188,7 +188,7 @@ class UserPageViewController: UIViewController {
     
     func setLayout(){
         
-        profileImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 110).isActive = true
+        profileImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 95).isActive = true
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
@@ -202,7 +202,7 @@ class UserPageViewController: UIViewController {
         nameTextField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 2).isActive = true
         nameTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         //구분선
-        nameSeperatorView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor,constant:10).isActive = true
+        nameSeperatorView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor,constant:5).isActive = true
         nameSeperatorView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
         nameSeperatorView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         nameSeperatorView.heightAnchor.constraint(equalToConstant: 2).isActive = true
@@ -219,7 +219,7 @@ class UserPageViewController: UIViewController {
         birthTextField.leftAnchor.constraint(equalTo: birthLabel.rightAnchor, constant: 2).isActive = true
         birthTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         //구분선
-        birthSeperatorView.topAnchor.constraint(equalTo: birthLabel.bottomAnchor,constant:10).isActive = true
+        birthSeperatorView.topAnchor.constraint(equalTo: birthLabel.bottomAnchor,constant:5).isActive = true
         birthSeperatorView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
         birthSeperatorView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         birthSeperatorView.heightAnchor.constraint(equalToConstant: 2).isActive = true
@@ -234,7 +234,7 @@ class UserPageViewController: UIViewController {
         mesageTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         
         //구분선
-        mesageSeperatorView.topAnchor.constraint(equalTo: mesageLabel.bottomAnchor,constant:10).isActive = true
+        mesageSeperatorView.topAnchor.constraint(equalTo: mesageLabel.bottomAnchor,constant:5).isActive = true
         mesageSeperatorView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
         mesageSeperatorView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         mesageSeperatorView.heightAnchor.constraint(equalToConstant: 2).isActive = true
@@ -259,6 +259,18 @@ class UserPageViewController: UIViewController {
             
             self.nameTextField.text = childValue["name"] as! String
              self.navigationItem.title = "\(self.nameTextField.text!)"
+           
+            
+        
+            if(childValue["birth"] as? String == nil && childValue["msg"] as? String == nil){
+                self.birthTextField.text = ""
+                self.mesageTextField.text = ""
+            }else{
+                self.birthTextField.text = childValue["birth"] as? String
+                self.mesageTextField.text = childValue["msg"] as? String
+            }
+            
+            
             
         }
         ref.removeAllObservers()
