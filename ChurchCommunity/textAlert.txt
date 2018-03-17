@@ -221,3 +221,105 @@ alert.addAction(okAction)
 let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
 alert.addAction(cancelAction)
 self.parent!.present(alert, animated: true, completion: { _ in })
+
+
+
+
+
+
+
+//----------------- 멀티 피커뷰
+
+1.
+class birthDate {
+var month : [String]
+var days: [String]
+init(month: [String], days:[String]){
+self.month = month
+self.days = days
+}
+}
+
+2.
+UIPickerViewDelegate,UIPickerViewDataSource 상속
+
+3.데이터 담을 배열
+
+var birthData = [birthDate]()
+
+
+4. 반드시 구현해줘야하는 함수
+
+
+//피커뷰 개수
+func numberOfComponents(in pickerView: UIPickerView) -> Int {
+return 2
+}
+
+//피커뷰의 각 행개수
+func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+if component == 0 {
+return birthData[0].month.count
+}else{
+return birthData[0].days.count
+}
+}
+//피커뷰의 데이터 넣기
+func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+if component == 0 {
+return birthData[0].month[row]
+}else{
+return birthData[0].days[row]
+}
+}
+//해당 피커뷰를 선택했을 때
+func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+pickerView.reloadComponent(1)
+
+let selectedMonth = pickerView.selectedRow(inComponent: 0)
+let selectedDay = pickerView.selectedRow(inComponent: 1)
+let months = birthData[0].month[selectedMonth]
+let day = birthData[0].days[selectedDay]
+
+//텍스트에 뿌려주기
+birthTextField.text = "\(months) \(day)"
+}
+
+
+
+
+5.초기화때 데이터 만들어 주기
+//생일 더미 데이터 넣어주기
+birthData.append(birthDate(month: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+days: ["1일","2일","3일","4일","5일","6일","7일","8일","9일","10일","11일","12일","13일","14일","15일","16일","17일","18일",
+"19일","20일","21일","22일","23일","24일","25일","26일","27일","28일","29일","30일","31일"]))
+
+
+6. 피커뷰 객체 생성 및 alertController에 넣어주기
+
+//생일란을 선택했을 때 발생하는 이벤트
+@objc func handleSelectBirth (){
+// print("생일 이벤트~!")
+let message = "\n\n\n\n\n\n"
+let alert = UIAlertController(title: "태어난 달과 일을 선택해주세요.", message: message, preferredStyle: UIAlertControllerStyle.actionSheet)
+alert.isModalInPopover = true
+
+
+let pickerFrame = UIPickerView() // CGRectMake(left, top, width, height) - left and top are like margins
+
+//set the pickers datasource and delegate
+pickerFrame.delegate = self
+pickerFrame.dataSource = self
+
+
+//Add the picker to the alert controller
+alert.view.addSubview(pickerFrame)
+
+let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+alert.addAction(okAction)
+self.parent!.present(alert, animated: true) {
+print("성공")
+
+}
+
+}

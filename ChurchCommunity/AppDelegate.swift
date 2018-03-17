@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController?.view.backgroundColor = UIColor.white
         tabBarController?.view.tintColor = UIColor.white
         tabBarController?.tabBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
-        //tabBarController?.tabBar.ba UIColor(red: 255, green: 153, blue: 153, alpha: 1)
+
         
         //collectionView layout - 반드시 넣어줘야 함
         let layout = UICollectionViewFlowLayout()
@@ -77,8 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let notictVC = NoticeViewController(collectionViewLayout: layout)
         let settingVC = SettingViewController()
         
-        //let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
-        //navigationController?.navigationBar.titleTextAttributes = textAttributes
+
         
         let talkNavVC = UINavigationController(rootViewController: talkVC)
         let memoryNavVC = UINavigationController(rootViewController: memoryVC)
@@ -93,42 +92,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //탭바 이미지 넣기
         talkNavVC.tabBarItem.image = UIImage(named:"ic_chat")?.withRenderingMode(.alwaysTemplate)
-        memoryNavVC.tabBarItem.image = UIImage(named:"ic_collections")?.withRenderingMode(.alwaysTemplate)
-        notictNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
+        memoryNavVC.tabBarItem.image = UIImage(named:"ic_camera_roll")?.withRenderingMode(.alwaysTemplate)
+        notictNavVC.tabBarItem.image = UIImage(named:"ic_event_note")?.withRenderingMode(.alwaysTemplate)
         settingNavVC.tabBarItem.image = UIImage(named:"ic_view_headline")?.withRenderingMode(.alwaysTemplate)
         
         
         //이미지 선택되었을 때
         
-        let image = UIImage(named: "ic_done")?.withRenderingMode(.alwaysOriginal)
-        talkNavVC.tabBarItem.selectedImage = image
-        memoryNavVC.tabBarItem.selectedImage = image
-        notictNavVC.tabBarItem.selectedImage = image
-        settingNavVC.tabBarItem.selectedImage = image
        
+        talkNavVC.tabBarItem.selectedImage = UIImage(named:"ic_chat_white")?.withRenderingMode(.alwaysOriginal)
+        memoryNavVC.tabBarItem.selectedImage = UIImage(named:"ic_camera_roll_white")?.withRenderingMode(.alwaysOriginal)
+        notictNavVC.tabBarItem.selectedImage = UIImage(named:"ic_event_note_white")?.withRenderingMode(.alwaysOriginal)
+        settingNavVC.tabBarItem.selectedImage = UIImage(named:"ic_view_headline_white")?.withRenderingMode(.alwaysOriginal)
+       
+
         
-        
-        /*
-        let clickedChat = UIImageView(image: UIImage(named:"ic_chat")!.withRenderingMode(.alwaysOriginal))
-        clickedChat.tintColor = UIColor.cyan
-        clickedChat.backgroundColor = UIColor.cyan
-        talkNavVC.tabBarItem.selectedImage = clickedChat.image
-        
-        let collections = UIImageView(image: UIImage(named:"ic_collections")!.withRenderingMode(.alwaysOriginal))
-        collections.tintColor = UIColor.cyan
-        memoryNavVC.tabBarItem.selectedImage = collections.image
-        let alert = UIImageView(image: UIImage(named:"ic_add_alert")!.withRenderingMode(.alwaysOriginal))
-        alert.tintColor = UIColor.cyan
-        notictNavVC.tabBarItem.selectedImage = alert.image
-        let headline = UIImageView(image: UIImage(named:"ic_view_headline")!.withRenderingMode(.alwaysOriginal))
-        headline.tintColor = UIColor.cyan
-        settingNavVC.tabBarItem.selectedImage = headline.image
-        */
-        
-        
-        
-        
-        talkNavVC.tabBarItem.title = "수다방"
+        talkNavVC.tabBarItem.title = "나눔방"
         memoryNavVC.tabBarItem.title = "추억방"
         notictNavVC.tabBarItem.title = "소식방"
         settingNavVC.tabBarItem.title = "더보기"

@@ -250,11 +250,14 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         self.navigationItem.title = "MyPage"
+
         //취소 바 버튼
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(cancelAction))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:#imageLiteral(resourceName: "ic_cancel.png"), style: .plain, target: self, action:  #selector(cancelAction))
+        //저장 바 버튼
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_save.png"), style: .plain, target: self, action:  #selector(editAction))
         
-        //완료 바 버튼
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(editAction))
+        
+        
         
         view.backgroundColor = UIColor.white
         

@@ -38,11 +38,12 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         self.navigationItem.title = "글쓰기"
-        //취소 바 버튼
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelAction))
         
-        //완료 바 버튼
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(writeAction))
+        //취소 바 버튼
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:#imageLiteral(resourceName: "ic_cancel.png"), style: .plain, target: self, action:  #selector(cancelAction))
+        //보내기 바 버튼
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_send.png"), style: .plain, target: self, action:  #selector(writeAction))
+        
         
         view.backgroundColor = UIColor.white
         

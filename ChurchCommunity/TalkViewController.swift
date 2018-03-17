@@ -46,14 +46,15 @@ class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCel
         //searchController.searchBar.text = ""
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    //override func viewWillAppear(_ animated: Bool) {
         
-        showPost()
+     
         
-    }
+    //}
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        showPost()
         
         tableView.separatorColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         searchPosts.removeAll()
@@ -63,16 +64,15 @@ class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCel
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         self.navigationController?.navigationBar.isTranslucent = false
         
-        //let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
-        //navigationController?.navigationBar.titleTextAttributes = textAttributes
-        self.navigationItem.title = "수다방"
+
+        self.navigationItem.title = "나눔방"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = searchController
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "MY", style: .plain, target: self, action: #selector(myPageAction))
+  
         
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "글쓰기", style: .plain, target: self, action: #selector(writeAction))
+         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:#imageLiteral(resourceName: "ic_person.png"), style: .plain, target: self, action:  #selector(myPageAction))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_border_color.png"), style: .plain, target: self, action:  #selector(writeAction))
         
         tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
         
@@ -80,20 +80,14 @@ class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCel
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
         
-        
-        //포스트 조회
-        //showPost()
     }
     
     //마이 페이지
     @objc func myPageAction(){
-        
-        
         let myPageView = MyPageViewController()
         //글쓰기 화면을 rootView로 만들어 주기
         let navController = UINavigationController(rootViewController: myPageView)
         present(navController, animated: true, completion: nil)
-        
         /*
          let firebaseAuth = Auth.auth()
          do {
@@ -266,7 +260,6 @@ class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCel
         }
         AppDelegate.instance().dissmissActivityIndicator()
         ref.removeAllObservers()
-        
     }
     
 }

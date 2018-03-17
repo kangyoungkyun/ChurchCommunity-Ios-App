@@ -423,14 +423,19 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     // ======================================================        진입점        ======================================================
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "수다글"
+        self.navigationItem.title = "나눔글"
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(goTalkViewController))
         
+        //취소 바 버튼
+
+ self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(goTalkViewController))
+        
+        
+
 
         //로그인 한 유저의. id와 지금 쓴글의 사람의 uid와 같으면 오른쪽 설정바 보이게
         if(Auth.auth().currentUser?.uid == uidLabel.text){
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "설정", style: .plain, target: self, action: #selector(goSettingAlertAction))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_settings_white.png"), style: .plain, target: self, action:  #selector(goSettingAlertAction))
         }
         
         
