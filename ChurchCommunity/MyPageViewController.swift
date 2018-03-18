@@ -117,6 +117,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
     let nameTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "이름"
+        tf.isEnabled = false
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
@@ -325,12 +326,29 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
     //수정 및 저장
     @objc func editAction(){
         AppDelegate.instance().showActivityIndicator()
+        
+        if nameTextField.text! == "" {
+            let alert = UIAlertController(title: "알림 ", message:"이름을 입력해주세요.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "알림", style: .default) { (alert) in
+            })
+            
+            self.present(alert, animated: true, completion: nil)
+            AppDelegate.instance().dissmissActivityIndicator()
+            return
+        }
+        
+        
         print("settingAction")
         let key = Auth.auth().currentUser?.uid
         let ref = Database.database().reference()
         ref.child("users").child(key!).updateChildValues(["name" : nameTextField.text!,
                                                           "msg":mesageTextField.text!,
                                                           "birth":birthTextField.text!])
+        
+        let ChangeRequest = Auth.auth().currentUser!.createProfileChangeRequest()
+        ChangeRequest.displayName = self.nameTextField.text!
+        ChangeRequest.commitChanges(completion: nil)
+        
         let alert = UIAlertController(title: "알림 ", message:"프로필 변경완료", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "알림", style: .default) { (alert) in
             
@@ -343,6 +361,8 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
             self.birthTextField.resignFirstResponder()
             self.self.nameTextField.resignFirstResponder()
             self.self.mesageTextField.resignFirstResponder()
+            
+              AppDelegate.instance().dissmissActivityIndicator()
            
         })
         

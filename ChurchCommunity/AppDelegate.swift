@@ -75,6 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let talkVC = TalkViewController()
         let memoryVC = MemoryViewController(collectionViewLayout: layout)
         let notictVC = NoticeViewController(collectionViewLayout: layout)
+        let birthVC = BirthViewController()
         let settingVC = SettingViewController()
         
 
@@ -82,10 +83,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let talkNavVC = UINavigationController(rootViewController: talkVC)
         let memoryNavVC = UINavigationController(rootViewController: memoryVC)
         let notictNavVC = UINavigationController(rootViewController: notictVC)
+         let birthNavVC = UINavigationController(rootViewController: birthVC)
         let settingNavVC = UINavigationController(rootViewController: settingVC)
         
         
-        tabBarController?.setViewControllers([talkNavVC,memoryNavVC,notictNavVC,settingNavVC], animated: false)
+        tabBarController?.setViewControllers([talkNavVC,memoryNavVC,notictNavVC,birthNavVC,settingNavVC], animated: false)
         
     
     
@@ -94,6 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         talkNavVC.tabBarItem.image = UIImage(named:"ic_chat")?.withRenderingMode(.alwaysTemplate)
         memoryNavVC.tabBarItem.image = UIImage(named:"ic_camera_roll")?.withRenderingMode(.alwaysTemplate)
         notictNavVC.tabBarItem.image = UIImage(named:"ic_event_note")?.withRenderingMode(.alwaysTemplate)
+        birthNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
         settingNavVC.tabBarItem.image = UIImage(named:"ic_view_headline")?.withRenderingMode(.alwaysTemplate)
         
         
@@ -103,6 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         talkNavVC.tabBarItem.selectedImage = UIImage(named:"ic_chat_white")?.withRenderingMode(.alwaysOriginal)
         memoryNavVC.tabBarItem.selectedImage = UIImage(named:"ic_camera_roll_white")?.withRenderingMode(.alwaysOriginal)
         notictNavVC.tabBarItem.selectedImage = UIImage(named:"ic_event_note_white")?.withRenderingMode(.alwaysOriginal)
+        birthNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
         settingNavVC.tabBarItem.selectedImage = UIImage(named:"ic_view_headline_white")?.withRenderingMode(.alwaysOriginal)
        
 
@@ -110,6 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         talkNavVC.tabBarItem.title = "나눔방"
         memoryNavVC.tabBarItem.title = "추억방"
         notictNavVC.tabBarItem.title = "소식방"
+        birthNavVC.tabBarItem.title = "생일자"
         settingNavVC.tabBarItem.title = "더보기"
         
         return true

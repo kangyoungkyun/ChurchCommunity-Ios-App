@@ -30,7 +30,7 @@ class SignViewController: UIViewController {
     //이름 필드
     let nameTextField: UITextField = {
         let name = UITextField()
-        name.placeholder = "닉네임"
+        name.placeholder = "이름"
         name.autocorrectionType = .no
         name.autocapitalizationType = .none
         name.translatesAutoresizingMaskIntoConstraints = false
@@ -49,7 +49,7 @@ class SignViewController: UIViewController {
     //이메일 필드
     let emailTextField: UITextField = {
         let email = UITextField()
-        email.placeholder = "abcnt@naver.com"
+        email.placeholder = "이메일"
         email.translatesAutoresizingMaskIntoConstraints = false
         email.autocorrectionType = .no
         email.autocapitalizationType = .none
@@ -151,7 +151,7 @@ class SignViewController: UIViewController {
                 
                 //데이터 객체 만들기
                 let userInfo: [String:Any] = ["uid" : user.uid,
-                                              "name" : self.nameTextField.text ?? "아중감 청년"]
+                                              "name" : self.nameTextField.text ?? "청년1"]
                 //해당 경로에 삽입
                 usersReference.setValue(userInfo)
                 

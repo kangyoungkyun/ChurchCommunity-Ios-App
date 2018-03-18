@@ -195,7 +195,7 @@ class MainViewController: UIViewController {
             }
         }else{
             //유저아이디가 있으면 0.1 초 뒤에 appDelegate에 있는 tabBarController 참조 가져오기
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { //0.1초 뒤
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.03) { //0.1초 뒤
                 // Your code with delay
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 let tabBarController = appDelegate.tabBarController
