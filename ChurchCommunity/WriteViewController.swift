@@ -70,7 +70,6 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         //print("textViewDidChange")
     }
     
-    
     //취소 함수
     @objc func cancelAction(){
         //print("cancelAction")
@@ -123,6 +122,8 @@ class WriteViewController: UIViewController,UITextViewDelegate {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
+  
     
     func setLayout(){
         

@@ -95,8 +95,10 @@ var activityIndicatorView: UIActivityIndicatorView!
         navigationItem.searchController = searchController
         
   
-        
+        //마이페이지
          self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:#imageLiteral(resourceName: "ic_person.png"), style: .plain, target: self, action:  #selector(myPageAction))
+        
+        //글쓰기 방
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_border_color.png"), style: .plain, target: self, action:  #selector(writeAction))
         
         tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
@@ -109,29 +111,58 @@ var activityIndicatorView: UIActivityIndicatorView!
     
     //마이 페이지
     @objc func myPageAction(){
-        let myPageView = MyPageViewController()
-        //글쓰기 화면을 rootView로 만들어 주기
-        let navController = UINavigationController(rootViewController: myPageView)
-        present(navController, animated: true, completion: nil)
-        /*
-         let firebaseAuth = Auth.auth()
-         do {
-         try firebaseAuth.signOut()
-         self.dismiss(animated: true, completion: nil)
-         } catch let signOutError as NSError {
-         print ("Error signing out: %@", signOutError)
-         }*/
+
+
+        let myUid = Auth.auth().currentUser?.uid
+        let ref = Database.database().reference()
+        ref.child("users").child(myUid!).observe(.value) { (snapshot) in
+            
+            let childSnapshot = snapshot as! DataSnapshot //자식 DataSnapshot 가져오기
+            let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
+            if let pass = childValue["pass"] as? String{
+                if pass == "n"{
+                    let alert = UIAlertController(title: "Sorry", message:"승인 후 이용가능합니다.", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                }else if(pass == "y"){
+                    //글쓰기 화면
+                    let myPageView = MyPageViewController()
+                    //글쓰기 화면을 rootView로 만들어 주기
+                    let navController = UINavigationController(rootViewController: myPageView)
+                    self.present(navController, animated: true, completion: nil)
+                }
+            }
+        }
         
     }
     
     //글쓰기
     @objc func writeAction(){
-        print ("글쓰기 창이 열립니다.")
-        //글쓰기 화면
-        let writeView = WriteViewController()
-        //글쓰기 화면을 rootView로 만들어 주기
-        let navController = UINavigationController(rootViewController: writeView)
-        present(navController, animated: true, completion: nil)
+       
+        let myUid = Auth.auth().currentUser?.uid
+        let ref = Database.database().reference()
+        ref.child("users").child(myUid!).observe(.value) { (snapshot) in
+            
+            let childSnapshot = snapshot as! DataSnapshot //자식 DataSnapshot 가져오기
+            let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
+            if let pass = childValue["pass"] as? String{
+                if pass == "n"{
+                    let alert = UIAlertController(title: "Sorry", message:"승인 후 이용가능합니다.", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                }else if(pass == "y"){
+                    //글쓰기 화면
+                    let writeView = WriteViewController()
+                    //글쓰기 화면을 rootView로 만들어 주기
+                    let navController = UINavigationController(rootViewController: writeView)
+                    self.present(navController, animated: true, completion: nil)
+                }
+            }
+        }
+        
+
     }
     
     

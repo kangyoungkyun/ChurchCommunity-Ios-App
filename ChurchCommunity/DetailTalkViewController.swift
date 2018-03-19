@@ -319,7 +319,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         let tf = UITextView()
         //tf.backgroundColor = UIColor.brown
         tf.backgroundColor = UIColor.lightGray.withAlphaComponent(0.48)
-
+        
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.autocorrectionType = .no
         tf.autocapitalizationType = .none
@@ -327,7 +327,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         tf.font = UIFont.systemFont(ofSize: 16)
         //tf.alpha = 0.5
         tf.textColor = .black
-    
+        
         //키보드 항상 보이게
         //tf.becomeFirstResponder()
         return tf
@@ -345,62 +345,83 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     
     //댓글 버튼 작동
     @objc func replyBtnAction(){
-        print("댓글 버튼 작동 \(textFiedlView.text!)")
         
-        if(textFiedlView.text.count == 0){
-            let alert = UIAlertController(title: "알림 ", message:"내용을 확인해주세요.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            return
+        let myUid = Auth.auth().currentUser?.uid
+        let ref = Database.database().reference()
+        ref.child("users").child(myUid!).observe(.value) { (snapshot) in
+            
+            let childSnapshot = snapshot as! DataSnapshot //자식 DataSnapshot 가져오기
+            let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
+            if let pass = childValue["pass"] as? String{
+                if pass == "n"{
+                    let alert = UIAlertController(title: "Sorry", message:"승인 후 이용가능합니다.", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    ref.removeAllObservers()
+                    return
+                    
+                }else if (pass == "y"){
+                    
+                    if(self.textFiedlView.text.count == 0){
+                        let alert = UIAlertController(title: "알림 ", message:"내용을 확인해주세요.", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                        return
+                    }
+                    
+                    
+                    //랜덤 키
+                    let replyRef = ref.child("replys").child(self.pidLabel.text!)
+                    
+                    let replyKey = ref.child("replys").childByAutoId().key
+                    print(replyKey)
+                    
+                    //데이터 객체 만들기
+                    let replyInfo: [String:Any] = ["date" : ServerValue.timestamp(),
+                                                   "text" : self.textFiedlView.text!,
+                                                   "name" : Auth.auth().currentUser?.displayName ?? "",
+                                                   "uid" : Auth.auth().currentUser?.uid ?? "",
+                                                   "rid": replyKey,
+                                                   "pid":self.pidLabel.text!]
+                    
+                    
+                    //해당 경로에 삽입
+                    replyRef.child(replyKey).setValue(replyInfo)
+                    
+                    //============================================== 댓글 달때 초기에 0 이다. 처음 댓글 입력하면 +1 되게 해주는 로직
+                    
+                    print("댓글을 삽입합니다 ~~~~~~~~~~~\(self.replys.count)")
+                    let replyToShow = Reply() //데이터를 담을 클래스
+                    //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
+                    if let t = ServerValue.timestamp() as? TimeInterval {
+                        let date = NSDate(timeIntervalSince1970: t/1000)
+                        print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
+                        let dayTimePeriodFormatter = DateFormatter()
+                        dayTimePeriodFormatter.dateFormat = "YYY-MMM-d hh:mm a"
+                        let dateString = dayTimePeriodFormatter.string(from: date as Date)
+                        replyToShow.date = dateString
+                    }
+                    replyToShow.name = Auth.auth().currentUser?.displayName
+                    replyToShow.rid = replyKey
+                    replyToShow.text =  self.textFiedlView.text!
+                    replyToShow.pid = self.pidLabel.text!
+                    replyToShow.uid = Auth.auth().currentUser?.uid
+                    
+                    self.replys.insert(replyToShow, at: 0) //
+                    //============================================== 댓글 달때 초기에 0 이다. 처음 댓글 입력하면 +1 되게 해주는 로직 끝 ==================
+                    
+                    ref.removeAllObservers()
+                    
+                    self.textFiedlView.text = ""
+                    
+                }
+            }
         }
-        
-        //데이터 베이스 참조 함수
-        var ref: DatabaseReference!
-        ref = Database.database().reference()
-        
-        //랜덤 키
-        let replyRef = ref.child("replys").child(pidLabel.text!)
-        
-        let replyKey = ref.child("replys").childByAutoId().key
-        print(replyKey)
-        
-        //데이터 객체 만들기
-        let replyInfo: [String:Any] = ["date" : ServerValue.timestamp(),
-                                       "text" : textFiedlView.text!,
-                                       "name" : Auth.auth().currentUser?.displayName ?? "",
-                                       "uid" : Auth.auth().currentUser?.uid ?? "",
-                                       "rid": replyKey,
-                                       "pid":pidLabel.text!]
+      
         
         
-        //해당 경로에 삽입
-        replyRef.child(replyKey).setValue(replyInfo)
         
-        //============================================== 댓글 달때 초기에 0 이다. 처음 댓글 입력하면 +1 되게 해주는 로직
-        
-        print("댓글을 삽입합니다 ~~~~~~~~~~~\(replys.count)")
-        let replyToShow = Reply() //데이터를 담을 클래스
-        //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
-        if let t = ServerValue.timestamp() as? TimeInterval {
-            let date = NSDate(timeIntervalSince1970: t/1000)
-            print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
-            let dayTimePeriodFormatter = DateFormatter()
-            dayTimePeriodFormatter.dateFormat = "YYY-MMM-d hh:mm a"
-            let dateString = dayTimePeriodFormatter.string(from: date as Date)
-            replyToShow.date = dateString
-        }
-        replyToShow.name = Auth.auth().currentUser?.displayName
-        replyToShow.rid = replyKey
-        replyToShow.text =  textFiedlView.text!
-        replyToShow.pid = pidLabel.text!
-        replyToShow.uid = Auth.auth().currentUser?.uid
-        
-        self.replys.insert(replyToShow, at: 0) //
-        //============================================== 댓글 달때 초기에 0 이다. 처음 댓글 입력하면 +1 되게 해주는 로직 끝 ==================
-        
-        ref.removeAllObservers()
-        
-        textFiedlView.text = ""
+
     }
     
     //구분선
@@ -427,13 +448,13 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         
         //취소 바 버튼
-
- self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(goTalkViewController))
         
-
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(goTalkViewController))
+        
+        
         //로그인 한 유저의. id와 지금 쓴글의 사람의 uid와 같으면 오른쪽 설정바 보이게
         if(Auth.auth().currentUser?.uid == uidLabel.text){
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_settings_white.png"), style: .plain, target: self, action:  #selector(goSettingAlertAction))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_settings_white.png"), style: .plain, target: self, action:  #selector(goSettingAlertAction))
         }
         
         
@@ -717,10 +738,10 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             
             let ref = Database.database().reference()
             ref.child("posts").child(pid).updateChildValues(["text":self.modifyText ?? "",
-                                                         "date":ServerValue.timestamp()])
+                                                             "date":ServerValue.timestamp()])
             let alert = UIAlertController(title: "알림 ", message:"수정되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
             let alertAction = UIAlertAction(title: "확인", style: UIAlertActionStyle.default,handler: { (action) in
-            self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popViewController(animated: true)
             } )
             
             alert.addAction(alertAction)

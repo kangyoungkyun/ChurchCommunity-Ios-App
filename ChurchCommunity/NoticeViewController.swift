@@ -69,7 +69,7 @@ var activityIndicatorView: UIActivityIndicatorView!
         }
         self.collectionView!.register(NoticeCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView?.backgroundColor = UIColor.white
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "로그아웃", style: .plain, target: self, action: #selector(logoutAction))
+        //self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "로그아웃", style: .plain, target: self, action: #selector(logoutAction))
         
         showNotice()
     }
@@ -202,7 +202,8 @@ var activityIndicatorView: UIActivityIndicatorView!
     }
     
     //로그아웃
-    @objc func logoutAction(){
+    
+   /* @objc func logoutAction(){
         
          let firebaseAuth = Auth.auth()
          do {
@@ -212,7 +213,7 @@ var activityIndicatorView: UIActivityIndicatorView!
          print ("Error signing out: %@", signOutError)
          }
         
-    }
+    }*/
     
     
 }
