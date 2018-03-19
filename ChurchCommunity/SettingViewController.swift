@@ -124,6 +124,8 @@ class SettingViewController: UITableViewController {
             
         }else if (section == 1 && row == 1){
             print("내가쓴댓글")
+            let viewController = MoreReplyTableViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
         }else if (section == 1 && row == 2){
             print("로그아웃")
             let firebaseAuth = Auth.auth()
