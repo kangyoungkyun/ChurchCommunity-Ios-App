@@ -233,37 +233,30 @@
 		52858A472055E64D005C9BB9 /* ChurchCommunity */ = {
 			isa = PBXGroup;
 			children = (
+				52858A622055EBDE005C9BB9 /* Pic */,
 				52C2EB48205A5F20005B4904 /* Func */,
 				520E1B5D205A01EE00478F0F /* DTO */,
 				520E1B62205A16F500478F0F /* Views */,
-				52858A622055EBDE005C9BB9 /* pic */,
 				52858A482055E64D005C9BB9 /* AppDelegate.swift */,
 				52858A4A2055E64D005C9BB9 /* MainViewController.swift */,
 				52858A872055F524005C9BB9 /* SignViewController.swift */,
-				52858A4C2055E64D005C9BB9 /* Main.storyboard */,
+				52938A202060B01D0098F9A0 /* TalkController */,
+				52938A212060B0210098F9A0 /* MemoryController */,
+				52938A222060B0260098F9A0 /* NoticeController */,
+				52938A232060B0470098F9A0 /* BirthController */,
+				52938A242060B0750098F9A0 /* MoreController */,
 				52858A4F2055E64D005C9BB9 /* Assets.xcassets */,
+				52858A4C2055E64D005C9BB9 /* Main.storyboard */,
 				52858A512055E64D005C9BB9 /* LaunchScreen.storyboard */,
 				52858A542055E64D005C9BB9 /* Info.plist */,
 				52858A8D20561228005C9BB9 /* GoogleService-Info.plist */,
-				52858A5A2055E7EA005C9BB9 /* TalkViewController.swift */,
-				52858A5C2055E83C005C9BB9 /* MemoryViewController.swift */,
-				52858A5E2055E892005C9BB9 /* NoticeViewController.swift */,
-				52CFE0E3205F1F77006BADE7 /* BirthViewController.swift */,
-				52858A602055E8BC005C9BB9 /* SettingViewController.swift */,
-				5242FF9220573A5800548FD4 /* WriteViewController.swift */,
-				520DFE082058A3A600AF5A2E /* DetailTalkViewController.swift */,
 				52D6121F205640C500F6F031 /* read.txt */,
 				52C2EB4B205A674A005B4904 /* textAlert.txt */,
-				52A7120A205C9E1100E43E8F /* MyPageViewController.swift */,
-				52A71216205CC33500E43E8F /* UserPageViewController.swift */,
-				52CFE0E9205F4B83006BADE7 /* MoreNoticeViewController.swift */,
-				52CFE0EB205F4F4A006BADE7 /* MoreWriteTableViewController.swift */,
-				52CFE0ED205F4F5E006BADE7 /* MoreReplyTableViewController.swift */,
 			);
 			path = ChurchCommunity;
 			sourceTree = "<group>";
 		};
-		52858A622055EBDE005C9BB9 /* pic */ = {
+		52858A622055EBDE005C9BB9 /* Pic */ = {
 			isa = PBXGroup;
 			children = (
 				529618E7205D6303005D338F /* ic_settings_white.png */,
@@ -307,7 +300,54 @@
 				52858A652055EC0F005C9BB9 /* ic_add_alert_3@.png */,
 				52858A632055EC0F005C9BB9 /* ic_add_alert.png */,
 			);
-			path = pic;
+			path = Pic;
+			sourceTree = "<group>";
+		};
+		52938A202060B01D0098F9A0 /* TalkController */ = {
+			isa = PBXGroup;
+			children = (
+				52A7120A205C9E1100E43E8F /* MyPageViewController.swift */,
+				52A71216205CC33500E43E8F /* UserPageViewController.swift */,
+				52858A5A2055E7EA005C9BB9 /* TalkViewController.swift */,
+				520DFE082058A3A600AF5A2E /* DetailTalkViewController.swift */,
+				5242FF9220573A5800548FD4 /* WriteViewController.swift */,
+			);
+			path = TalkController;
+			sourceTree = "<group>";
+		};
+		52938A212060B0210098F9A0 /* MemoryController */ = {
+			isa = PBXGroup;
+			children = (
+				52858A5C2055E83C005C9BB9 /* MemoryViewController.swift */,
+			);
+			path = MemoryController;
+			sourceTree = "<group>";
+		};
+		52938A222060B0260098F9A0 /* NoticeController */ = {
+			isa = PBXGroup;
+			children = (
+				52858A5E2055E892005C9BB9 /* NoticeViewController.swift */,
+			);
+			path = NoticeController;
+			sourceTree = "<group>";
+		};
+		52938A232060B0470098F9A0 /* BirthController */ = {
+			isa = PBXGroup;
+			children = (
+				52CFE0E3205F1F77006BADE7 /* BirthViewController.swift */,
+			);
+			path = BirthController;
+			sourceTree = "<group>";
+		};
+		52938A242060B0750098F9A0 /* MoreController */ = {
+			isa = PBXGroup;
+			children = (
+				52858A602055E8BC005C9BB9 /* SettingViewController.swift */,
+				52CFE0E9205F4B83006BADE7 /* MoreNoticeViewController.swift */,
+				52CFE0EB205F4F4A006BADE7 /* MoreWriteTableViewController.swift */,
+				52CFE0ED205F4F5E006BADE7 /* MoreReplyTableViewController.swift */,
+			);
+			path = MoreController;
 			sourceTree = "<group>";
 		};
 		52C2EB48205A5F20005B4904 /* Func */ = {

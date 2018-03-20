@@ -207,36 +207,6 @@ class SignViewController: UIViewController {
         setLayout()
         //로그인 상태 체크
         sessionCheck()
-        
-       // let time = ServerValue.timestamp()
-       // print("now time \(time)")
-        
-       // if let t = time as? TimeInterval {
-            // Cast the value to an NSTimeInterval
-            // and divide by 1000 to get seconds.
-          //  print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
-        //}
-        
-        // let estimatedServerTimeMs = NSDate().timeIntervalSince1970 * 1000.0
-   
-        //print("현재 시간은? \(estimatedServerTimeMs + time!)")
-        //if let t = ServerValue.timestamp() as? TimeZone {
-      
-         //   print("----\(NSDate(timeIntervalSince1970: t/1000))")
-        //}
-        /*
-        if let timestamp = ServerValue.timestamp() as? TimeInterval {
-        
-        let converted = NSDate(timeIntervalSince1970: timestamp/1000)
-        
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = NSTimeZone.local
-        dateFormatter.dateFormat = "hh:mm a"
-        let time = dateFormatter.string(from: converted as Date)
-        
-        print("현재 시간은? \(time)")
-        }*/
     }
     
     //로그인 상태 체크

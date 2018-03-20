@@ -4,7 +4,7 @@
 //
 //  Created by MacBookPro on 2018. 3. 17..
 //  Copyright © 2018년 MacBookPro. All rights reserved.
-//
+//  내 페이지
 
 class birthDate {
     var month : [String]

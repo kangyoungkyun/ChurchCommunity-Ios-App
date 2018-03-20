@@ -4,7 +4,7 @@
 //
 //  Created by MacBookPro on 2018. 3. 19..
 //  Copyright © 2018년 MacBookPro. All rights reserved.
-//
+//  더 보기 페이지
 
 import UIKit
 

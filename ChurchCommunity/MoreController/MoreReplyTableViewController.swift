@@ -4,7 +4,7 @@
 //
 //  Created by MacBookPro on 2018. 3. 19..
 //  Copyright © 2018년 MacBookPro. All rights reserved.
-//
+// 내가쓴 댓글 보기
 
 import UIKit
 import Firebase
@@ -106,7 +106,6 @@ fetchReply()
                                     self.replys.insert(replyToShow, at: 0)
                                     print(self.replys.count)
                                 
-                                
                             }
                         }
                     }
@@ -121,7 +120,7 @@ fetchReply()
     
     //댓글 수정 alert controller 창
     var modifyText:String?
-    func popUpController(txt:String,rid:String)
+    func popUpController(txt:String,rid:String,pid:String)
     {
         
         let alertController = UIAlertController(title: "\n\n\n\n\n\n", message: nil, preferredStyle: UIAlertControllerStyle.alert)
@@ -139,7 +138,7 @@ fetchReply()
             self.modifyText = customView.text
             let ref = Database.database().reference()
             //print("수정된 글은~? \(self.modifyText)")
-           //-- ref.child("replys").child(self.pidLabel.text!).child(rid).updateChildValues(["text":self.modifyText ?? "", "date":ServerValue.timestamp()])
+           ref.child("replys").child(pid).child(rid).updateChildValues(["text":self.modifyText ?? "", "date":ServerValue.timestamp()])
             
         })
         
@@ -159,13 +158,13 @@ fetchReply()
         print("셀을 선택했습니다~!  \(indexPath.row)")
         
         //선택한 셀 정보 가져오기
-        let cell = tableView.cellForRow(at: indexPath) as? ReplyCell
+        let cell = tableView.cellForRow(at: indexPath) as? MoreReplyCell
         let rid = cell?.ridLable.text
         let uid = cell?.uidLabel.text
         //let name = cell?.nameLabel.text
         let text = cell?.txtLabel.text
         // let date = cell?.dateLabel.text
-        //let pid = cell?.pidLabel.text
+        let pid = cell?.pidLabel.text
         
         let alertController = UIAlertController(
             title: nil,
@@ -177,7 +176,7 @@ fetchReply()
             
             if(Auth.auth().currentUser?.uid == uid){
                 
-                self.popUpController(txt: text!,rid:rid!)
+                self.popUpController(txt: text!,rid:rid!,pid:pid!)
                 
             }else{
                 
@@ -187,11 +186,13 @@ fetchReply()
                 
             }
         }
-        
+
+        //내가쓴 댓글 삭제
         let deleteAction = UIAlertAction(title: "댓글삭제", style: .destructive) { (alert) in
             if(Auth.auth().currentUser?.uid == uid){
+ 
                 let ref = Database.database().reference()
-              //-----  ref.child("replys").child(self.pidLabel.text!).child(rid!).removeValue()
+                ref.child("replys").child(pid!).child(rid!).removeValue()
                 let alert = UIAlertController(title: "알림 ", message:"성공적으로 삭제되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
