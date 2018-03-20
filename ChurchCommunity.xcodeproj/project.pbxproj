@@ -21,7 +21,6 @@
 		52858A502055E64D005C9BB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52858A4F2055E64D005C9BB9 /* Assets.xcassets */; };
 		52858A532055E64D005C9BB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52858A512055E64D005C9BB9 /* LaunchScreen.storyboard */; };
 		52858A5B2055E7EA005C9BB9 /* TalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A5A2055E7EA005C9BB9 /* TalkViewController.swift */; };
-		52858A5D2055E83C005C9BB9 /* MemoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A5C2055E83C005C9BB9 /* MemoryViewController.swift */; };
 		52858A5F2055E892005C9BB9 /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A5E2055E892005C9BB9 /* NoticeViewController.swift */; };
 		52858A612055E8BC005C9BB9 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A602055E8BC005C9BB9 /* SettingViewController.swift */; };
 		52858A662055EC0F005C9BB9 /* ic_add_alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 52858A632055EC0F005C9BB9 /* ic_add_alert.png */; };
@@ -47,6 +46,11 @@
 		52858A8E20561228005C9BB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52858A8D20561228005C9BB9 /* GoogleService-Info.plist */; };
 		52858A9020562515005C9BB9 /* HideKeyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A8F20562515005C9BB9 /* HideKeyBoard.swift */; };
 		52938A1F2060A7DB0098F9A0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52938A1E2060A7DB0098F9A0 /* MessageUI.framework */; };
+		52938A262060CDCD0098F9A0 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938A252060CDCD0098F9A0 /* Video.swift */; };
+		52938A282060CE5A0098F9A0 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938A272060CE5A0098F9A0 /* VideoModel.swift */; };
+		52938A2A2060D31F0098F9A0 /* MemoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938A292060D31F0098F9A0 /* MemoryViewController.swift */; };
+		52938A2C2060D6790098F9A0 /* MemoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938A2B2060D6790098F9A0 /* MemoryCell.swift */; };
+		52938A2E2060DB800098F9A0 /* VideoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938A2D2060DB800098F9A0 /* VideoDetailViewController.swift */; };
 		529618D0205D5B81005D338F /* ic_create.png in Resources */ = {isa = PBXBuildFile; fileRef = 529618CF205D5B81005D338F /* ic_create.png */; };
 		529618D2205D5BEB005D338F /* ic_border_color.png in Resources */ = {isa = PBXBuildFile; fileRef = 529618D1205D5BEA005D338F /* ic_border_color.png */; };
 		529618D4205D5C19005D338F /* ic_person.png in Resources */ = {isa = PBXBuildFile; fileRef = 529618D3205D5C19005D338F /* ic_person.png */; };
@@ -101,7 +105,6 @@
 		52858A522055E64D005C9BB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52858A542055E64D005C9BB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52858A5A2055E7EA005C9BB9 /* TalkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkViewController.swift; sourceTree = "<group>"; };
-		52858A5C2055E83C005C9BB9 /* MemoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryViewController.swift; sourceTree = "<group>"; };
 		52858A5E2055E892005C9BB9 /* NoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
 		52858A602055E8BC005C9BB9 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		52858A632055EC0F005C9BB9 /* ic_add_alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_add_alert.png; sourceTree = "<group>"; };
@@ -127,6 +130,11 @@
 		52858A8D20561228005C9BB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		52858A8F20562515005C9BB9 /* HideKeyBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyBoard.swift; sourceTree = "<group>"; };
 		52938A1E2060A7DB0098F9A0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		52938A252060CDCD0098F9A0 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		52938A272060CE5A0098F9A0 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
+		52938A292060D31F0098F9A0 /* MemoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryViewController.swift; sourceTree = "<group>"; };
+		52938A2B2060D6790098F9A0 /* MemoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCell.swift; sourceTree = "<group>"; };
+		52938A2D2060DB800098F9A0 /* VideoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailViewController.swift; sourceTree = "<group>"; };
 		529618CF205D5B81005D338F /* ic_create.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_create.png; sourceTree = "<group>"; };
 		529618D1205D5BEA005D338F /* ic_border_color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_border_color.png; sourceTree = "<group>"; };
 		529618D3205D5C19005D338F /* ic_person.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_person.png; sourceTree = "<group>"; };
@@ -195,6 +203,8 @@
 				520E1B5E205A020800478F0F /* Reply.swift */,
 				52299E5A205B6F9F00B9D118 /* Notices.swift */,
 				52CFE0E5205F2085006BADE7 /* Birth.swift */,
+				52938A252060CDCD0098F9A0 /* Video.swift */,
+				52938A272060CE5A0098F9A0 /* VideoModel.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -208,6 +218,7 @@
 				52CFE0E7205F2128006BADE7 /* BirthCell.swift */,
 				52CFE0EF205F4F85006BADE7 /* MoreWriteCell.swift */,
 				52CFE0F1205F4F9C006BADE7 /* MoreReplyCell.swift */,
+				52938A2B2060D6790098F9A0 /* MemoryCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -318,7 +329,8 @@
 		52938A212060B0210098F9A0 /* MemoryController */ = {
 			isa = PBXGroup;
 			children = (
-				52858A5C2055E83C005C9BB9 /* MemoryViewController.swift */,
+				52938A292060D31F0098F9A0 /* MemoryViewController.swift */,
+				52938A2D2060DB800098F9A0 /* VideoDetailViewController.swift */,
 			);
 			path = MemoryController;
 			sourceTree = "<group>";
@@ -550,19 +562,23 @@
 				52A7120B205C9E1100E43E8F /* MyPageViewController.swift in Sources */,
 				5242FF9720576FFD00548FD4 /* Post.swift in Sources */,
 				52CFE0E6205F2085006BADE7 /* Birth.swift in Sources */,
+				52938A2C2060D6790098F9A0 /* MemoryCell.swift in Sources */,
 				52CFE0F0205F4F85006BADE7 /* MoreWriteCell.swift in Sources */,
+				52938A262060CDCD0098F9A0 /* Video.swift in Sources */,
 				520E1B64205A171D00478F0F /* ReplyCell.swift in Sources */,
 				52CFE0E4205F1F77006BADE7 /* BirthViewController.swift in Sources */,
 				52858A882055F524005C9BB9 /* SignViewController.swift in Sources */,
+				52938A2A2060D31F0098F9A0 /* MemoryViewController.swift in Sources */,
 				52CFE0EE205F4F5E006BADE7 /* MoreReplyTableViewController.swift in Sources */,
+				52938A282060CE5A0098F9A0 /* VideoModel.swift in Sources */,
 				52C2EB4A205A5F53005B4904 /* AlertTableViewController.swift in Sources */,
 				520DFE092058A3A600AF5A2E /* DetailTalkViewController.swift in Sources */,
+				52938A2E2060DB800098F9A0 /* VideoDetailViewController.swift in Sources */,
 				52CFE0EA205F4B83006BADE7 /* MoreNoticeViewController.swift in Sources */,
 				52CFE0EC205F4F4A006BADE7 /* MoreWriteTableViewController.swift in Sources */,
 				52858A4B2055E64D005C9BB9 /* MainViewController.swift in Sources */,
 				520E1B5F205A020800478F0F /* Reply.swift in Sources */,
 				52A71217205CC33500E43E8F /* UserPageViewController.swift in Sources */,
-				52858A5D2055E83C005C9BB9 /* MemoryViewController.swift in Sources */,
 				52299E5B205B6F9F00B9D118 /* Notices.swift in Sources */,
 				52858A492055E64D005C9BB9 /* AppDelegate.swift in Sources */,
 				52858A5B2055E7EA005C9BB9 /* TalkViewController.swift in Sources */,

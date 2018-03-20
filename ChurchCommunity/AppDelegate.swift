@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let layout = UICollectionViewFlowLayout()
 
         let talkVC = TalkViewController()
-        let memoryVC = MemoryViewController(collectionViewLayout: layout)
+        let memoryVC = MemoryViewController()
         let notictVC = NoticeViewController(collectionViewLayout: layout)
         let birthVC = BirthViewController()
         let settingVC = SettingViewController()
