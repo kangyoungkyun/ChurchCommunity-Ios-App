@@ -46,6 +46,7 @@
 		52858A8A2055FA28005C9BB9 /* main_pick.png in Resources */ = {isa = PBXBuildFile; fileRef = 52858A892055FA28005C9BB9 /* main_pick.png */; };
 		52858A8E20561228005C9BB9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52858A8D20561228005C9BB9 /* GoogleService-Info.plist */; };
 		52858A9020562515005C9BB9 /* HideKeyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A8F20562515005C9BB9 /* HideKeyBoard.swift */; };
+		52938A1F2060A7DB0098F9A0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52938A1E2060A7DB0098F9A0 /* MessageUI.framework */; };
 		529618D0205D5B81005D338F /* ic_create.png in Resources */ = {isa = PBXBuildFile; fileRef = 529618CF205D5B81005D338F /* ic_create.png */; };
 		529618D2205D5BEB005D338F /* ic_border_color.png in Resources */ = {isa = PBXBuildFile; fileRef = 529618D1205D5BEA005D338F /* ic_border_color.png */; };
 		529618D4205D5C19005D338F /* ic_person.png in Resources */ = {isa = PBXBuildFile; fileRef = 529618D3205D5C19005D338F /* ic_person.png */; };
@@ -125,6 +126,7 @@
 		52858A892055FA28005C9BB9 /* main_pick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_pick.png; sourceTree = "<group>"; };
 		52858A8D20561228005C9BB9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		52858A8F20562515005C9BB9 /* HideKeyBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyBoard.swift; sourceTree = "<group>"; };
+		52938A1E2060A7DB0098F9A0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		529618CF205D5B81005D338F /* ic_create.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_create.png; sourceTree = "<group>"; };
 		529618D1205D5BEA005D338F /* ic_border_color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_border_color.png; sourceTree = "<group>"; };
 		529618D3205D5C19005D338F /* ic_person.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_person.png; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52938A1F2060A7DB0098F9A0 /* MessageUI.framework in Frameworks */,
 				B1A4D96097D35122300563B8 /* Pods_ChurchCommunity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,6 +322,7 @@
 		EAE0E142C9345BB83063B321 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				52938A1E2060A7DB0098F9A0 /* MessageUI.framework */,
 				9F01414784C01122F8C96A2A /* Pods_ChurchCommunity.framework */,
 			);
 			name = Frameworks;

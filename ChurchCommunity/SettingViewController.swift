@@ -8,7 +8,8 @@
 
 import UIKit
 import Firebase
-class SettingViewController: UITableViewController {
+import MessageUI
+class SettingViewController: UITableViewController, MFMailComposeViewControllerDelegate {
      var ref: DatabaseReference!
     
     
@@ -137,9 +138,14 @@ class SettingViewController: UITableViewController {
             }
         }else if (section == 2 && row == 0){
             print("개발자에게")
+            
+            let mailComposeViewController = configuredMailComposeViewController()
+            if MFMailComposeViewController.canSendMail(){
+                self.present(mailComposeViewController, animated: true, completion: nil)
+            }else{
+                self.showSendMailErrorAlert()
+            }
         }
-    
-    
     }
     
     
@@ -176,4 +182,35 @@ class SettingViewController: UITableViewController {
         return 50
     }
 
+    
+    
+    //메일 컨트롤
+    func configuredMailComposeViewController() -> MFMailComposeViewController{
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self
+        mailComposerVC.setToRecipients(["abcnt@naver.com"])
+        mailComposerVC.setSubject("아중감 청년부 앱관련 문의")
+        mailComposerVC.setMessageBody("안녕하세요.\n\n\n", isHTML: false)
+        return mailComposerVC
+    }
+    //메일 보내기 에러
+    func showSendMailErrorAlert(){
+        let sendMailErrorAlert = UIAlertView(title: "알림", message: "메일을 보내지 못했습니다.", delegate: self, cancelButtonTitle: "OK")
+        sendMailErrorAlert.show()
+    }
+    
+    //보내기 버튼 눌렀을때 결과
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch result.rawValue {
+        case MFMailComposeResult.cancelled.rawValue:
+            
+            print("메일 보내기가 취소되었습니다.")
+        case MFMailComposeResult.sent.rawValue:
+            
+            print("메일 보내기 성공")
+        default:
+            break
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
 }
