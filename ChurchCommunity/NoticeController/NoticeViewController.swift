@@ -5,7 +5,13 @@
 //  Created by MacBookPro on 2018. 3. 12..
 //  Copyright © 2018년 MacBookPro. All rights reserved.
 //
-
+extension UIView {
+    
+    func bringToFront() {
+        self.superview?.bringSubview(toFront: self)
+    }
+    
+}
 import UIKit
 import Firebase
 private let reuseIdentifier = "Cell"
@@ -58,7 +64,7 @@ var activityIndicatorView: UIActivityIndicatorView!
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         self.navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "소식방"
+        self.navigationItem.title = "사진방"
         print("소식방")
         
         if let currentEmail = Auth.auth().currentUser?.email {
@@ -77,12 +83,14 @@ var activityIndicatorView: UIActivityIndicatorView!
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width:view.frame.size.width, height:10.0)
+        return CGSize(width:view.frame.size.width, height:1.0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width:view.frame.size.width, height:20.0)
+        return CGSize(width:view.frame.size.width, height:1.0)
     }
+    
+    
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return notices.count
@@ -100,13 +108,20 @@ var activityIndicatorView: UIActivityIndicatorView!
     
     //cell의 사이즈
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width , height: view.frame.height / 2)
+        let width = collectionView.frame.width/3 - 1
+        return CGSize(width: width , height: width)
     }
     
     //컬렉션 뷰의 셀 사이사이마다 간격설정 원래는 디폴드 값으로 10이 지정되어 있음
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return 1
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    
+    
     
     //셀을 클릭했을 때
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -114,6 +129,13 @@ var activityIndicatorView: UIActivityIndicatorView!
         let cell = collectionView.cellForItem(at: indexPath) as? NoticeCell
         let nid = cell?.noticeLabel.text
         print("선택된 사진의 id는 \(nid!) 입니다" )
+        
+        let viewController = BigImageViewController()
+        viewController.noticeImageView.image = cell?.noticeImageView.image
+        //self.present(viewController, animated: true, completion: nil)
+        navigationController?.pushViewController(viewController, animated: true)
+       
+
     }
     
     //사진 추가 네비게이션 바 버튼 클릭

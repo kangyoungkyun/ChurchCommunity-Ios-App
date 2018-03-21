@@ -112,8 +112,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         
         talkNavVC.tabBarItem.title = "나눔방"
-        memoryNavVC.tabBarItem.title = "추억방"
-        notictNavVC.tabBarItem.title = "소식방"
+        memoryNavVC.tabBarItem.title = "영상방"
+        notictNavVC.tabBarItem.title = "사진방"
         birthNavVC.tabBarItem.title = "생일자"
         settingNavVC.tabBarItem.title = "더보기"
         

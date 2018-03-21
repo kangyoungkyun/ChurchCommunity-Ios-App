@@ -15,6 +15,7 @@
 		5242FF9320573A5800548FD4 /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5242FF9220573A5800548FD4 /* WriteViewController.swift */; };
 		5242FF952057634D00548FD4 /* TalkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5242FF942057634D00548FD4 /* TalkCell.swift */; };
 		5242FF9720576FFD00548FD4 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5242FF9620576FFD00548FD4 /* Post.swift */; };
+		526123B62061FBC0003D7DA4 /* BigImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526123B52061FBC0003D7DA4 /* BigImageViewController.swift */; };
 		52858A492055E64D005C9BB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A482055E64D005C9BB9 /* AppDelegate.swift */; };
 		52858A4B2055E64D005C9BB9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A4A2055E64D005C9BB9 /* MainViewController.swift */; };
 		52858A4E2055E64D005C9BB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52858A4C2055E64D005C9BB9 /* Main.storyboard */; };
@@ -96,6 +97,7 @@
 		5242FF9220573A5800548FD4 /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
 		5242FF942057634D00548FD4 /* TalkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkCell.swift; sourceTree = "<group>"; };
 		5242FF9620576FFD00548FD4 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		526123B52061FBC0003D7DA4 /* BigImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigImageViewController.swift; sourceTree = "<group>"; };
 		52858A452055E64D005C9BB9 /* ChurchCommunity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChurchCommunity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52858A482055E64D005C9BB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52858A4A2055E64D005C9BB9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				52858A5E2055E892005C9BB9 /* NoticeViewController.swift */,
+				526123B52061FBC0003D7DA4 /* BigImageViewController.swift */,
 			);
 			path = NoticeController;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				52C2EB4A205A5F53005B4904 /* AlertTableViewController.swift in Sources */,
 				520DFE092058A3A600AF5A2E /* DetailTalkViewController.swift in Sources */,
 				52938A2E2060DB800098F9A0 /* VideoDetailViewController.swift in Sources */,
+				526123B62061FBC0003D7DA4 /* BigImageViewController.swift in Sources */,
 				52CFE0EA205F4B83006BADE7 /* MoreNoticeViewController.swift in Sources */,
 				52CFE0EC205F4F4A006BADE7 /* MoreWriteTableViewController.swift in Sources */,
 				52858A4B2055E64D005C9BB9 /* MainViewController.swift in Sources */,

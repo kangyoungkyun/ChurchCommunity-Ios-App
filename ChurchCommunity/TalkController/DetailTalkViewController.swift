@@ -397,7 +397,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
                         let date = NSDate(timeIntervalSince1970: t/1000)
                         print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
                         let dayTimePeriodFormatter = DateFormatter()
-                        dayTimePeriodFormatter.dateFormat = "YYY-MMM-d hh:mm a"
+                        dayTimePeriodFormatter.dateFormat = "MMM d일 hh:mm a"
                         let dateString = dayTimePeriodFormatter.string(from: date as Date)
                         replyToShow.date = dateString
                     }
@@ -640,7 +640,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
                         let date = NSDate(timeIntervalSince1970: t/1000)
                         print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
                         let dayTimePeriodFormatter = DateFormatter()
-                        dayTimePeriodFormatter.dateFormat = "YYY-MMM-d hh:mm a"
+                        dayTimePeriodFormatter.dateFormat = "MMM d일 hh:mm a"
                         let dateString = dayTimePeriodFormatter.string(from: date as Date)
                         replyToShow.date = dateString
                     }

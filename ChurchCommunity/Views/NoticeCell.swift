@@ -55,7 +55,8 @@ class NoticeCell: UICollectionViewCell {
         
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
+        //imageView.contentMode = .scaleAspectFill
         return imageView
         
     }()
@@ -65,10 +66,10 @@ class NoticeCell: UICollectionViewCell {
         super.init(frame: frame)
         print("CategoryCell - init - setupViews호출")
         addSubview(noticeImageView)
-        addSubview(noticeLabel)
-        addSubview(nameLabel)
-        addSubview(dateLabel)
-        addSubview(noticeSeperateView)
+        //addSubview(noticeLabel)
+        //addSubview(nameLabel)
+        //addSubview(dateLabel)
+       // addSubview(noticeSeperateView)
         
         setLayout()
     }
@@ -83,9 +84,9 @@ class NoticeCell: UICollectionViewCell {
         noticeImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
         noticeImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
         noticeImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
-        noticeImageView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1/1.2).isActive = true
+        noticeImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
        // noticeImageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 0).isActive = true
-
+/*
         nameLabel.topAnchor.constraint(equalTo: noticeImageView.bottomAnchor).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
         nameLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
@@ -113,7 +114,7 @@ class NoticeCell: UICollectionViewCell {
         noticeSeperateView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
         noticeSeperateView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
         
-        
+        */
         
         
     }
