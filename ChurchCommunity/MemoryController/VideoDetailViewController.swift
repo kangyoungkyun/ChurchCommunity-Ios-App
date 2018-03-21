@@ -9,6 +9,7 @@
 import UIKit
 
 class VideoDetailViewController: UIViewController {
+    var activityIndicatorView: UIActivityIndicatorView!
     var videoId:String?
     var selectedVideo : Video? {
         didSet{
@@ -55,6 +56,28 @@ class VideoDetailViewController: UIViewController {
     
     //화면이 나타날때 마다
     override func viewDidAppear(_ animated: Bool) {
+        
+        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(activityIndicatorView)
+        activityIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        activityIndicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor,constant: -60).isActive = true
+        activityIndicatorView.bringSubview(toFront: self.view)
+        activityIndicatorView.startAnimating()
+        
+        print("start 인디케이터")
+        
+        DispatchQueue.main.async {
+            print("start DispatchQueue")
+            OperationQueue.main.addOperation() {
+                print("start OperationQueue")
+                
+                Thread.sleep(forTimeInterval: 2.3)
+                print("start forTimeInterval")
+                self.activityIndicatorView.stopAnimating()
+                
+            }
+        }
         
         let myURL = "https://youtube.com/embed/"+videoId!
         self.myWebView.allowsInlineMediaPlayback = true

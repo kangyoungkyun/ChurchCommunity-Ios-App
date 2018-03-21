@@ -7,19 +7,35 @@
 //
 
 import UIKit
-
+import Firebase
 class MemoryViewController: UITableViewController {
 
-
+    let tableViewFooterView: UIView = {
+        let view = UIView()
+        view.frame = CGRect(x: 0, y: 0, width: 300, height: Int(20.5))
+        view.backgroundColor = UIColor.clear
+        return view
+    }()
+    
     var videos:[Video] = [Video]()
     
+
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        //tableView.estimatedRowHeight = 180
+        //tableView.rowHeight = UITableViewAutomaticDimension
         
-        
+        print("메모리 방에 들어왔슴다~~")
+        tableView.tableFooterView = tableViewFooterView
+        tableView.tableHeaderView = tableViewFooterView
+         //self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 30, 0);
         tableView.register(MemoryCell.self, forCellReuseIdentifier: "reuseIdentifier")
-        let model = VideoModel()
-        self.videos = model.getVideo()
+        
+        showVideo()
+        
+        //let model = VideoModel()
+        //self.videos = model.getVideo()
         
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         self.navigationController?.navigationBar.isTranslucent = false
@@ -43,6 +59,9 @@ class MemoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as? MemoryCell
 
+        
+        //cell.detailLabel.preferredMaxLayoutWidth = cell.frame.width
+        //cell?.selectionStyle = UITableViewCellSelectionStyle.none
         let videoTitle = videos[indexPath.row].videoTitle
         
         //cell?.textLabel?.text = videoTitle
@@ -79,7 +98,9 @@ class MemoryViewController: UITableViewController {
     
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 160
+        let width = self.view.frame.size.width
+        let height = width/320 * 180
+        return height
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -92,4 +113,30 @@ class MemoryViewController: UITableViewController {
         self.navigationController?.pushViewController(viewController, animated: true)
     }
   
+    
+    func showVideo(){
+        print("showvideo")
+        let ref = Database.database().reference()
+        ref.child("youtube").observe(.value) { (snapshot) in
+            self.videos.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
+            for child in snapshot.children{
+                
+                let video = Video() //데이터를 담을 클래스
+                let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
+                let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
+                
+               
+                if let id = childValue["id"], let title = childValue["title"],let des = childValue["des"]{
+                    video.videoId = id as? String
+                    video.videoTitle = title as? String
+                    video.videoDescription = des as? String
+                    self.videos.append(video)
+                }
+            }
+            self.tableView.reloadData()
+        }
+        ref.removeAllObservers()
+    }
+
+    
 }

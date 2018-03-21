@@ -229,12 +229,10 @@ var activityIndicatorView: UIActivityIndicatorView!
         //선택한 셀 정보 가져오기
         let cell = tableView.cellForRow(at: indexPath) as? TalkCell
         
-        let bgColorView = UIView()
-        bgColorView.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
-        cell?.selectedBackgroundView = bgColorView
+        //let bgColorView = UIView()
+       // bgColorView.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+       // cell?.selectedBackgroundView = bgColorView
         
-        
-        //cell?.contentView.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         
         //값 할당
         let name = cell?.nameLabel.text

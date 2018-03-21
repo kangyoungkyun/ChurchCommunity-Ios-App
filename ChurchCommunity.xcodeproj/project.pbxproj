@@ -47,7 +47,6 @@
 		52858A9020562515005C9BB9 /* HideKeyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A8F20562515005C9BB9 /* HideKeyBoard.swift */; };
 		52938A1F2060A7DB0098F9A0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52938A1E2060A7DB0098F9A0 /* MessageUI.framework */; };
 		52938A262060CDCD0098F9A0 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938A252060CDCD0098F9A0 /* Video.swift */; };
-		52938A282060CE5A0098F9A0 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938A272060CE5A0098F9A0 /* VideoModel.swift */; };
 		52938A2A2060D31F0098F9A0 /* MemoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938A292060D31F0098F9A0 /* MemoryViewController.swift */; };
 		52938A2C2060D6790098F9A0 /* MemoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938A2B2060D6790098F9A0 /* MemoryCell.swift */; };
 		52938A2E2060DB800098F9A0 /* VideoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52938A2D2060DB800098F9A0 /* VideoDetailViewController.swift */; };
@@ -131,7 +130,6 @@
 		52858A8F20562515005C9BB9 /* HideKeyBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyBoard.swift; sourceTree = "<group>"; };
 		52938A1E2060A7DB0098F9A0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		52938A252060CDCD0098F9A0 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
-		52938A272060CE5A0098F9A0 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
 		52938A292060D31F0098F9A0 /* MemoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryViewController.swift; sourceTree = "<group>"; };
 		52938A2B2060D6790098F9A0 /* MemoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryCell.swift; sourceTree = "<group>"; };
 		52938A2D2060DB800098F9A0 /* VideoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailViewController.swift; sourceTree = "<group>"; };
@@ -204,7 +202,6 @@
 				52299E5A205B6F9F00B9D118 /* Notices.swift */,
 				52CFE0E5205F2085006BADE7 /* Birth.swift */,
 				52938A252060CDCD0098F9A0 /* Video.swift */,
-				52938A272060CE5A0098F9A0 /* VideoModel.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -246,11 +243,11 @@
 			children = (
 				52858A622055EBDE005C9BB9 /* Pic */,
 				52C2EB48205A5F20005B4904 /* Func */,
-				520E1B5D205A01EE00478F0F /* DTO */,
-				520E1B62205A16F500478F0F /* Views */,
 				52858A482055E64D005C9BB9 /* AppDelegate.swift */,
 				52858A4A2055E64D005C9BB9 /* MainViewController.swift */,
 				52858A872055F524005C9BB9 /* SignViewController.swift */,
+				520E1B5D205A01EE00478F0F /* DTO */,
+				520E1B62205A16F500478F0F /* Views */,
 				52938A202060B01D0098F9A0 /* TalkController */,
 				52938A212060B0210098F9A0 /* MemoryController */,
 				52938A222060B0260098F9A0 /* NoticeController */,
@@ -570,7 +567,6 @@
 				52858A882055F524005C9BB9 /* SignViewController.swift in Sources */,
 				52938A2A2060D31F0098F9A0 /* MemoryViewController.swift in Sources */,
 				52CFE0EE205F4F5E006BADE7 /* MoreReplyTableViewController.swift in Sources */,
-				52938A282060CE5A0098F9A0 /* VideoModel.swift in Sources */,
 				52C2EB4A205A5F53005B4904 /* AlertTableViewController.swift in Sources */,
 				520DFE092058A3A600AF5A2E /* DetailTalkViewController.swift in Sources */,
 				52938A2E2060DB800098F9A0 /* VideoDetailViewController.swift in Sources */,
