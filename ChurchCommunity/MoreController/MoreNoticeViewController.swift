@@ -12,13 +12,15 @@ class MoreNoticeViewController: UIViewController {
 
     var text: String?{
         didSet{
-            textFiedlView.text = text
+            //textFiedlView.text = text
+            textFiedlView.text = text?.replacingOccurrences(of: "\\n", with: "\n")
         }
     }
     
     var titleName: String?{
         didSet{
             self.navigationItem.title = titleName
+            
         }
     }
     

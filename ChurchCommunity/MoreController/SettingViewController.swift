@@ -30,7 +30,7 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
             }
 
         let twoDimenstionArray = [
-                ["공지사항","사용설명서","버전정보","오픈소스"],
+                ["아중감 소식","사용설명서","버전정보","오픈소스"],
                 ["내가쓴글","내가쓴댓글","로그아웃"],
                 ["개발자에게"]
             ]
@@ -66,7 +66,7 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
                 if let value = childValue["n"] as? String{
                     let viewController = MoreNoticeViewController()
-                    viewController.titleName = "공지사항"
+                    viewController.titleName = "아중감 소식"
                    viewController.text = value
                     self.ref.removeAllObservers()
                     self.navigationController?.pushViewController(viewController, animated: true)
