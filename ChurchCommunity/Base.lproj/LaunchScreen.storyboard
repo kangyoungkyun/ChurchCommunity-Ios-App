@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Start1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="gmn-gs-9x0">
-                                <rect key="frame" x="0.0" y="-43" width="375" height="710"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="start.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="gmn-gs-9x0">
+                                <rect key="frame" x="0.0" y="-43" width="375" height="758"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -27,7 +27,7 @@
                             <constraint firstItem="gmn-gs-9x0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-63" id="AmW-PX-J55"/>
                             <constraint firstItem="gmn-gs-9x0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="NJ9-ZO-Ls0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gmn-gs-9x0" secondAttribute="trailing" id="bxO-23-ryx"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gmn-gs-9x0" secondAttribute="bottom" id="vpm-u0-juD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gmn-gs-9x0" secondAttribute="bottom" constant="-48" id="vpm-u0-juD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -38,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Start1.jpg" width="384" height="768"/>
+        <image name="start.jpg" width="384" height="768"/>
     </resources>
 </document>

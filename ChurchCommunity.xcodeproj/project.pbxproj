@@ -97,6 +97,9 @@
 		52CFE0F0205F4F85006BADE7 /* MoreWriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CFE0EF205F4F85006BADE7 /* MoreWriteCell.swift */; };
 		52CFE0F2205F4F9C006BADE7 /* MoreReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CFE0F1205F4F9C006BADE7 /* MoreReplyCell.swift */; };
 		52D61220205640C500F6F031 /* read.txt in Resources */ = {isa = PBXBuildFile; fileRef = 52D6121F205640C500F6F031 /* read.txt */; };
+		52E4EB102064E63200E526FC /* start.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52E4EB0F2064E63200E526FC /* start.jpg */; };
+		52E4EB122064E88F00E526FC /* main_pick1.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E4EB112064E88F00E526FC /* main_pick1.png */; };
+		52E4EB142064E8EA00E526FC /* main_pick2.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E4EB132064E8E900E526FC /* main_pick2.png */; };
 		B1A4D96097D35122300563B8 /* Pods_ChurchCommunity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F01414784C01122F8C96A2A /* Pods_ChurchCommunity.framework */; };
 /* End PBXBuildFile section */
 
@@ -193,6 +196,9 @@
 		52CFE0EF205F4F85006BADE7 /* MoreWriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreWriteCell.swift; sourceTree = "<group>"; };
 		52CFE0F1205F4F9C006BADE7 /* MoreReplyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreReplyCell.swift; sourceTree = "<group>"; };
 		52D6121F205640C500F6F031 /* read.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = read.txt; sourceTree = "<group>"; };
+		52E4EB0F2064E63200E526FC /* start.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = start.jpg; path = "../../../행복한 울/start.jpg"; sourceTree = "<group>"; };
+		52E4EB112064E88F00E526FC /* main_pick1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_pick1.png; sourceTree = "<group>"; };
+		52E4EB132064E8E900E526FC /* main_pick2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_pick2.png; sourceTree = "<group>"; };
 		83D6E73A6D1352F5B9816186 /* Pods-ChurchCommunity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChurchCommunity.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChurchCommunity/Pods-ChurchCommunity.release.xcconfig"; sourceTree = "<group>"; };
 		9F01414784C01122F8C96A2A /* Pods_ChurchCommunity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChurchCommunity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB6A786059CB56446D190FDF /* Pods-ChurchCommunity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChurchCommunity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChurchCommunity/Pods-ChurchCommunity.debug.xcconfig"; sourceTree = "<group>"; };
@@ -329,6 +335,9 @@
 		52858A622055EBDE005C9BB9 /* Pic */ = {
 			isa = PBXGroup;
 			children = (
+				52E4EB132064E8E900E526FC /* main_pick2.png */,
+				52E4EB112064E88F00E526FC /* main_pick1.png */,
+				52E4EB0F2064E63200E526FC /* start.jpg */,
 				529618E7205D6303005D338F /* ic_settings_white.png */,
 				529618E5205D6082005D338F /* ic_view_headline_white.png */,
 				529618E3205D604E005D338F /* ic_camera_roll_white.png */,
@@ -508,6 +517,7 @@
 				52858A682055EC0F005C9BB9 /* ic_add_alert_3@.png in Resources */,
 				52858A8A2055FA28005C9BB9 /* main_pick.png in Resources */,
 				529618E2205D6038005D338F /* ic_camera_roll.png in Resources */,
+				52E4EB102064E63200E526FC /* start.jpg in Resources */,
 				52858A532055E64D005C9BB9 /* LaunchScreen.storyboard in Resources */,
 				52A6EF8D205C121D00718863 /* start001.png in Resources */,
 				529618D0205D5B81005D338F /* ic_create.png in Resources */,
@@ -546,6 +556,8 @@
 				529618E4205D604E005D338F /* ic_camera_roll_white.png in Resources */,
 				52A71219205CC44600E43E8F /* nopic.png in Resources */,
 				52A71215205CA43A00E43E8F /* addca.png in Resources */,
+				52E4EB142064E8EA00E526FC /* main_pick2.png in Resources */,
+				52E4EB122064E88F00E526FC /* main_pick1.png in Resources */,
 				529618E0205D6022005D338F /* ic_event_note_white.png in Resources */,
 				529618DC205D5F18005D338F /* ic_chat_white.png in Resources */,
 			);

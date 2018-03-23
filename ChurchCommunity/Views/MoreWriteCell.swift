@@ -38,7 +38,7 @@ class MoreWriteCell: UITableViewCell {
         label.text = "이름"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         
         
         //이미지 터치 하면 이벤트 발생하게

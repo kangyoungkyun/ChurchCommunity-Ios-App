@@ -11,8 +11,8 @@ class SignViewController: UIViewController {
     
     let mainTitle : UILabel = {
         let title =  UILabel()
-        title.text = "아중감 청년부 가입"
-        title.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        title.text = "행복한 우리동네 가입"
+        title.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         title.font = UIFont.boldSystemFont(ofSize: 18)
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
@@ -21,7 +21,7 @@ class SignViewController: UIViewController {
     //이미지 뷰
     let imageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "main_pick.png")
+        image.image = UIImage(named: "main_pick2.png")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         return image
@@ -30,7 +30,7 @@ class SignViewController: UIViewController {
     //이름 필드
     let nameTextField: UITextField = {
         let name = UITextField()
-        name.placeholder = "이름"
+        name.placeholder = "닉네임"
         name.autocorrectionType = .no
         name.autocapitalizationType = .none
         name.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +41,7 @@ class SignViewController: UIViewController {
     //이름 구분선 만들기
     let nameSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -61,7 +61,7 @@ class SignViewController: UIViewController {
     //이메일 구분선 만들기
     let emailSeperatorView: UIView = {
         let view = UIView()
-       view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+       view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -79,7 +79,7 @@ class SignViewController: UIViewController {
     //이메일 구분선 만들기
     let passwordSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -87,7 +87,7 @@ class SignViewController: UIViewController {
     //버튼
     let signButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        button.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         button.setTitle("가입", for: UIControlState())
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: UIControlState())

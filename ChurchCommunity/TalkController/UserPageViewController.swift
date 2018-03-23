@@ -21,7 +21,7 @@ class UserPageViewController: UIViewController {
         
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         return label
     }()
     
@@ -32,7 +32,7 @@ class UserPageViewController: UIViewController {
         label.text = "생일"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         return label
     }()
     
@@ -42,7 +42,7 @@ class UserPageViewController: UIViewController {
         label.text = "기분"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         return label
     }()
     
@@ -60,7 +60,7 @@ class UserPageViewController: UIViewController {
     //이름 구분선 만들기
     let nameSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -77,7 +77,7 @@ class UserPageViewController: UIViewController {
     //생일 구분선 만들기
     let birthSeperatorView : UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -98,7 +98,7 @@ class UserPageViewController: UIViewController {
     //메시지 구분선 만들기
     let mesageSeperatorView : UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -140,7 +140,7 @@ class UserPageViewController: UIViewController {
         //바탕화면 누르면 키보드 숨기기
         //hideKeyboard()
         self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         self.navigationItem.title = "프로필"
         //취소 바 버튼
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(cancelAction))

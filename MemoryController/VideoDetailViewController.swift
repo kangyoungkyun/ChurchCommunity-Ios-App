@@ -37,7 +37,7 @@ class VideoDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "동영상 제목 입니다.~~~~"
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -49,7 +49,7 @@ class VideoDetailViewController: UIViewController {
          label.text = "동영상 설명입니다 입니다.~~~~동영상 설명입니다 입니다.~~~~동영상 설명입니다 입니다.~~~~동영상 설명입니다 입니다 동영상 설명입니다 입니다.~~~~동영상 설명입니다 입니다.~~~~동영상 설명입니다 입니다.~~~~동영상 설명입니다 입니다"
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -91,8 +91,8 @@ class VideoDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        //view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         self.navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationItem.title = "영상방"

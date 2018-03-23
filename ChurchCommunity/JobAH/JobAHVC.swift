@@ -25,7 +25,7 @@ class JobAHVC: UITableViewController ,UISearchBarDelegate{
         let uisearchController = UISearchController(searchResultsController: nil)
         uisearchController.searchBar.placeholder = "검색"
         //uisearchController.searchBar.barTintColor = UIColor.white
-        uisearchController.searchBar.backgroundColor =  UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        uisearchController.searchBar.backgroundColor =  UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         return uisearchController
     }()
     
@@ -72,17 +72,18 @@ class JobAHVC: UITableViewController ,UISearchBarDelegate{
         
         
         showPost()
-        tableView.separatorColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        tableView.separatorColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         searchPosts.removeAll()
         searchController.searchBar.delegate = self
         
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         self.navigationController?.navigationBar.isTranslucent = false
         
-        
+        let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
         self.navigationItem.title = "동네구인"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.searchController = searchController
         
         
@@ -154,7 +155,7 @@ class JobAHVC: UITableViewController ,UISearchBarDelegate{
         
         //cell 클릭했을 때 색깔 바꿔주기
         let bgColorView = UIView()
-        bgColorView.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        bgColorView.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         cell?.selectedBackgroundView = bgColorView
         
         if(searchController.isActive && searchController.searchBar.text != ""){

@@ -14,7 +14,7 @@ class MoreReplyTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = tableViewFooterView //풋터 뷰
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         self.navigationController?.navigationBar.isTranslucent = false
         
 fetchReply()

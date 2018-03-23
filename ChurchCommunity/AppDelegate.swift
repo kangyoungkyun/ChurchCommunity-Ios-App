@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController = UITabBarController()
         tabBarController?.view.backgroundColor = UIColor.white
         tabBarController?.view.tintColor = UIColor.white
-        tabBarController?.tabBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        tabBarController?.tabBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
 
         
         //collectionView layout - 반드시 넣어줘야 함
@@ -118,7 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
 
         
-        talkNavVC.tabBarItem.title = "동네토크"
+        talkNavVC.tabBarItem.title = "동네수다"
         noticeNavVC.tabBarItem.title = "동네소식"
         jobNavVC.tabBarItem.title = "동네구인"
         makatingNavVC.tabBarItem.title = "동네홍보"

@@ -21,7 +21,7 @@ extension UIImageView {
         self.layer.cornerRadius = self.frame.size.width / 2
         self.clipsToBounds = true
         self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0).cgColor
+        self.layer.borderColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0).cgColor
         self.layer.masksToBounds = true
     }
     
@@ -77,7 +77,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         return label
     }()
     
@@ -87,7 +87,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         label.text = "Email"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         return label
     }()
     
@@ -97,7 +97,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         label.text = "생일"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         return label
     }()
     
@@ -107,7 +107,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         label.text = "기분"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         return label
     }()
     
@@ -125,7 +125,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
     //이름 구분선 만들기
     let nameSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -143,7 +143,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
     //이메일 구분선 만들기
     let emailSeperatorView : UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -193,7 +193,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
     //생일 구분선 만들기
     let birthSeperatorView : UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -213,7 +213,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
     //메시지 구분선 만들기
     let mesageSeperatorView : UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -249,7 +249,7 @@ class MyPageViewController: UIViewController ,UIImagePickerControllerDelegate, U
         //바탕화면 누르면 키보드 숨기기
         hideKeyboard()
         self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         self.navigationItem.title = "MyPage"
 
         //취소 바 버튼

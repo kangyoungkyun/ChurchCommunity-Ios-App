@@ -223,7 +223,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     //이름
     var nameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         label.text = "이름"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -284,7 +284,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         label.text = "  댓글"
         label.textColor = UIColor.white
         label.textAlignment = .left
-        label.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        label.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.layer.cornerRadius = 13
@@ -338,7 +338,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("쓰기", for: UIControlState())
-        btn.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        btn.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         btn.addTarget(self, action: #selector(replyBtnAction), for: .touchUpInside)
         return btn
     }()
@@ -444,7 +444,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     // ======================================================        진입점        ======================================================
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "나눔글"
+        self.navigationItem.title = "수다글"
         
         
         //취소 바 버튼
@@ -463,8 +463,8 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         self.view.addSubview(uiScrollView)
         
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
-        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        //self.navigationController?.navigationBar.isTranslucent = false
         
         replyView.delegate = self
         replyView.dataSource = self

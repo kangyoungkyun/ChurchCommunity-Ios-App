@@ -37,7 +37,7 @@ class MemoryViewController: UITableViewController {
         //let model = VideoModel()
         //self.videos = model.getVideo()
         
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         self.navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "영상방"

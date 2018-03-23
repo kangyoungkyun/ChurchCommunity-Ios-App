@@ -17,9 +17,9 @@ class MainViewController: UIViewController {
     
     let mainTitle : UILabel = {
         let title =  UILabel()
-        title.text = "아중감 청년부 로그인"
+        title.text = "행복한 우리동네 로그인"
         title.font = UIFont.boldSystemFont(ofSize: 18)
-        title.textColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        title.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
@@ -27,7 +27,7 @@ class MainViewController: UIViewController {
     //이미지 뷰
     let imageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "main_pick.png")
+        image.image = UIImage(named: "main_pick2.png")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         return image
@@ -48,7 +48,7 @@ class MainViewController: UIViewController {
     //이메일 구분선 만들기
     let emailSeperatorView: UIView = {
         let view = UIView()
-       view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+       view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -66,7 +66,7 @@ class MainViewController: UIViewController {
     //이메일 구분선 만들기
     let passwordSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -74,7 +74,7 @@ class MainViewController: UIViewController {
     //버튼
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
+        button.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         button.setTitle("로그인", for: UIControlState())
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: UIControlState())
