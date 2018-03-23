@@ -30,7 +30,7 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
             }
 
         let twoDimenstionArray = [
-                ["아중감 소식","사용설명서","버전정보","오픈소스"],
+                ["공지사항","이용안내","버전정보","오픈소스"],
                 ["내가쓴글","내가쓴댓글","로그아웃"],
                 ["개발자에게"]
             ]
@@ -62,11 +62,11 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
         if(section == 0 && row == 0){
            
             ref.child("more").child("notice").observe(.value, with: { (snapshot) in
-                let childSnapshot = snapshot as! DataSnapshot //자식 DataSnapshot 가져오기
+                let childSnapshot = snapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
                 if let value = childValue["n"] as? String{
                     let viewController = MoreNoticeViewController()
-                    viewController.titleName = "아중감 소식"
+                    viewController.titleName = "공지사항"
                    viewController.text = value
                     self.ref.removeAllObservers()
                     self.navigationController?.pushViewController(viewController, animated: true)
@@ -77,13 +77,13 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
         
         //사용설명서
         }else if (section == 0 && row == 1){
-             print("사용설명서")
+          
             ref.child("more").child("des").observe(.value, with: { (snapshot) in
-                let childSnapshot = snapshot as! DataSnapshot //자식 DataSnapshot 가져오기
+                let childSnapshot = snapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
                 if let value = childValue["d"] as? String{
                     let viewController = MoreNoticeViewController()
-                    viewController.titleName = "사용설명서"
+                    viewController.titleName = "이용안내"
                     viewController.text = value
                     self.ref.removeAllObservers()
                     self.navigationController?.pushViewController(viewController, animated: true)
@@ -93,7 +93,7 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
         }else if (section == 0 && row == 2){
             print("버전정보")
             ref.child("more").child("ver").observe(.value, with: { (snapshot) in
-                let childSnapshot = snapshot as! DataSnapshot //자식 DataSnapshot 가져오기
+                let childSnapshot = snapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
                 if let value = childValue["v"] as? String{
                     let viewController = MoreNoticeViewController()
@@ -107,7 +107,7 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
         }else if (section == 0 && row == 3){
             print("오픈소스")
             ref.child("more").child("open").observe(.value, with: { (snapshot) in
-                let childSnapshot = snapshot as! DataSnapshot //자식 DataSnapshot 가져오기
+                let childSnapshot = snapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
                 if let value = childValue["o"] as? String{
                     let viewController = MoreNoticeViewController()
@@ -149,8 +149,6 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
     }
     
     
-    
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return twoDimenstionArray.count

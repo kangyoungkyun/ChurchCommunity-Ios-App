@@ -70,33 +70,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         
         //collectionView layout - 반드시 넣어줘야 함
-        let layout = UICollectionViewFlowLayout()
+        //let layout = UICollectionViewFlowLayout()
 
         let talkVC = TalkViewController()
-        let memoryVC = MemoryViewController()
-        let notictVC = NoticeViewController(collectionViewLayout: layout)
-        let birthVC = BirthViewController()
+        
+        //let memoryVC = MemoryViewController()
+        //let notictVC = NoticeViewController(collectionViewLayout: layout)
+        //let birthVC = BirthViewController()
+        
+        let noticeAH = NoticeAHVC()
+        let jobAH = JobAHVC()
+        let makating = MakatingAHVC()
+        
+        
         let settingVC = SettingViewController()
         
 
         
         let talkNavVC = UINavigationController(rootViewController: talkVC)
-        let memoryNavVC = UINavigationController(rootViewController: memoryVC)
-        let notictNavVC = UINavigationController(rootViewController: notictVC)
-         let birthNavVC = UINavigationController(rootViewController: birthVC)
+        let noticeNavVC = UINavigationController(rootViewController: noticeAH)
+        let jobNavVC = UINavigationController(rootViewController: jobAH)
+         let makatingNavVC = UINavigationController(rootViewController: makating)
         let settingNavVC = UINavigationController(rootViewController: settingVC)
         
         
-        tabBarController?.setViewControllers([talkNavVC,memoryNavVC,notictNavVC,birthNavVC,settingNavVC], animated: false)
+        tabBarController?.setViewControllers([talkNavVC,noticeNavVC,jobNavVC,makatingNavVC,settingNavVC], animated: false)
         
     
     
         
         //탭바 이미지 넣기
         talkNavVC.tabBarItem.image = UIImage(named:"ic_chat")?.withRenderingMode(.alwaysTemplate)
-        memoryNavVC.tabBarItem.image = UIImage(named:"ic_camera_roll")?.withRenderingMode(.alwaysTemplate)
-        notictNavVC.tabBarItem.image = UIImage(named:"ic_event_note")?.withRenderingMode(.alwaysTemplate)
-        birthNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
+        noticeNavVC.tabBarItem.image = UIImage(named:"ic_camera_roll")?.withRenderingMode(.alwaysTemplate)
+        jobNavVC.tabBarItem.image = UIImage(named:"ic_event_note")?.withRenderingMode(.alwaysTemplate)
+        makatingNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
         settingNavVC.tabBarItem.image = UIImage(named:"ic_view_headline")?.withRenderingMode(.alwaysTemplate)
         
         
@@ -104,17 +111,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
        
         talkNavVC.tabBarItem.selectedImage = UIImage(named:"ic_chat_white")?.withRenderingMode(.alwaysOriginal)
-        memoryNavVC.tabBarItem.selectedImage = UIImage(named:"ic_camera_roll_white")?.withRenderingMode(.alwaysOriginal)
-        notictNavVC.tabBarItem.selectedImage = UIImage(named:"ic_event_note_white")?.withRenderingMode(.alwaysOriginal)
-        birthNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
+        noticeNavVC.tabBarItem.selectedImage = UIImage(named:"ic_camera_roll_white")?.withRenderingMode(.alwaysOriginal)
+        jobNavVC.tabBarItem.selectedImage = UIImage(named:"ic_event_note_white")?.withRenderingMode(.alwaysOriginal)
+        makatingNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
         settingNavVC.tabBarItem.selectedImage = UIImage(named:"ic_view_headline_white")?.withRenderingMode(.alwaysOriginal)
        
 
         
-        talkNavVC.tabBarItem.title = "나눔방"
-        memoryNavVC.tabBarItem.title = "영상방"
-        notictNavVC.tabBarItem.title = "사진방"
-        birthNavVC.tabBarItem.title = "생일자"
+        talkNavVC.tabBarItem.title = "동네토크"
+        noticeNavVC.tabBarItem.title = "동네소식"
+        jobNavVC.tabBarItem.title = "동네구인"
+        makatingNavVC.tabBarItem.title = "동네홍보"
         settingNavVC.tabBarItem.title = "더보기"
         
         return true

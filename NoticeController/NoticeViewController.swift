@@ -69,10 +69,12 @@ var activityIndicatorView: UIActivityIndicatorView!
         
         if let currentEmail = Auth.auth().currentUser?.email {
             print("소식방에 접근한 아이디 \(currentEmail )")
-            if(currentEmail == "admin@naver.com"){
+            if(currentEmail == "admin@naver.com" || currentEmail == "admin1@naver.com"||currentEmail == "admin2@naver.com"||currentEmail == "admin3@naver.com" || currentEmail == "admin4@naver.com"){
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(addNoticePick))
             }
         }
+        
+        
         self.collectionView!.register(NoticeCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView?.backgroundColor = UIColor.white
         //self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "로그아웃", style: .plain, target: self, action: #selector(logoutAction))

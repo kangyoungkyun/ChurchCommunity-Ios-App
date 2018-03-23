@@ -1,17 +1,17 @@
 //
-//  DetailTalkViewController.swift
+//  JobDetailVC.swift
 //  ChurchCommunity
 //
-//  Created by MacBookPro on 2018. 3. 14..
+//  Created by MacBookPro on 2018. 3. 23..
 //  Copyright © 2018년 MacBookPro. All rights reserved.
 //
 
 import UIKit
 import Firebase
-class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
-    
+class JobDetailVC: UIViewController, UITableViewDelegate,UITableViewDataSource {
+
     var replys = [Reply]()
-    let cellId = "cellId"
+    let cellId = "JobsCellId"
     
     
     // ==========================================================================.   글 상세 화면에 subview로 넣은 테이블 뷰 =====================================.
@@ -74,8 +74,8 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             self.modifyText = customView.text
             let ref = Database.database().reference()
             //print("수정된 글은~? \(self.modifyText)")
-            ref.child("replys").child(self.pidLabel.text!).child(rid).updateChildValues(["text":self.modifyText ?? "",
-                                                                                         "date":ServerValue.timestamp()])
+            ref.child("jobReplys").child(self.pidLabel.text!).child(rid).updateChildValues(["text":self.modifyText ?? "",
+                                                                                               "date":ServerValue.timestamp()])
             
         })
         
@@ -125,7 +125,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         let deleteAction = UIAlertAction(title: "댓글삭제", style: .destructive) { (alert) in
             if(Auth.auth().currentUser?.uid == uid){
                 let ref = Database.database().reference()
-                ref.child("replys").child(self.pidLabel.text!).child(rid!).removeValue()
+                ref.child("jobReplys").child(self.pidLabel.text!).child(rid!).removeValue()
                 let alert = UIAlertController(title: "알림 ", message:"성공적으로 삭제되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
@@ -350,7 +350,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         let ref = Database.database().reference()
         ref.child("users").child(myUid!).observe(.value) { (snapshot) in
             
-            let childSnapshot = snapshot as! DataSnapshot //자식 DataSnapshot 가져오기
+            let childSnapshot = snapshot //자식 DataSnapshot 가져오기
             let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
             if let pass = childValue["pass"] as? String{
                 if pass == "n"{
@@ -371,9 +371,9 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
                     
                     
                     //랜덤 키
-                    let replyRef = ref.child("replys").child(self.pidLabel.text!)
+                    let replyRef = ref.child("jobReplys").child(self.pidLabel.text!)
                     
-                    let replyKey = ref.child("replys").childByAutoId().key
+                    let replyKey = ref.child("jobReplys").childByAutoId().key
                     print(replyKey)
                     
                     //데이터 객체 만들기
@@ -417,11 +417,11 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
                 }
             }
         }
-      
         
         
         
-
+        
+        
     }
     
     //구분선
@@ -444,7 +444,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     // ======================================================        진입점        ======================================================
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "나눔글"
+        self.navigationItem.title = "구인정보"
         
         
         //취소 바 버튼
@@ -610,7 +610,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     //댓글 가져오기
     func fetchReply(){
         let ref = Database.database().reference()
-        ref.child("replys").child(pidLabel.text!).queryOrdered(byChild: "date").observe(.value) { (snapshot) in
+        ref.child("jobReplys").child(pidLabel.text!).queryOrdered(byChild: "date").observe(.value) { (snapshot) in
             self.replys.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
             
             print("너 댓글 몃개니 \(Int(snapshot.childrenCount))")
@@ -618,12 +618,12 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             if(Int(snapshot.childrenCount) == 0){
                 print(Int(snapshot.childrenCount))
                 self.replyCount = 0
-                ref.child("posts").child(self.pidLabel.text!).updateChildValues(["reply": self.replyCount ?? 0])
+                ref.child("jobs").child(self.pidLabel.text!).updateChildValues(["reply": self.replyCount ?? 0])
                 
             }else{
                 print(Int(snapshot.childrenCount))
                 self.replyCount = Int(snapshot.childrenCount) //배열 총개수 할당
-                ref.child("posts").child(self.pidLabel.text!).updateChildValues(["reply": self.replyCount ?? 0])
+                ref.child("jobs").child(self.pidLabel.text!).updateChildValues(["reply": self.replyCount ?? 0])
                 
             }
             
@@ -682,7 +682,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             //댓글이 없을 때만 본인의 글을 지울 수 있다.
             if(replyNum == 0){
                 let ref = Database.database().reference()
-                ref.child("posts").child(self.pidLabel.text!).removeValue()
+                ref.child("jobs").child(self.pidLabel.text!).removeValue()
                 let alert = UIAlertController(title: "알림 ", message:"삭제되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
                 let alertAction = UIAlertAction(title: "확인", style: UIAlertActionStyle.default,handler: { (action) in
                     self.navigationController?.popViewController(animated: true)
@@ -737,8 +737,8 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             self.modifyText = customView.text
             
             let ref = Database.database().reference()
-            ref.child("posts").child(pid).updateChildValues(["text":self.modifyText ?? "",
-                                                             "date":ServerValue.timestamp()])
+            ref.child("jobs").child(pid).updateChildValues(["text":self.modifyText ?? "",
+                                                               "date":ServerValue.timestamp()])
             let alert = UIAlertController(title: "알림 ", message:"수정되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
             let alertAction = UIAlertAction(title: "확인", style: UIAlertActionStyle.default,handler: { (action) in
                 self.navigationController?.popViewController(animated: true)

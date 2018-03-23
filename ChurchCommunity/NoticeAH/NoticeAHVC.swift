@@ -1,32 +1,23 @@
 //
-//  TalkTableViewController.swift
+//  NoticeAHVC.swift
 //  ChurchCommunity
 //
-//  Created by MacBookPro on 2018. 3. 12..
+//  Created by MacBookPro on 2018. 3. 23..
 //  Copyright © 2018년 MacBookPro. All rights reserved.
 //
 
 import UIKit
 import Firebase
-class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCellProtocol {
-    
-    
-var activityIndicatorView: UIActivityIndicatorView!
-    
-    
-        //테이블 뷰 셀에서 이름이 클릭되었을 때
-    func userClickCell(uid: String) {
-        
-        let viewController = UserPageViewController()
-       viewController.userUid = uid
-        //userProfile 화면을 rootView로 만들어 주기
-        navigationController?.pushViewController(viewController, animated: true)
-        }
+class NoticeAHVC: UITableViewController,UISearchBarDelegate {
 
-
+    
+    var activityIndicatorView: UIActivityIndicatorView!
+    
+    
+    
     var posts = [Post]()
     var searchPosts = [Post]()
-    let cellId = "cellId"
+    let cellId = "NoticesCellId"
     
     
     let searchController : UISearchController = {
@@ -40,22 +31,21 @@ var activityIndicatorView: UIActivityIndicatorView!
     //검색버튼 눌렀을 때
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchPosts.removeAll()
-        //print("서치바 \(String(describing: searchController.searchBar.text!))")
+       
         searchPosts = posts.filter({ (post) -> Bool in
             guard let text = searchController.searchBar.text else{return false}
             return post.text.contains(text)
         })
         self.tableView.reloadData()
-       // print("필터 개수는? \(searchPosts.count)")
-        //searchController.searchBar.text = ""
+
     }
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        
         activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(activityIndicatorView)
@@ -70,16 +60,16 @@ var activityIndicatorView: UIActivityIndicatorView!
         DispatchQueue.main.async {
             // print("start DispatchQueue")
             OperationQueue.main.addOperation() {
-              //   print("start OperationQueue")
+                //   print("start OperationQueue")
                 self.tableView.separatorStyle = .singleLine
-                 Thread.sleep(forTimeInterval: 1.5)
+                Thread.sleep(forTimeInterval: 1.5)
                 //   print("start forTimeInterval")
                 self.activityIndicatorView.stopAnimating()
                 self.tableView.reloadData()
             }
         }
         
-
+        
         showPost()
         tableView.separatorColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         searchPosts.removeAll()
@@ -89,36 +79,41 @@ var activityIndicatorView: UIActivityIndicatorView!
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.72, blue:0.16, alpha:1.0)
         self.navigationController?.navigationBar.isTranslucent = false
         
-
-        self.navigationItem.title = "동네토크"
+        
+        self.navigationItem.title = "동네소식"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.searchController = searchController
         
-  
-        //마이페이지
-         //self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:#imageLiteral(resourceName: "ic_person.png"), style: .plain, target: self, action:  #selector(myPageAction))
         
-        //글쓰기 방
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_border_color.png"), style: .plain, target: self, action:  #selector(writeAction))
+        if let currentEmail = Auth.auth().currentUser?.email {
+            print("소식방에 접근한 아이디 \(currentEmail )")
+            if(currentEmail == "admin@naver.com" || currentEmail == "admin1@naver.com"||currentEmail == "admin2@naver.com"||currentEmail == "admin3@naver.com" || currentEmail == "admin4@naver.com"){
+                //글쓰기 방
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_border_color.png"), style: .plain, target: self, action:  #selector(writeAction))
+            }
+        }
         
-        tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
+
         
-        //self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 5, 0);
+        
+        
+        tableView.register(NoticeAVCell.self, forCellReuseIdentifier: cellId)
+        
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
-          //print("end view didLoad")
-    }
 
+    }
+    
     //글쓰기
     @objc func writeAction(){
-       
+        
         let myUid = Auth.auth().currentUser?.uid
         let ref = Database.database().reference()
         ref.child("users").child(myUid!).observe(.value) { (snapshot) in
             
             let childSnapshot = snapshot //자식 DataSnapshot 가져오기
             let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
-           
+            
             
             if let pass = childValue["pass"] as? String{
                 if pass == "n"{
@@ -128,7 +123,7 @@ var activityIndicatorView: UIActivityIndicatorView!
                     return
                 }else if(pass == "y"){
                     //글쓰기 화면
-                    let writeView = WriteViewController()
+                    let writeView = NoticeWriteAHVC()
                     //글쓰기 화면을 rootView로 만들어 주기
                     let navController = UINavigationController(rootViewController: writeView)
                     self.present(navController, animated: true, completion: nil)
@@ -137,7 +132,7 @@ var activityIndicatorView: UIActivityIndicatorView!
             
         }
         
-
+        
     }
     
     
@@ -156,10 +151,9 @@ var activityIndicatorView: UIActivityIndicatorView!
     //테이블 뷰 셀의 구성 및 데이터 할당 부분
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? NoticeAVCell
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TalkCell
-        
-        cell?.delegate = self
+        //cell?.delegate = self
         
         //cell 클릭했을 때 색깔 바꿔주기
         let bgColorView = UIView()
@@ -202,7 +196,7 @@ var activityIndicatorView: UIActivityIndicatorView!
         print("셀 클릭")
         
         //선택한 셀 정보 가져오기
-        let cell = tableView.cellForRow(at: indexPath) as? TalkCell
+        let cell = tableView.cellForRow(at: indexPath) as? NoticeAVCell
         
         //값 할당
         let name = cell?.nameLabel.text
@@ -221,7 +215,7 @@ var activityIndicatorView: UIActivityIndicatorView!
         let hiting = ["hit" : hitNum]
         //여기가 문제
         let ref = Database.database().reference()
-        ref.child("posts").child(pid!).updateChildValues(hiting)
+        ref.child("notices").child(pid!).updateChildValues(hiting)
         
         let xss = replyHitLabel!.characters.split(separator:" ").map{ String($0) }
         let replyNum = Int(xss[0])!
@@ -236,7 +230,7 @@ var activityIndicatorView: UIActivityIndicatorView!
         onePost.uid = uid
         
         //디테일 페이지로 이동
-        let detailTalkViewController = DetailTalkViewController()
+        let detailTalkViewController = NoticeDetailAHVC()
         detailTalkViewController.onePost = onePost
         //글쓰기 화면을 rootView로 만들어 주기
         navigationController?.pushViewController(detailTalkViewController, animated: true)
@@ -244,10 +238,10 @@ var activityIndicatorView: UIActivityIndicatorView!
     
     //포스트 조회 함수
     func showPost(){
-       //AppDelegate.instance().showActivityIndicator()
-            print("start showPost")
+        //AppDelegate.instance().showActivityIndicator()
+        print("start showPost")
         let ref = Database.database().reference()
-        ref.child("posts").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
+        ref.child("notices").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
             self.posts.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
             for child in snapshot.children{
                 
@@ -257,11 +251,11 @@ var activityIndicatorView: UIActivityIndicatorView!
                 
                 
                 if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"], let reply = childValue["reply"] {
-
+                    
                     //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
                     if let t = date as? TimeInterval {
                         let date = NSDate(timeIntervalSince1970: t/1000)
-                       // print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
+                        // print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
                         let dayTimePeriodFormatter = DateFormatter()
                         dayTimePeriodFormatter.dateFormat = "MMM d일 hh:mm a"
                         let dateString = dayTimePeriodFormatter.string(from: date as Date)
@@ -278,10 +272,11 @@ var activityIndicatorView: UIActivityIndicatorView!
             }
             self.tableView.reloadData()
         }
-       
+        
         print("end showPost")
         //activityIndicatorView.stopAnimating()
     }
     
-}
 
+
+}

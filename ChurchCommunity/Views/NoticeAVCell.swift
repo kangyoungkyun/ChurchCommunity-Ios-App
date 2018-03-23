@@ -1,22 +1,17 @@
 //
-//  TalkCell.swift
+//  NoticeAVCell.swift
 //  ChurchCommunity
 //
-//  Created by MacBookPro on 2018. 3. 13..
+//  Created by MacBookPro on 2018. 3. 23..
 //  Copyright © 2018년 MacBookPro. All rights reserved.
 //
-
-// 1.
-protocol userClickCellProtocol {
-    func userClickCell(uid: String)
-}
 
 
 import UIKit
 
-class TalkCell: UITableViewCell {
+class NoticeAVCell: UITableViewCell {
     
-    var delegate: userClickCellProtocol!
+   let cellId = "NoticesCellId"
     
     //uid
     var uidLabel: UILabel = {
@@ -48,7 +43,7 @@ class TalkCell: UITableViewCell {
         
         
         //이미지 터치 하면 이벤트 발생하게
-       // let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectName))
+        // let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectName))
         //label.isUserInteractionEnabled = true
         //label.addGestureRecognizer(tapGesture)
         
@@ -59,7 +54,7 @@ class TalkCell: UITableViewCell {
     @objc func handleSelectName(){
         print("이름이 클릭되었어요 \(String(describing: nameLabel.text))")
         print("id가 클릭되었어요 \(String(describing: uidLabel.text))")
-        self.delegate.userClickCell(uid: uidLabel.text!)
+        //self.delegate.userClickCell(uid: uidLabel.text!)
         
     }
     
@@ -67,14 +62,14 @@ class TalkCell: UITableViewCell {
     var txtLabel: UILabel = {
         let label = UILabel()
         
-                    let paragraphStyle = NSMutableParagraphStyle()
-                   //줄 높이
-                    paragraphStyle.lineSpacing = 4
+        let paragraphStyle = NSMutableParagraphStyle()
+        //줄 높이
+        paragraphStyle.lineSpacing = 4
         
-                    let attribute = NSMutableAttributedString(string: "텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.black])
-                        //줄간격 셋팅
+        let attribute = NSMutableAttributedString(string: "텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.black])
+        //줄간격 셋팅
         
-                        attribute.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range: NSMakeRange(0, attribute.length))
+        attribute.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range: NSMakeRange(0, attribute.length))
         
         
         label.lineBreakMode = .byWordWrapping
@@ -111,13 +106,13 @@ class TalkCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        super.init(style: .default, reuseIdentifier: cellId)
         
         //선택됐을 때 no hover
         selectionStyle = .none
-         addSubview(uidLabel)
+        addSubview(uidLabel)
         addSubview(pidLabel)
         addSubview(nameLabel)
         addSubview(txtLabel)
@@ -127,7 +122,7 @@ class TalkCell: UITableViewCell {
         
         setLayout()
     }
-
+    
     
     
     func setLayout(){
@@ -170,6 +165,5 @@ class TalkCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
+}
 }

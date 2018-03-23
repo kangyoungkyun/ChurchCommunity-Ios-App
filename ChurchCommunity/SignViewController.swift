@@ -151,8 +151,8 @@ class SignViewController: UIViewController {
                 
                 //데이터 객체 만들기
                 let userInfo: [String:Any] = ["uid" : user.uid,
-                                              "name" : self.nameTextField.text ?? "청년1",
-                                              "pass" : "n"]
+                                              "name" : self.nameTextField.text ?? "주민1",
+                                              "pass" : "y"]
                 //해당 경로에 삽입
                 usersReference.setValue(userInfo)
                 

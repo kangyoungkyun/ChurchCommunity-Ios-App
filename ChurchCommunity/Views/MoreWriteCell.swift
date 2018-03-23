@@ -10,7 +10,7 @@
 import UIKit
 
 class MoreWriteCell: UITableViewCell {
- var delegate: userClickCellProtocol!
+ 
 
     //uid
     var uidLabel: UILabel = {
