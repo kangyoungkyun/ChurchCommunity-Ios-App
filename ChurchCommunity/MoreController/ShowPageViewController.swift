@@ -477,24 +477,18 @@ class ShowPageViewController: UIViewController {
        
         // -- 글 개수 가져오기
         ref.child("posts").queryOrderedByKey().observe(.value) { (snapshot) in
-            
             for child in snapshot.children{
-                
                 let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
-                
                 if let uid = childValue["uid"]{
-                    
-                    if(myUid == String(describing: uid)){
-                        
+                    if(String(describing: uid) == myUid){
                         writeCount = writeCount + 1
-                        
                     }
                 }
+                self.birthTextField.text = "\(writeCount) 개" // 내가쓴 글 개수 가져와서 넣어주기
             }
-            self.birthTextField.text = "\(writeCount) 개" // 내가쓴 글 개수 가져와서 넣어주기
+            writeCount = 0
         }
-        
         //-- 댓글 개수 가져오기
         ref.child("replys").queryOrderedByKey().observe(.value) { (snapshot) in
             for child in snapshot.children{
@@ -504,18 +498,15 @@ class ShowPageViewController: UIViewController {
                     let uidValue =  val as? [String:Any]
                     if let uid = uidValue {
                         if let uidd = uid["uid"] {
-                            
                             if(String(describing: uidd) == myUid){
-                                
                                 replyCount = replyCount + 1
-                                
                             }
                         }
                     }
                 }
-                
                 self.mesageTextField.text = "\(replyCount) 개" // 내가쓴 댓글 개수 가져와서 넣어주기
             }
+            replyCount = 0
         }
         
         // 보낸 쪽지 개수 가져오기

@@ -73,7 +73,7 @@ fetchReply()
         ref.child("replys").queryOrderedByKey().observe(.value) { (snapshot) in
             self.replys.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
             
-            let myKey = Auth.auth().currentUser?.uid as! String
+            let myKey = Auth.auth().currentUser?.uid
             for child in snapshot.children{
                 let replyToShow = Reply() //데이터를 담을 클래스
                 let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
