@@ -12,6 +12,7 @@
 		520E1B64205A171D00478F0F /* ReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520E1B63205A171D00478F0F /* ReplyCell.swift */; };
 		52299E59205B641200B9D118 /* NoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52299E58205B641200B9D118 /* NoticeCell.swift */; };
 		52299E5B205B6F9F00B9D118 /* Notices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52299E5A205B6F9F00B9D118 /* Notices.swift */; };
+		5237A96520665C1F0027D0AB /* ShowUserPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5237A96420665C1F0027D0AB /* ShowUserPageViewController.swift */; };
 		523B4BA32065D66A00D34B40 /* nopict.png in Resources */ = {isa = PBXBuildFile; fileRef = 523B4BA22065D66A00D34B40 /* nopict.png */; };
 		5242FF9320573A5800548FD4 /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5242FF9220573A5800548FD4 /* WriteViewController.swift */; };
 		5242FF952057634D00548FD4 /* TalkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5242FF942057634D00548FD4 /* TalkCell.swift */; };
@@ -100,7 +101,6 @@
 		52E4EB102064E63200E526FC /* start.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52E4EB0F2064E63200E526FC /* start.jpg */; };
 		52E4EB122064E88F00E526FC /* main_pick1.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E4EB112064E88F00E526FC /* main_pick1.png */; };
 		52E4EB142064E8EA00E526FC /* main_pick2.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E4EB132064E8E900E526FC /* main_pick2.png */; };
-		52E4EB182064F5BF00E526FC /* MyPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E4EB172064F5BF00E526FC /* MyPageVC.swift */; };
 		B1A4D96097D35122300563B8 /* Pods_ChurchCommunity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F01414784C01122F8C96A2A /* Pods_ChurchCommunity.framework */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +110,7 @@
 		520E1B63205A171D00478F0F /* ReplyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyCell.swift; sourceTree = "<group>"; };
 		52299E58205B641200B9D118 /* NoticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeCell.swift; sourceTree = "<group>"; };
 		52299E5A205B6F9F00B9D118 /* Notices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notices.swift; sourceTree = "<group>"; };
+		5237A96420665C1F0027D0AB /* ShowUserPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowUserPageViewController.swift; sourceTree = "<group>"; };
 		523B4BA22065D66A00D34B40 /* nopict.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nopict.png; sourceTree = "<group>"; };
 		5242FF9220573A5800548FD4 /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
 		5242FF942057634D00548FD4 /* TalkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkCell.swift; sourceTree = "<group>"; };
@@ -200,7 +201,6 @@
 		52E4EB0F2064E63200E526FC /* start.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = start.jpg; path = "../../../행복한 울/start.jpg"; sourceTree = "<group>"; };
 		52E4EB112064E88F00E526FC /* main_pick1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_pick1.png; sourceTree = "<group>"; };
 		52E4EB132064E8E900E526FC /* main_pick2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_pick2.png; sourceTree = "<group>"; };
-		52E4EB172064F5BF00E526FC /* MyPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageVC.swift; sourceTree = "<group>"; };
 		83D6E73A6D1352F5B9816186 /* Pods-ChurchCommunity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChurchCommunity.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChurchCommunity/Pods-ChurchCommunity.release.xcconfig"; sourceTree = "<group>"; };
 		9F01414784C01122F8C96A2A /* Pods_ChurchCommunity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChurchCommunity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB6A786059CB56446D190FDF /* Pods-ChurchCommunity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChurchCommunity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChurchCommunity/Pods-ChurchCommunity.debug.xcconfig"; sourceTree = "<group>"; };
@@ -390,6 +390,7 @@
 				52858A5A2055E7EA005C9BB9 /* TalkViewController.swift */,
 				520DFE082058A3A600AF5A2E /* DetailTalkViewController.swift */,
 				5242FF9220573A5800548FD4 /* WriteViewController.swift */,
+				5237A96420665C1F0027D0AB /* ShowUserPageViewController.swift */,
 				52A7120A205C9E1100E43E8F /* MyPageViewController.swift */,
 			);
 			path = TalkController;
@@ -428,7 +429,6 @@
 				52CFE0E9205F4B83006BADE7 /* MoreNoticeViewController.swift */,
 				52CFE0EB205F4F4A006BADE7 /* MoreWriteTableViewController.swift */,
 				52CFE0ED205F4F5E006BADE7 /* MoreReplyTableViewController.swift */,
-				52E4EB172064F5BF00E526FC /* MyPageVC.swift */,
 				52A71216205CC33500E43E8F /* ShowPageViewController.swift */,
 			);
 			path = MoreController;
@@ -638,6 +638,7 @@
 				52A7120B205C9E1100E43E8F /* MyPageViewController.swift in Sources */,
 				5250B5C9206499270094F1B8 /* NoticeWriteAHVC.swift in Sources */,
 				5242FF9720576FFD00548FD4 /* Post.swift in Sources */,
+				5237A96520665C1F0027D0AB /* ShowUserPageViewController.swift in Sources */,
 				52CFE0E6205F2085006BADE7 /* Birth.swift in Sources */,
 				52938A2C2060D6790098F9A0 /* MemoryCell.swift in Sources */,
 				5250B5D12064A82F0094F1B8 /* JobsCell.swift in Sources */,
@@ -670,7 +671,6 @@
 				52299E59205B641200B9D118 /* NoticeCell.swift in Sources */,
 				5250B5D52064ABAE0094F1B8 /* MaketingWriteVC.swift in Sources */,
 				5250B5D32064AB6A0094F1B8 /* MaketingCell.swift in Sources */,
-				52E4EB182064F5BF00E526FC /* MyPageVC.swift in Sources */,
 				52CFE0E8205F2128006BADE7 /* BirthCell.swift in Sources */,
 				52CFE0F2205F4F9C006BADE7 /* MoreReplyCell.swift in Sources */,
 				5250B5CD2064A7670094F1B8 /* JobWriteVC.swift in Sources */,

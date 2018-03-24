@@ -8,11 +8,28 @@
 
 import UIKit
 import Firebase
-class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
-    
+class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableViewDataSource, ReplyCellNameClickedAction {
+
     var replys = [Reply]()
     let cellId = "cellId"
     
+    //댓글에 적힌 이름을 클릭했을 때
+    func replyCellNameClickedAction(uid: String,name:String) {
+        
+        let myid = Auth.auth().currentUser?.uid
+        if(uid == myid!){
+            
+            let viewController = ShowPageViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }else{
+            let viewController = ShowUserPageViewController()
+            viewController.userUid = uid
+            viewController.userName = name
+            let navController = UINavigationController(rootViewController: viewController)
+            self.present(navController, animated: true, completion: nil)
+        }
+
+        }
     
     // ==========================================================================.   글 상세 화면에 subview로 넣은 테이블 뷰 =====================================.
     let tableViewFooterView: UIView = {
@@ -32,7 +49,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     func tableView(_ replyView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = replyView.dequeueReusableCell(withIdentifier:cellId, for: indexPath) as? ReplyCell
         //cell?.isExclusiveTouch = true
-        
+        cell?.delegate = self
         if(replys.count == 0 ){
             cell?.txtLabel.text = "댓글이 없습니다."
         }else{
@@ -221,14 +238,35 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     }()
     
     //이름
-    var nameLabel: UILabel = {
+   lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         label.text = "이름"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectName))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tapGesture)
         return label
     }()
+    
+    //글에서 이름이 클릭되었을 때
+    @objc func handleSelectName(){
+
+        let myid = Auth.auth().currentUser?.uid
+        if(uidLabel.text == myid!){
+            let viewController = ShowPageViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }else{
+            let viewController = ShowUserPageViewController()
+            viewController.userUid = uidLabel.text
+            viewController.userName = nameLabel.text
+            let navController = UINavigationController(rootViewController: viewController)
+            self.present(navController, animated: true, completion: nil)
+        }
+
+    }
+    
     //텍스트
     var txtLabel: UILabel = {
         let label = UILabel()
@@ -350,7 +388,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         let ref = Database.database().reference()
         ref.child("users").child(myUid!).observe(.value) { (snapshot) in
             
-            let childSnapshot = snapshot as! DataSnapshot //자식 DataSnapshot 가져오기
+            let childSnapshot = snapshot //자식 DataSnapshot 가져오기
             let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
             if let pass = childValue["pass"] as? String{
                 if pass == "n"{
@@ -445,7 +483,6 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "수다글"
-        
         
         //취소 바 버튼
         
@@ -616,12 +653,11 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             print("너 댓글 몃개니 \(Int(snapshot.childrenCount))")
             
             if(Int(snapshot.childrenCount) == 0){
-                print(Int(snapshot.childrenCount))
+               
                 self.replyCount = 0
                 ref.child("posts").child(self.pidLabel.text!).updateChildValues(["reply": self.replyCount ?? 0])
                 
             }else{
-                print(Int(snapshot.childrenCount))
                 self.replyCount = Int(snapshot.childrenCount) //배열 총개수 할당
                 ref.child("posts").child(self.pidLabel.text!).updateChildValues(["reply": self.replyCount ?? 0])
                 

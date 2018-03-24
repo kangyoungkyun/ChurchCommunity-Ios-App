@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-class MoreWriteTableViewController: UITableViewController,userClickCellProtocol {
+class MoreWriteTableViewController: UITableViewController{
  var posts = [Post]()
  let cellId = "cellId"
     

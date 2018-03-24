@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-class TalkViewController: UITableViewController,UISearchBarDelegate,userClickCellProtocol {
+class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     
 var activityIndicatorView: UIActivityIndicatorView!
@@ -98,8 +98,7 @@ var activityIndicatorView: UIActivityIndicatorView!
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.searchController = searchController
         
-        //마이페이지
-         //self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:#imageLiteral(resourceName: "ic_person.png"), style: .plain, target: self, action:  #selector(myPageAction))
+
         
         //글쓰기 방
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_border_color.png"), style: .plain, target: self, action:  #selector(writeAction))
@@ -162,7 +161,7 @@ var activityIndicatorView: UIActivityIndicatorView!
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TalkCell
         
-        cell?.delegate = self
+        //cell?.delegate = self
         
         //cell 클릭했을 때 색깔 바꿔주기
         let bgColorView = UIView()

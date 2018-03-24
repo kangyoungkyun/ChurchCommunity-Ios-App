@@ -6,10 +6,14 @@
 //  Copyright © 2018년 MacBookPro. All rights reserved.
 //
 
+protocol ReplyCellNameClickedAction {
+    func replyCellNameClickedAction(uid :String,name:String)
+    }
+
 import UIKit
 
 class ReplyCell: UITableViewCell {
-
+var delegate: ReplyCellNameClickedAction!
     //uid
     var uidLabel: UILabel = {
         let label = UILabel()
@@ -31,14 +35,32 @@ class ReplyCell: UITableViewCell {
     }()
     
     //이름
-    var nameLabel: UILabel = {
+   lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         label.text = "앗.."
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectName))
+    label.isUserInteractionEnabled = true
+    label.addGestureRecognizer(tapGesture)
         return label
     }()
+    
+
+
+//이름이 클릭되었을 때
+@objc func handleSelectName(){
+    
+    self.delegate.replyCellNameClickedAction(uid: uidLabel.text!,name: nameLabel.text!)
+}
+
+    
+    
+  
+    
+    
+    
     //텍스트
     var txtLabel: UILabel = {
         let label = UILabel()
