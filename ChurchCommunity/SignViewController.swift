@@ -49,7 +49,7 @@ class SignViewController: UIViewController {
     //이메일 필드
     let emailTextField: UITextField = {
         let email = UITextField()
-        email.placeholder = "이메일"
+        email.placeholder = "이메일 (비밀번호 찾을때 사용)"
         email.translatesAutoresizingMaskIntoConstraints = false
         email.autocorrectionType = .no
         email.autocapitalizationType = .none

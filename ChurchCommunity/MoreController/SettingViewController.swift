@@ -31,7 +31,7 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
 
         let twoDimenstionArray = [
                 ["공지사항","이용안내","버전정보","오픈소스"],
-                ["내가쓴글","내가쓴댓글","로그아웃"],
+                ["마이페이지","내가쓴글","내가쓴댓글","로그아웃"],
                 ["개발자에게"]
             ]
     
@@ -121,15 +121,20 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
                 
             })
         }else if (section == 1 && row == 0){
+            print("마이페이지")
+            let viewController = ShowPageViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+            
+        }else if (section == 1 && row == 1){
             print("내가쓴글")
             let viewController = MoreWriteTableViewController()
              self.navigationController?.pushViewController(viewController, animated: true)
             
-        }else if (section == 1 && row == 1){
+        }else if (section == 1 && row == 2){
             print("내가쓴댓글")
             let viewController = MoreReplyTableViewController()
             self.navigationController?.pushViewController(viewController, animated: true)
-        }else if (section == 1 && row == 2){
+        }else if (section == 1 && row == 3){
             print("로그아웃")
             let firebaseAuth = Auth.auth()
             do {
@@ -189,7 +194,7 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self
         mailComposerVC.setToRecipients(["abcnt@naver.com"])
-        mailComposerVC.setSubject("아중감 청년부 앱관련 문의")
+        mailComposerVC.setSubject("문의드립니다")
         mailComposerVC.setMessageBody("안녕하세요.\n\n\n", isHTML: false)
         return mailComposerVC
     }

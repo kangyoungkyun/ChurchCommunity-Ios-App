@@ -15,7 +15,7 @@ class MoreWriteTableViewController: UITableViewController,userClickCellProtocol 
     
     func userClickCell(uid: String) {
         
-        let viewController = UserPageViewController()
+        let viewController = ShowPageViewController()
         viewController.userUid = uid
         //userProfile 화면을 rootView로 만들어 주기
         navigationController?.pushViewController(viewController, animated: true)
@@ -69,25 +69,19 @@ class MoreWriteTableViewController: UITableViewController,userClickCellProtocol 
     }
     
     func showPost(){
-        //AppDelegate.instance().showActivityIndicator()
-        print("start showPost")
         let ref = Database.database().reference()
         ref.child("posts").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
             self.posts.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
-           
-            let myUid = Auth.auth().currentUser?.uid as? String
-            
+            let myUid = Auth.auth().currentUser?.uid
             for child in snapshot.children{
                 
                 let postToShow = Post() //데이터를 담을 클래스
                 let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
                 
-                
                 if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"], let reply = childValue["reply"] {
                     
                     if(myUid == String(describing: uid)){
-                        //print("hit: \(hit)")
                         //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
                         if let t = date as? TimeInterval {
                             let date = NSDate(timeIntervalSince1970: t/1000)
@@ -105,13 +99,11 @@ class MoreWriteTableViewController: UITableViewController,userClickCellProtocol 
                         postToShow.reply = String(describing: reply)
                         self.posts.insert(postToShow, at: 0) //
                     }
-                    
                     }
             }
             self.tableView.reloadData()
-            
         }
-        
+        ref.removeAllObservers()
         print("end showPost")
         //activityIndicatorView.stopAnimating()
     }

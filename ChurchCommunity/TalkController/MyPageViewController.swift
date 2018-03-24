@@ -20,8 +20,8 @@ extension UIImageView {
     func roundedImage() {
         self.layer.cornerRadius = self.frame.size.width / 2
         self.clipsToBounds = true
-        self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0).cgColor
+        //self.layer.borderWidth = 2
+        //self.layer.borderColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0).cgColor
         self.layer.masksToBounds = true
     }
     

@@ -131,7 +131,7 @@ class BirthViewController: UITableViewController {
 
      //테이블 뷰 셀 클릭했을 때 해당 유저 페이지로 넘어가기
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewController = UserPageViewController()
+        let viewController = ShowPageViewController()
         viewController.userUid = births[indexPath.row].uid
         //userProfile 화면을 rootView로 만들어 주기
         navigationController?.pushViewController(viewController, animated: true)
