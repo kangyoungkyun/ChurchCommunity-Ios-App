@@ -156,6 +156,17 @@ class SignViewController: UIViewController {
                 //해당 경로에 삽입
                 usersReference.setValue(userInfo)
                 
+                
+                //가입할때 도토리 개수 디폴트 값으로 넣어주기
+                let dotoriRef = ref.child("dotori").child(user.uid)
+                let dotoriInfo: [String:Any] = ["total" : 0,
+                                                "name" : self.nameTextField.text ?? "주민1",
+                                                "uid" : user.uid]
+                
+                dotoriRef.setValue(dotoriInfo)
+                
+                
+                
                 ref.removeAllObservers()
                 
                 print("가입성공")
