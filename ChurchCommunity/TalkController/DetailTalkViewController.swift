@@ -266,6 +266,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         }
 
     }
+
     
     //텍스트
     var txtLabel: UILabel = {

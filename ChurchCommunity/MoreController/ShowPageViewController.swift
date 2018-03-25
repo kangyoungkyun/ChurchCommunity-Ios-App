@@ -102,7 +102,7 @@ class ShowPageViewController: UIViewController {
     
     
     //보낸메시지
-    var sendMsgLabel: UILabel = {
+    lazy var sendMsgLabel: UILabel = {
         let label = UILabel()
         label.text = "  보낸쪽지:  "
         label.font = UIFont.boldSystemFont(ofSize: 17)
@@ -111,11 +111,21 @@ class ShowPageViewController: UIViewController {
         label.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
         label.layer.cornerRadius = 7
         label.clipsToBounds = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(sendMesage))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tapGesture)
         return label
     }()
+    //보낸 메시지함이 클릭되었을 때
+    @objc func sendMesage(){
+        print("보낸메시지함")
+        let viewController = SendMessageVC()
+        let navController = UINavigationController(rootViewController: viewController)
+        self.present(navController, animated: true, completion: nil)
+    }
     
     //받은 메시지
-    var getMsgLabel: UILabel = {
+    lazy var getMsgLabel: UILabel = {
         let label = UILabel()
         label.text = "  받은쪽지:  "
         label.font = UIFont.boldSystemFont(ofSize: 17)
@@ -124,8 +134,45 @@ class ShowPageViewController: UIViewController {
         label.layer.cornerRadius = 7
         label.clipsToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(getMesage))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tapGesture)
         return label
     }()
+    
+    //보낸 메시지함이 클릭되었을 때
+    @objc func getMesage(){
+        print("받은 메시지함")
+        let viewController = GetMessageVC()
+        let navController = UINavigationController(rootViewController: viewController)
+        self.present(navController, animated: true, completion: nil)
+    }
+    
+    /*
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectName))
+    label.isUserInteractionEnabled = true
+    label.addGestureRecognizer(tapGesture)
+    return label
+}()
+
+//글에서 이름이 클릭되었을 때
+@objc func handleSelectName(){
+    
+    let myid = Auth.auth().currentUser?.uid
+    if(uidLabel.text == myid!){
+        let viewController = ShowPageViewController()
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }else{
+        let viewController = ShowUserPageViewController()
+        viewController.userUid = uidLabel.text
+        viewController.userName = nameLabel.text
+        let navController = UINavigationController(rootViewController: viewController)
+        self.present(navController, animated: true, completion: nil)
+    }
+    
+}
+let viewController = ShowPageViewController()
+self.navigationController?.pushViewController(viewController, animated: true)*/
     
     // ========================================= 쪽지보내기 버튼  =========================================
     //쪽지보내기 버튼
@@ -539,6 +586,7 @@ class ShowPageViewController: UIViewController {
             self.sendMsgLabel.text = "  보낸쪽지: \(sendMsgCount)개" // 내가쓴 글 개수 가져와서 넣어주기
             self.getMsgLabel.text = "  받은쪽지: \(getMsgCount)개" // 내가 받은 글 개수 가져와서 넣어주기
             getMsgCount = 0
+            sendMsgCount = 0
         }
         
         // 도토리 개수 가져오기

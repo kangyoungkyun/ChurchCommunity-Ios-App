@@ -279,7 +279,7 @@ var activityIndicatorView: UIActivityIndicatorView!
             }
             self.tableView.reloadData()
         }
-       
+       ref.removeAllObservers()
         print("end showPost")
         //activityIndicatorView.stopAnimating()
     }

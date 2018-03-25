@@ -30,6 +30,10 @@
 		5250B5D52064ABAE0094F1B8 /* MaketingWriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5250B5D42064ABAE0094F1B8 /* MaketingWriteVC.swift */; };
 		5250B5D72064ABC70094F1B8 /* MaketingDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5250B5D62064ABC70094F1B8 /* MaketingDetailVC.swift */; };
 		526123B62061FBC0003D7DA4 /* BigImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526123B52061FBC0003D7DA4 /* BigImageViewController.swift */; };
+		526878732067AE2C00655A71 /* GetMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526878722067AE2C00655A71 /* GetMessageVC.swift */; };
+		526878752067AE4500655A71 /* SendMessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526878742067AE4500655A71 /* SendMessageVC.swift */; };
+		526878772067B1AA00655A71 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526878762067B1AA00655A71 /* Message.swift */; };
+		526878792067B3BB00655A71 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526878782067B3BB00655A71 /* MessageCell.swift */; };
 		52858A492055E64D005C9BB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A482055E64D005C9BB9 /* AppDelegate.swift */; };
 		52858A4B2055E64D005C9BB9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52858A4A2055E64D005C9BB9 /* MainViewController.swift */; };
 		52858A4E2055E64D005C9BB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52858A4C2055E64D005C9BB9 /* Main.storyboard */; };
@@ -128,6 +132,10 @@
 		5250B5D42064ABAE0094F1B8 /* MaketingWriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaketingWriteVC.swift; sourceTree = "<group>"; };
 		5250B5D62064ABC70094F1B8 /* MaketingDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaketingDetailVC.swift; sourceTree = "<group>"; };
 		526123B52061FBC0003D7DA4 /* BigImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigImageViewController.swift; sourceTree = "<group>"; };
+		526878722067AE2C00655A71 /* GetMessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMessageVC.swift; sourceTree = "<group>"; };
+		526878742067AE4500655A71 /* SendMessageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageVC.swift; sourceTree = "<group>"; };
+		526878762067B1AA00655A71 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		526878782067B3BB00655A71 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		52858A452055E64D005C9BB9 /* ChurchCommunity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChurchCommunity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52858A482055E64D005C9BB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52858A4A2055E64D005C9BB9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -236,6 +244,7 @@
 				52299E5A205B6F9F00B9D118 /* Notices.swift */,
 				52CFE0E5205F2085006BADE7 /* Birth.swift */,
 				52938A252060CDCD0098F9A0 /* Video.swift */,
+				526878762067B1AA00655A71 /* Message.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -253,6 +262,7 @@
 				52CFE0EF205F4F85006BADE7 /* MoreWriteCell.swift */,
 				52CFE0F1205F4F9C006BADE7 /* MoreReplyCell.swift */,
 				52938A2B2060D6790098F9A0 /* MemoryCell.swift */,
+				526878782067B3BB00655A71 /* MessageCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -430,6 +440,8 @@
 				52CFE0EB205F4F4A006BADE7 /* MoreWriteTableViewController.swift */,
 				52CFE0ED205F4F5E006BADE7 /* MoreReplyTableViewController.swift */,
 				52A71216205CC33500E43E8F /* ShowPageViewController.swift */,
+				526878742067AE4500655A71 /* SendMessageVC.swift */,
+				526878722067AE2C00655A71 /* GetMessageVC.swift */,
 			);
 			path = MoreController;
 			sourceTree = "<group>";
@@ -645,10 +657,12 @@
 				5250B5D72064ABC70094F1B8 /* MaketingDetailVC.swift in Sources */,
 				52CFE0F0205F4F85006BADE7 /* MoreWriteCell.swift in Sources */,
 				52938A262060CDCD0098F9A0 /* Video.swift in Sources */,
+				526878752067AE4500655A71 /* SendMessageVC.swift in Sources */,
 				520E1B64205A171D00478F0F /* ReplyCell.swift in Sources */,
 				52CFE0E4205F1F77006BADE7 /* BirthViewController.swift in Sources */,
 				5250B5CF2064A7810094F1B8 /* JobDetailVC.swift in Sources */,
 				52858A882055F524005C9BB9 /* SignViewController.swift in Sources */,
+				526878792067B3BB00655A71 /* MessageCell.swift in Sources */,
 				52938A2A2060D31F0098F9A0 /* MemoryViewController.swift in Sources */,
 				52CFE0EE205F4F5E006BADE7 /* MoreReplyTableViewController.swift in Sources */,
 				5250B5CB20649A710094F1B8 /* NoticeDetailAHVC.swift in Sources */,
@@ -668,6 +682,7 @@
 				52858A5B2055E7EA005C9BB9 /* TalkViewController.swift in Sources */,
 				52858A9020562515005C9BB9 /* HideKeyBoard.swift in Sources */,
 				52858A5F2055E892005C9BB9 /* NoticeViewController.swift in Sources */,
+				526878732067AE2C00655A71 /* GetMessageVC.swift in Sources */,
 				52299E59205B641200B9D118 /* NoticeCell.swift in Sources */,
 				5250B5D52064ABAE0094F1B8 /* MaketingWriteVC.swift in Sources */,
 				5250B5D32064AB6A0094F1B8 /* MaketingCell.swift in Sources */,
@@ -675,6 +690,7 @@
 				52CFE0F2205F4F9C006BADE7 /* MoreReplyCell.swift in Sources */,
 				5250B5CD2064A7670094F1B8 /* JobWriteVC.swift in Sources */,
 				52858A612055E8BC005C9BB9 /* SettingViewController.swift in Sources */,
+				526878772067B1AA00655A71 /* Message.swift in Sources */,
 				5250B5C020648FEA0094F1B8 /* JobAHVC.swift in Sources */,
 				5242FF952057634D00548FD4 /* TalkCell.swift in Sources */,
 			);
