@@ -170,7 +170,7 @@ class TalkCell: UITableViewCell {
         txtLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         txtLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
         txtLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15).isActive = true
-        txtLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        txtLabel.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         dateLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
         dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -15).isActive = true

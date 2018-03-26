@@ -1,30 +1,39 @@
 //
-//  TalkTableViewController.swift
+//  ShowUserPostsVC.swift
 //  ChurchCommunity
 //
-//  Created by MacBookPro on 2018. 3. 12..
+//  Created by MacBookPro on 2018. 3. 26..
 //  Copyright © 2018년 MacBookPro. All rights reserved.
 //
 
 import UIKit
 import Firebase
-class TalkViewController: UITableViewController,UISearchBarDelegate {
+class ShowUserPostsVC: UITableViewController,UISearchBarDelegate  {
+
+    var userId : String?
+    
     var activityIndicatorView: UIActivityIndicatorView!
+    
+    
     //테이블 뷰 셀에서 이름이 클릭되었을 때
     func userClickCell(uid: String) {
+        
         let viewController = ShowPageViewController()
         viewController.userUid = uid
         //userProfile 화면을 rootView로 만들어 주기
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    
     var posts = [Post]()
     var searchPosts = [Post]()
     let cellId = "cellId"
     
+    
     let searchController : UISearchController = {
         let uisearchController = UISearchController(searchResultsController: nil)
         uisearchController.searchBar.placeholder = "검색"
+        //uisearchController.searchBar.barTintColor = UIColor.white
         uisearchController.searchBar.backgroundColor =  UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
         
         return uisearchController
@@ -39,6 +48,8 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
             return post.text.contains(text)
         })
         self.tableView.reloadData()
+        // print("필터 개수는? \(searchPosts.count)")
+        //searchController.searchBar.text = ""
     }
     
     
@@ -86,18 +97,18 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         
         let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
-        self.navigationItem.title = "영성일기"
+        self.navigationItem.title = "일기보기"
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.searchController = searchController
         
-        
+
         tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
-
+        
     }
-
     
+
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         
@@ -118,14 +129,15 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TalkCell
         
         //cell?.delegate = self
-
+        
         
         let screenSize = UIScreen.main.bounds
-        let separatorHeight = CGFloat(6.0)
+        let separatorHeight = CGFloat(3.0)
         let additionalSeparator = UIView.init(frame: CGRect(x: 0, y: (cell?.frame.size.height)!-separatorHeight, width: screenSize.width, height: separatorHeight))
         additionalSeparator.backgroundColor = UIColor(red:0.37, green:0.51, blue:0.71, alpha:1.0)
         
         cell?.addSubview(additionalSeparator)
+        
         
         if(searchController.isActive && searchController.searchBar.text != ""){
             cell?.dateLabel.text = searchPosts[indexPath.row].date
@@ -152,11 +164,13 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
             cell?.uidLabel.text = posts[indexPath.row].uid
             
             if(posts[indexPath.row].blessCount == nil){
-                 cell?.likesLabel.text = "0 명"
+                cell?.likesLabel.text = "0 명"
             }else{
                 cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!) 명"
             }
+            
         }
+        
         return cell!
     }
     
@@ -168,7 +182,8 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     //셀을 클릭했을 때
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        
+        
         print("셀 클릭")
         
         //선택한 셀 정보 가져오기
@@ -214,7 +229,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     //포스트 조회 함수
     func showPost(){
-        //AppDelegate.instance().showActivityIndicator()
+        let myId = Auth.auth().currentUser?.uid
         print("start showPost")
         let ref = Database.database().reference()
         ref.child("posts").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
@@ -228,47 +243,46 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
                 
                 if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"], let reply = childValue["reply"] {
                     
-                    
-                    ref.child("bless").observe(.value, with: { (snapshot) in
-                     
-                        for (childs ) in snapshot.children{
-                            //print("bless key:->", key)
-                            //print("bless childs:->", childs)
-                            // print("bless childsDataSnapshot:->", childs as! DataSnapshot)
-                            let childSnapshot = childs as! DataSnapshot
-                            let key = childSnapshot.key
-                            let val = childSnapshot.value as! [String:Any]
-
-                                                        if (key == pid as? String) {
-                                                            print("축복받은 개수 몇개?")
-                                                            print(pid,key,val.count)
-                                                            postToShow.blessCount = "\(val.count)"
-                                             
-                                                        }
+                    if(self.userId == String(describing: uid)){
+                        ref.child("bless").observe(.value, with: { (snapshot) in
+                            
+                            for (childs ) in snapshot.children{
+                                
+                                let childSnapshot = childs as! DataSnapshot
+                                let key = childSnapshot.key
+                                let val = childSnapshot.value as! [String:Any]
+                                //let val = childSnapshot.value(forKeyPath: key!)
+                                //print(pid,key,val.count)
+                                if (key == pid as? String) {
+                                    
+                                    print(pid,key,val.count)
+                                    postToShow.blessCount = "\(val.count)"
+                                    
+                                }
+                            }
+                            self.tableView.reloadData()
+                        })
+                        //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
+                        if let t = date as? TimeInterval {
+                            let date = NSDate(timeIntervalSince1970: t/1000)
+                            // print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
+                            let dayTimePeriodFormatter = DateFormatter()
+                            dayTimePeriodFormatter.dateFormat = "M월 d일 hh:mm a"
+                            let dateString = dayTimePeriodFormatter.string(from: date as Date)
+                            postToShow.date = dateString
                         }
-                         self.tableView.reloadData()
-                    })
-                    //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
-                    if let t = date as? TimeInterval {
-                        let date = NSDate(timeIntervalSince1970: t/1000)
-                        // print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
-                        let dayTimePeriodFormatter = DateFormatter()
-                        dayTimePeriodFormatter.dateFormat = "M월 d일 hh:mm a"
-                        let dateString = dayTimePeriodFormatter.string(from: date as Date)
-                        postToShow.date = dateString
+                        postToShow.name = name as! String
+                        postToShow.hit = String(describing: hit)
+                        postToShow.pid = pid as! String
+                        postToShow.text = text as! String
+                        postToShow.uid = uid as! String
+                        postToShow.reply = String(describing: reply)
+                        self.posts.insert(postToShow, at: 0) //
                     }
-                    postToShow.name = name as! String
-                    postToShow.hit = String(describing: hit)
-                    postToShow.pid = pid as! String
-                    postToShow.text = text as! String
-                    postToShow.uid = uid as! String
-                    postToShow.reply = String(describing: reply)
                 }
-                self.posts.insert(postToShow, at: 0) //
             }
-            
         }
-         ref.removeAllObservers()
+        ref.removeAllObservers()
         
     }
 }

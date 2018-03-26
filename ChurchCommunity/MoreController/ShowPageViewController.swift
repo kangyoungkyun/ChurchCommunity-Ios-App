@@ -13,6 +13,34 @@ class ShowPageViewController: UIViewController {
     var userUid: String?
     var dotoriTotal  = 0
 
+    let sendMsgImage: UIButton = {
+        let starButton = UIButton(type: .system)
+        starButton.setImage(#imageLiteral(resourceName: "ic_send.png"), for: .normal)
+        
+    
+        starButton.translatesAutoresizingMaskIntoConstraints = false
+        starButton.isEnabled = false
+        return starButton
+    }()
+    
+    let getMsgImage: UIButton = {
+        let starButton = UIButton(type: .system)
+        starButton.setImage(#imageLiteral(resourceName: "getmsg.png"), for: .normal)
+        starButton.tintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+        starButton.isEnabled = false
+        starButton.translatesAutoresizingMaskIntoConstraints = false
+        return starButton
+    }()
+    
+    let giftImage: UIButton = {
+        let starButton = UIButton(type: .system)
+        starButton.setImage(#imageLiteral(resourceName: "gift.png"), for: .normal)
+        starButton.tintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+        starButton.isEnabled = false
+        starButton.translatesAutoresizingMaskIntoConstraints = false
+        return starButton
+    }()
+    
     //이름
     var nameLabel: UILabel = {
         let label = UILabel()
@@ -29,7 +57,7 @@ class ShowPageViewController: UIViewController {
     //댓글수
     var birthLabel: UILabel = {
         let label = UILabel()
-        label.text = "작성글"
+        label.text = "영성일기"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
@@ -156,31 +184,6 @@ class ShowPageViewController: UIViewController {
         self.present(navController, animated: true, completion: nil)
     }
     
-    /*
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectName))
-    label.isUserInteractionEnabled = true
-    label.addGestureRecognizer(tapGesture)
-    return label
-}()
-
-//글에서 이름이 클릭되었을 때
-@objc func handleSelectName(){
-    
-    let myid = Auth.auth().currentUser?.uid
-    if(uidLabel.text == myid!){
-        let viewController = ShowPageViewController()
-        self.navigationController?.pushViewController(viewController, animated: true)
-    }else{
-        let viewController = ShowUserPageViewController()
-        viewController.userUid = uidLabel.text
-        viewController.userName = nameLabel.text
-        let navController = UINavigationController(rootViewController: viewController)
-        self.present(navController, animated: true, completion: nil)
-    }
-    
-}
-let viewController = ShowPageViewController()
-self.navigationController?.pushViewController(viewController, animated: true)*/
     
     // ========================================= 쪽지보내기 버튼  =========================================
     //쪽지보내기 버튼
@@ -235,7 +238,7 @@ self.navigationController?.pushViewController(viewController, animated: true)*/
     //출석체크내기 버튼
     var todayCheckBtn: UIButton = {
         let sendBtn = UIButton()
-        sendBtn.setTitle("영성체크", for: UIControlState())
+        sendBtn.setTitle("매일영성점검", for: UIControlState())
         //sendBtn.font = UIFont.boldSystemFont(ofSize: 17)
         sendBtn.setTitleColor(UIColor.white, for: UIControlState())
         sendBtn.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
@@ -382,7 +385,6 @@ self.navigationController?.pushViewController(viewController, animated: true)*/
                 Thread.sleep(forTimeInterval: 1.5)
                 print("start forTimeInterval")
                 self.activityIndicatorView.stopAnimating()
-                
             }
         }
         
@@ -409,6 +411,9 @@ self.navigationController?.pushViewController(viewController, animated: true)*/
         self.view.addSubview(dotoriLabel)
         self.view.addSubview(dotoriTextField)
         self.view.addSubview(dotoriSeperatorView)
+        
+        
+         //self.view.addSubview(sendMsgImage)
         
         showMyUserData()
         setLayout()
@@ -450,7 +455,6 @@ self.navigationController?.pushViewController(viewController, animated: true)*/
         nameSeperatorView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
         nameSeperatorView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         nameSeperatorView.heightAnchor.constraint(equalToConstant: 2).isActive = true
-        
         
         
         //라벨
@@ -497,26 +501,24 @@ self.navigationController?.pushViewController(viewController, animated: true)*/
         dotoriSeperatorView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
         dotoriSeperatorView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         dotoriSeperatorView.heightAnchor.constraint(equalToConstant: 2).isActive = true
-        
-        
+    
         
         sendMsgLabel.topAnchor.constraint(equalTo: dotoriSeperatorView.bottomAnchor,constant:50).isActive = true
         sendMsgLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         sendMsgLabel.widthAnchor.constraint(equalToConstant: 117).isActive = true
-        sendMsgLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        sendMsgLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         
         getMsgLabel.topAnchor.constraint(equalTo: dotoriSeperatorView.bottomAnchor,constant:50).isActive = true
         getMsgLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
         getMsgLabel.widthAnchor.constraint(equalToConstant: 117).isActive = true
-        getMsgLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        getMsgLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         
         todayCheckBtn.topAnchor.constraint(equalTo: getMsgLabel.bottomAnchor,constant:70).isActive = true
         todayCheckBtn.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         todayCheckBtn.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
-
-        todayCheckBtn.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        todayCheckBtn.heightAnchor.constraint(equalToConstant: 40).isActive = true
 
     }
     

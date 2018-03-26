@@ -31,7 +31,7 @@ class ShowUserPageViewController: UIViewController {
     //댓글수
     var birthLabel: UILabel = {
         let label = UILabel()
-        label.text = "작성글"
+        label.text = "영성일기"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
@@ -177,7 +177,7 @@ class ShowUserPageViewController: UIViewController {
 
         self.navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.prefersLargeTitles = false
-        self.navigationItem.title = "동역자보기"
+        self.navigationItem.title = "이웃보기"
         
         let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
@@ -224,10 +224,17 @@ class ShowUserPageViewController: UIViewController {
         //self.view.addSubview(todayCheckBtn)
         self.view.addSubview(sendBtn)
         
-        
+          self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_list_white.png"), style: .plain, target: self, action:  #selector(showUserPost))
         showMyUserData()
         setLayout()
         
+    }
+    //유저가쓴 일기 보기
+    @objc func showUserPost(){
+        print("유저가 쓴 일기 보기")
+        let viewController = ShowUserPostsVC()
+        viewController.userId = userUid
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     
     //이전

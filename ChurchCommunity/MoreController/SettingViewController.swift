@@ -31,7 +31,7 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
 
         let twoDimenstionArray = [
                 ["공지사항","이용안내","버전정보","오픈소스"],
-                ["마이페이지","내가쓴글","내가쓴댓글","로그아웃"],
+                ["마이페이지","내가쓴댓글","로그아웃"],
                 ["개발자에게"]
             ]
     
@@ -132,10 +132,6 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
              self.navigationController?.pushViewController(viewController, animated: true)
             
         }else if (section == 1 && row == 2){
-            print("내가쓴댓글")
-            let viewController = MoreReplyTableViewController()
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }else if (section == 1 && row == 3){
             print("로그아웃")
             let firebaseAuth = Auth.auth()
             do {
