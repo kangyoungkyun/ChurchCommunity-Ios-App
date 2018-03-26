@@ -6,6 +6,26 @@
 //  Copyright © 2018년 MacBookPro. All rights reserved.
 //
 
+class CurvedView:UIView{
+    override func draw(_ rect: CGRect) {
+       let path = customPath()
+        path.lineWidth = 3
+        path.stroke()
+    }
+}
+
+func customPath() -> UIBezierPath{
+    let path = UIBezierPath()
+    path.move(to: CGPoint(x: 0, y: 200))
+    let endPoint = CGPoint(x: 400, y: 200)
+    let randomYshift = 200 + drand48() * 300
+    let cp1 = CGPoint(x: 100, y: 100 - randomYshift)
+    let cp2 = CGPoint(x: 200, y: 300 + randomYshift)
+    
+    path.addCurve(to: endPoint, controlPoint1: cp1, controlPoint2: cp2)
+    return path
+}
+
 import UIKit
 import Firebase
 class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableViewDataSource, ReplyCellNameClickedAction {
@@ -256,6 +276,9 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
 @objc func touchBlessBtn(){
     
     //print("좋아요1")
+    (0...10).forEach { (_) in
+        generateAnimatedView()
+    }
     
     let ref = Database.database().reference()
     //랜덤 키
@@ -265,13 +288,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     let blessInfo: [String:Any] = [ "uid" : Auth.auth().currentUser?.uid ?? ""]
     blessRef.child(blessKey).setValue(blessInfo)
     
-    
-   // let hiting = ["hit" : hitNum]
-    //여기가 문제
-   // let ref = Database.database().reference()
-    //ref.child("posts").child(pid!).updateChildValues(hiting)
-    
-    
+
     
 }
 
@@ -553,13 +570,30 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         return label
     }()
     
+
+    
+     func generateAnimatedView(){
+        let imageView = UIImageView(image: #imageLiteral(resourceName: "heart.png"))
+        let dimension = 20 + drand48() * 10
+        imageView.frame = CGRect(x:0,y:0,width:dimension, height:dimension)
+        
+        let animation = CAKeyframeAnimation(keyPath: "position")
+        animation.path = customPath().cgPath
+        animation.duration = 2 + drand48() * 3
+        animation.fillMode = kCAFillModeForwards
+        animation.isRemovedOnCompletion = false
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        imageView.layer.add(animation, forKey: nil)
+         view.addSubview(imageView)
+    }
+    
     // ======================================================        진입점        ======================================================
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "일기보기"
         
+
         //취소 바 버튼
-        
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(goTalkViewController))
         
         
