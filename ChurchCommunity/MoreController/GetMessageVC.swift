@@ -132,7 +132,4 @@ class GetMessageVC: UITableViewController {
         }
         ref.removeAllObservers()
     }
-    
-    
-    
 }

@@ -6,7 +6,6 @@
 //  Copyright © 2018년 MacBookPro. All rights reserved.
 
 // 보낸쪽지
-
 import UIKit
 import Firebase
 class SendMessageVC: UITableViewController {
@@ -133,7 +132,4 @@ class SendMessageVC: UITableViewController {
         }
         ref.removeAllObservers()
     }
-    
-    
 }
-
