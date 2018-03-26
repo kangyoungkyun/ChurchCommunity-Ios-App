@@ -12,7 +12,8 @@ class SignViewController: UIViewController {
     let mainTitle : UILabel = {
         let title =  UILabel()
         title.text = "행복한 우리동네 가입"
-        title.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        title.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         title.font = UIFont.boldSystemFont(ofSize: 18)
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
@@ -41,7 +42,8 @@ class SignViewController: UIViewController {
     //이름 구분선 만들기
     let nameSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -61,7 +63,8 @@ class SignViewController: UIViewController {
     //이메일 구분선 만들기
     let emailSeperatorView: UIView = {
         let view = UIView()
-       view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+       view.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -79,7 +82,8 @@ class SignViewController: UIViewController {
     //이메일 구분선 만들기
     let passwordSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -87,7 +91,8 @@ class SignViewController: UIViewController {
     //버튼
     let signButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        button.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         button.setTitle("가입", for: UIControlState())
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.white, for: UIControlState())

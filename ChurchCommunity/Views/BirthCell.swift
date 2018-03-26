@@ -33,7 +33,8 @@ class BirthCell: UITableViewCell {
     var date:String?{
         didSet{
             self.textLabel?.text = date
-            self.textLabel?.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+            self.textLabel?.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
               self.textLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         }
     }
@@ -44,7 +45,8 @@ override func layoutSubviews() {
     //테이블에 라벨 위치와 크기 설정 해주기
     textLabel?.frame = CGRect(x: 64, y:textLabel!.frame.origin.y - 2 ,width:textLabel!.frame.width ,height:textLabel!.frame.height )
     detailTextLabel?.frame = CGRect(x: 64, y:detailTextLabel!.frame.origin.y + 4, width:detailTextLabel!.frame.width ,height:detailTextLabel!.frame.height )
-    self.textLabel?.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+    self.textLabel?.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
     self.textLabel?.font = UIFont.boldSystemFont(ofSize: 17)
     
 }

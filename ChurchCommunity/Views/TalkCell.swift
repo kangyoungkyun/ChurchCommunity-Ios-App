@@ -13,6 +13,47 @@ import UIKit
 class TalkCell: UITableViewCell {
     
     
+    //버튼
+    let seeImage: UIButton = {
+
+        let starButton = UIButton(type: .system)
+        starButton.setImage(#imageLiteral(resourceName: "ic_remove_red_eye.png"), for: .normal)
+        //starButton.frame = CGRect(x:0,y:0,width:15,height:15)
+        starButton.tintColor = UIColor.lightGray
+        starButton.translatesAutoresizingMaskIntoConstraints = false
+        return starButton
+    }()
+    
+
+        //버튼
+        let replyImage: UIButton = {
+            let starButton = UIButton(type: .system)
+            starButton.setImage(#imageLiteral(resourceName: "ic_comment.png"), for: .normal)
+            starButton.tintColor = UIColor.lightGray
+            starButton.translatesAutoresizingMaskIntoConstraints = false
+            return starButton
+        }()
+        
+
+            //버튼
+            let likeButton: UIButton = {
+                let starButton = UIButton(type: .system)
+                starButton.setImage(#imageLiteral(resourceName: "ic_favorite.png"), for: .normal)
+                starButton.tintColor = .lightGray
+                starButton.translatesAutoresizingMaskIntoConstraints = false
+                return starButton
+            }()
+            
+    //likes
+    var likesLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0 명"
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = UIColor.lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     
     //uid
     var uidLabel: UILabel = {
@@ -40,7 +81,8 @@ class TalkCell: UITableViewCell {
         label.text = "이름"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         return label
     }()
     
@@ -71,7 +113,7 @@ class TalkCell: UITableViewCell {
     var dateLabel: UILabel = {
         let label = UILabel()
         label.text = "1시간전"
-        label.font = UIFont.systemFont(ofSize: 11)
+        label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor.lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -80,7 +122,7 @@ class TalkCell: UITableViewCell {
     var hitLabel: UILabel = {
         let label = UILabel()
         label.text = "6번 읽음"
-        label.font = UIFont.systemFont(ofSize: 11)
+        label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor.lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -89,7 +131,7 @@ class TalkCell: UITableViewCell {
     var replyHitLabel: UILabel = {
         let label = UILabel()
         label.text = "15 댓글"
-        label.font = UIFont.systemFont(ofSize: 11)
+        label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor.lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -108,6 +150,11 @@ class TalkCell: UITableViewCell {
         addSubview(hitLabel)
         addSubview(replyHitLabel)
         
+        
+        addSubview(seeImage)
+         addSubview(replyImage)
+        addSubview(likeButton)
+        addSubview(likesLabel)
         setLayout()
     }
 
@@ -129,24 +176,54 @@ class TalkCell: UITableViewCell {
         dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -15).isActive = true
         dateLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
+        
+        
+        seeImage.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
+        seeImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15).isActive = true
+        seeImage.widthAnchor.constraint(equalToConstant: 15).isActive = true
+        seeImage.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        
+        
+        
         hitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
-        hitLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15).isActive = true
+        hitLabel.leadingAnchor.constraint(equalTo: seeImage.trailingAnchor, constant: 5).isActive = true
         hitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         hitLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
+        
+        
+        replyImage.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
+        replyImage.leadingAnchor.constraint(equalTo: hitLabel.trailingAnchor, constant: 15).isActive = true
+        replyImage.widthAnchor.constraint(equalToConstant: 15).isActive = true
+        replyImage.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        
+        
         replyHitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
-        replyHitLabel.leadingAnchor.constraint(equalTo: hitLabel.trailingAnchor, constant: 15).isActive = true
+        replyHitLabel.leadingAnchor.constraint(equalTo: replyImage.trailingAnchor, constant: 5).isActive = true
         replyHitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         replyHitLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
+        
+        likeButton.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
+        likeButton.leadingAnchor.constraint(equalTo: replyHitLabel.trailingAnchor, constant: 15).isActive = true
+        likeButton.widthAnchor.constraint(equalToConstant: 15).isActive = true
+        likeButton.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        
+        
+        likesLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
+        likesLabel.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 5).isActive = true
+        likesLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        likesLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        
+        
         pidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
-        pidLabel.leadingAnchor.constraint(equalTo: replyHitLabel.trailingAnchor, constant: 15).isActive = true
-        pidLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        pidLabel.leadingAnchor.constraint(equalTo: likesLabel.trailingAnchor, constant: 5).isActive = true
+        pidLabel.widthAnchor.constraint(equalToConstant: 10).isActive = true
         pidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
         uidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
-        uidLabel.leadingAnchor.constraint(equalTo: pidLabel.trailingAnchor, constant: 15).isActive = true
-        uidLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        uidLabel.leadingAnchor.constraint(equalTo: pidLabel.trailingAnchor, constant: 5).isActive = true
+        uidLabel.widthAnchor.constraint(equalToConstant: 10).isActive = true
         uidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
     }

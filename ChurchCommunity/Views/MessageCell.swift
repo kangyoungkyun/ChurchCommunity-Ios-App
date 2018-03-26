@@ -37,7 +37,8 @@ class MessageCell: UITableViewCell {
         label.text = "이름"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         return label
     }()
     

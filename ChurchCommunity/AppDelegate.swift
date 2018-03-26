@@ -66,7 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController = UITabBarController()
         tabBarController?.view.backgroundColor = UIColor.white
         tabBarController?.view.tintColor = UIColor.white
-        tabBarController?.tabBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        tabBarController?.tabBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
 
         
         //collectionView layout - 반드시 넣어줘야 함
@@ -79,8 +80,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //let birthVC = BirthViewController()
         
         let noticeAH = NoticeAHVC()
-        let jobAH = JobAHVC()
-        let makating = MakatingAHVC()
+        //let jobAH = JobAHVC()
+        //let makating = MakatingAHVC()
         
         
         let settingVC = SettingViewController()
@@ -89,39 +90,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let talkNavVC = UINavigationController(rootViewController: talkVC)
         let noticeNavVC = UINavigationController(rootViewController: noticeAH)
-        let jobNavVC = UINavigationController(rootViewController: jobAH)
-         let makatingNavVC = UINavigationController(rootViewController: makating)
+        //let jobNavVC = UINavigationController(rootViewController: jobAH)
+         //let makatingNavVC = UINavigationController(rootViewController: makating)
         let settingNavVC = UINavigationController(rootViewController: settingVC)
         
         
-        tabBarController?.setViewControllers([talkNavVC,noticeNavVC,jobNavVC,makatingNavVC,settingNavVC], animated: false)
+        tabBarController?.setViewControllers([talkNavVC,noticeNavVC,settingNavVC], animated: false)
         
     
     
         
         //탭바 이미지 넣기
-        talkNavVC.tabBarItem.image = UIImage(named:"ic_chat")?.withRenderingMode(.alwaysTemplate)
-        noticeNavVC.tabBarItem.image = UIImage(named:"ic_camera_roll")?.withRenderingMode(.alwaysTemplate)
-        jobNavVC.tabBarItem.image = UIImage(named:"ic_event_note")?.withRenderingMode(.alwaysTemplate)
-        makatingNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
+        talkNavVC.tabBarItem.image = UIImage(named:"ic_event_note")?.withRenderingMode(.alwaysTemplate)
+        noticeNavVC.tabBarItem.image = UIImage(named:"ic_person_outline")?.withRenderingMode(.alwaysTemplate)
+        //jobNavVC.tabBarItem.image = UIImage(named:"ic_event_note")?.withRenderingMode(.alwaysTemplate)
+        //makatingNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
         settingNavVC.tabBarItem.image = UIImage(named:"ic_view_headline")?.withRenderingMode(.alwaysTemplate)
         
         
         //이미지 선택되었을 때
         
        
-        talkNavVC.tabBarItem.selectedImage = UIImage(named:"ic_chat_white")?.withRenderingMode(.alwaysOriginal)
-        noticeNavVC.tabBarItem.selectedImage = UIImage(named:"ic_camera_roll_white")?.withRenderingMode(.alwaysOriginal)
-        jobNavVC.tabBarItem.selectedImage = UIImage(named:"ic_event_note_white")?.withRenderingMode(.alwaysOriginal)
-        makatingNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
+        talkNavVC.tabBarItem.selectedImage = UIImage(named:"ic_event_note_white")?.withRenderingMode(.alwaysOriginal)
+        noticeNavVC.tabBarItem.selectedImage = UIImage(named:"ic_person_outline_white")?.withRenderingMode(.alwaysOriginal)
+        //jobNavVC.tabBarItem.selectedImage = UIImage(named:"ic_event_note_white")?.withRenderingMode(.alwaysOriginal)
+        //makatingNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
         settingNavVC.tabBarItem.selectedImage = UIImage(named:"ic_view_headline_white")?.withRenderingMode(.alwaysOriginal)
        
 
         
-        talkNavVC.tabBarItem.title = "동네수다"
-        noticeNavVC.tabBarItem.title = "동네소식"
-        jobNavVC.tabBarItem.title = "동네구인"
-        makatingNavVC.tabBarItem.title = "동네홍보"
+        talkNavVC.tabBarItem.title = "영성일기"
+        noticeNavVC.tabBarItem.title = "나의일기"
+        //jobNavVC.tabBarItem.title = "듣는일기"
+        //makatingNavVC.tabBarItem.title = "친구일기"
         settingNavVC.tabBarItem.title = "더보기"
         
         return true

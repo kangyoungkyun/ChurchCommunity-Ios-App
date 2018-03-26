@@ -24,5 +24,6 @@ class Post: NSObject {
     
     var reply: String!
     
+    var blessCount:String!
     
 }

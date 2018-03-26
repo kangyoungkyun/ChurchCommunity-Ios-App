@@ -26,7 +26,8 @@ class MoreWriteTableViewController: UITableViewController{
         showPost()
 
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         self.navigationController?.navigationBar.isTranslucent = false
         
         tableView.register(MoreWriteCell.self, forCellReuseIdentifier: cellId)
@@ -117,7 +118,8 @@ class MoreWriteTableViewController: UITableViewController{
         let cell = tableView.cellForRow(at: indexPath) as? MoreWriteCell
         
        // let bgColorView = UIView()
-        //bgColorView.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        //bgColorView.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         //cell?.selectedBackgroundView = bgColorView
         
         

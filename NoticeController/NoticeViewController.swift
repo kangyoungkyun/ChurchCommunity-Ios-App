@@ -61,7 +61,8 @@ var activityIndicatorView: UIActivityIndicatorView!
         //firebase 데이터 베이스 초기화
         ref = Database.database().reference()
         
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         self.navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "사진방"

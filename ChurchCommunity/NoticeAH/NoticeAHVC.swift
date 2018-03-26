@@ -20,15 +20,18 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
     let cellId = "NoticesCellId"
     
     
+    /*
     let searchController : UISearchController = {
         let uisearchController = UISearchController(searchResultsController: nil)
         uisearchController.searchBar.placeholder = "검색"
         //uisearchController.searchBar.barTintColor = UIColor.white
-        uisearchController.searchBar.backgroundColor =  UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        uisearchController.searchBar.backgroundColor =  UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         return uisearchController
-    }()
+    }()*/
     
     //검색버튼 눌렀을 때
+    /*
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchPosts.removeAll()
        
@@ -38,7 +41,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         })
         self.tableView.reloadData()
 
-    }
+    }*/
     
     
     
@@ -71,32 +74,35 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         
         
         showPost()
-        tableView.separatorColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
-        searchPosts.removeAll()
-        searchController.searchBar.delegate = self
+        tableView.separatorColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
+        //searchPosts.removeAll()
+        //searchController.searchBar.delegate = self
         
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         self.navigationController?.navigationBar.isTranslucent = false
         
         
         let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
-        self.navigationItem.title = "동네소식"
+        self.navigationItem.title = "나의일기"
         navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.searchController = searchController
+        //navigationItem.searchController = searchController
         
         
-        if let currentEmail = Auth.auth().currentUser?.email {
-            print("소식방에 접근한 아이디 \(currentEmail )")
-            if(currentEmail == "admin@naver.com" || currentEmail == "admin1@naver.com"||currentEmail == "admin2@naver.com"||currentEmail == "admin3@naver.com" || currentEmail == "admin4@naver.com"){
-                //글쓰기 방
-                self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_border_color.png"), style: .plain, target: self, action:  #selector(writeAction))
-            }
-        }
+//        if let currentEmail = Auth.auth().currentUser?.email {
+//            print("소식방에 접근한 아이디 \(currentEmail )")
+//            if(currentEmail == "admin@naver.com" || currentEmail == "admin1@naver.com"||currentEmail == "admin2@naver.com"||currentEmail == "admin3@naver.com" || currentEmail == "admin4@naver.com"){
+//                //글쓰기 방
+//                self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_border_color.png"), style: .plain, target: self, action:  #selector(writeAction))
+//            }
+//        }
         
 
-        
+        //글쓰기 방
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_border_color.png"), style: .plain, target: self, action:  #selector(writeAction))
         
         
         tableView.register(NoticeAVCell.self, forCellReuseIdentifier: cellId)
@@ -106,6 +112,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
 
     }
     
+
     //글쓰기
     @objc func writeAction(){
         
@@ -125,7 +132,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
                     return
                 }else if(pass == "y"){
                     //글쓰기 화면
-                    let writeView = NoticeWriteAHVC()
+                    let writeView = WriteViewController()
                     //글쓰기 화면을 rootView로 만들어 주기
                     let navController = UINavigationController(rootViewController: writeView)
                     self.present(navController, animated: true, completion: nil)
@@ -137,6 +144,8 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         
     }
     
+
+    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         
@@ -144,9 +153,9 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
     }
     //행 개수
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(searchController.isActive && searchController.searchBar.text != ""){
-            return searchPosts.count
-        }
+        //if(searchController.isActive && searchController.searchBar.text != ""){
+         //   return searchPosts.count
+        //}
         return posts.count
     }
     
@@ -159,19 +168,20 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         
         //cell 클릭했을 때 색깔 바꿔주기
         let bgColorView = UIView()
-        bgColorView.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        bgColorView.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         cell?.selectedBackgroundView = bgColorView
         
-        if(searchController.isActive && searchController.searchBar.text != ""){
-            cell?.dateLabel.text = searchPosts[indexPath.row].date
-            cell?.nameLabel.text = searchPosts[indexPath.row].name
-            cell?.replyHitLabel.text = "\(searchPosts[indexPath.row].reply!) 개 댓글"
-            cell?.pidLabel.text = searchPosts[indexPath.row].pid
-            cell?.hitLabel.text = "\(searchPosts[indexPath.row].hit!) 번 읽음"
-            cell?.txtLabel.text = searchPosts[indexPath.row].text
-            cell?.uidLabel.text = searchPosts[indexPath.row].uid
+       // if(searchController.isActive && searchController.searchBar.text != ""){
+           // cell?.dateLabel.text = searchPosts[indexPath.row].date
+           // cell?.nameLabel.text = searchPosts[indexPath.row].name
+           // cell?.replyHitLabel.text = "\(searchPosts[indexPath.row].reply!) 개 댓글"
+           // cell?.pidLabel.text = searchPosts[indexPath.row].pid
+           // cell?.hitLabel.text = "\(searchPosts[indexPath.row].hit!) 번 읽음"
+           // cell?.txtLabel.text = searchPosts[indexPath.row].text
+           // cell?.uidLabel.text = searchPosts[indexPath.row].uid
             
-        }else{
+       // }else{
             cell?.txtLabel.text = posts[indexPath.row].text
             cell?.hitLabel.text = "\(posts[indexPath.row].hit!) 번 읽음"
             cell?.dateLabel.text = posts[indexPath.row].date
@@ -180,7 +190,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
             cell?.replyHitLabel.text = "\(posts[indexPath.row].reply!) 개 댓글"
             cell?.uidLabel.text = posts[indexPath.row].uid
             
-        }
+       // }
         
         return cell!
     }

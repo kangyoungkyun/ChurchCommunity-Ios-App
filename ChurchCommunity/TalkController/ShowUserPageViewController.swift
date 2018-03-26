@@ -22,7 +22,8 @@ class ShowUserPageViewController: UIViewController {
         
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         return label
     }()
     
@@ -33,7 +34,8 @@ class ShowUserPageViewController: UIViewController {
         label.text = "작성글"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         return label
     }()
     
@@ -43,7 +45,8 @@ class ShowUserPageViewController: UIViewController {
         label.text = "작성댓글"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         return label
     }()
     
@@ -61,7 +64,8 @@ class ShowUserPageViewController: UIViewController {
     //이름 구분선 만들기
     let nameSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -78,7 +82,8 @@ class ShowUserPageViewController: UIViewController {
     //글수 구분선 만들기
     let birthSeperatorView : UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -99,7 +104,8 @@ class ShowUserPageViewController: UIViewController {
     //구분선 만들기
     let mesageSeperatorView : UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -113,7 +119,8 @@ class ShowUserPageViewController: UIViewController {
         sendBtn.setTitle("쪽지보내기", for: UIControlState())
         //sendBtn.font = UIFont.boldSystemFont(ofSize: 17)
         sendBtn.setTitleColor(UIColor.white, for: UIControlState())
-        sendBtn.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        sendBtn.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         sendBtn.layer.cornerRadius = 7
         sendBtn.clipsToBounds = true
         sendBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -166,10 +173,11 @@ class ShowUserPageViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         self.navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.prefersLargeTitles = false
-        self.navigationItem.title = "동네이웃"
+        self.navigationItem.title = "동역자보기"
         
         let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes

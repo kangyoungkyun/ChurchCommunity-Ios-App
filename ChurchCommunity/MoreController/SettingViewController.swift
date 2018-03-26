@@ -41,7 +41,8 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = tableViewFooterV
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         self.navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.prefersLargeTitles = false
         let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
@@ -176,7 +177,8 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
                 cell.textLabel?.text = name
                 cell.textLabel?.text = "\(name)"
                 cell.textLabel?.textAlignment = .center
-                cell.textLabel?.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+                cell.textLabel?.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
                 cell.textLabel?.font = UIFont.systemFont(ofSize: 17)
         
         return cell

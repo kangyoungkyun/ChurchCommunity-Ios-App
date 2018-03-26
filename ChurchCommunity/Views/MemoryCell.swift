@@ -37,7 +37,8 @@ class MemoryCell: UITableViewCell {
         
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 22)
-        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         label.backgroundColor = UIColor.white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

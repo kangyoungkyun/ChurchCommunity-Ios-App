@@ -36,8 +36,12 @@ class WriteViewController: UIViewController,UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
-        self.navigationItem.title = "글쓰기"
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
+        self.navigationItem.title = "일기쓰기"
+        
+        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "back.png")!)
         
         //취소 바 버튼
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:#imageLiteral(resourceName: "ic_cancel.png"), style: .plain, target: self, action:  #selector(cancelAction))
@@ -45,7 +49,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_send.png"), style: .plain, target: self, action:  #selector(writeAction))
         
         
-        view.backgroundColor = UIColor.white
+        //view.backgroundColor = UIColor.white
         
         
         //텍스트 뷰의 위임자를 자기자신으로 - 반드시 해줘야 함!
@@ -55,6 +59,8 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         
         //계층 구조를 이용해서 텍스트 뷰에 lable을 넣어 주었음
         textFiedlView.addSubview(placeholderLabel)
+        
+        textFiedlView.backgroundColor = UIColor(patternImage: UIImage(named: "back.png")!)
         
         //라벨의 위치를 정해 줌
         placeholderLabel.frame.origin = CGPoint(x: 5, y: (textFiedlView.font?.pointSize)! / 2)

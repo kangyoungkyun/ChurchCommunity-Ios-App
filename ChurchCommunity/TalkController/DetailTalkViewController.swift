@@ -217,7 +217,78 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         return uiscroll
     }()
-    //pid
+
+    //버튼
+    let seeImage: UIButton = {
+        
+        let starButton = UIButton(type: .system)
+        starButton.setImage(#imageLiteral(resourceName: "ic_remove_red_eye.png"), for: .normal)
+        //starButton.frame = CGRect(x:0,y:0,width:15,height:15)
+        starButton.tintColor = UIColor.lightGray
+        starButton.translatesAutoresizingMaskIntoConstraints = false
+        return starButton
+    }()
+    
+    
+    //버튼
+    let replyImage: UIButton = {
+        let starButton = UIButton(type: .system)
+        starButton.setImage(#imageLiteral(resourceName: "ic_comment.png"), for: .normal)
+        starButton.tintColor = UIColor.lightGray
+        starButton.translatesAutoresizingMaskIntoConstraints = false
+        return starButton
+    }()
+    
+    
+    //버튼
+     let likeButton: UIButton = {
+        let starButton = UIButton(type: .system)
+        starButton.setImage(#imageLiteral(resourceName: "ic_favorite.png"), for: .normal)
+        starButton.tintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+        starButton.translatesAutoresizingMaskIntoConstraints = false
+        starButton.addTarget(self, action: #selector(touchBlessBtn), for: .touchUpInside)
+        return starButton
+    }()
+    
+
+
+//축복해요 클릭되었을 때
+@objc func touchBlessBtn(){
+    
+    //print("좋아요1")
+    
+    let ref = Database.database().reference()
+    //랜덤 키
+    let blessRef = ref.child("bless").child(self.pidLabel.text!)
+    let blessKey = ref.child("bless").childByAutoId().key
+    //데이터 객체 만들기
+    let blessInfo: [String:Any] = [ "uid" : Auth.auth().currentUser?.uid ?? ""]
+    blessRef.child(blessKey).setValue(blessInfo)
+    
+    
+   // let hiting = ["hit" : hitNum]
+    //여기가 문제
+   // let ref = Database.database().reference()
+    //ref.child("posts").child(pid!).updateChildValues(hiting)
+    
+    
+    
+}
+
+    
+    //likes
+    var likesLabel: UILabel = {
+        let label = UILabel()
+        label.text = "축복해요"
+        //label.font = UIFont.systemFont(ofSize: 13)
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    
+    //uid
     var uidLabel: UILabel = {
         let label = UILabel()
         //label.text = "pid"
@@ -240,7 +311,8 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     //이름
    lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         label.text = "이름"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -301,7 +373,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     var hitLabel: UILabel = {
         let label = UILabel()
         label.text = "6번 읽음"
-        label.font = UIFont.systemFont(ofSize: 11)
+        label.font = UIFont.boldSystemFont(ofSize: 13)
         label.textColor = UIColor.lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -310,11 +382,14 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     var replyHitLabel: UILabel = {
         let label = UILabel()
         label.text = "15 댓글"
-        label.font = UIFont.systemFont(ofSize: 11)
+        label.font = UIFont.boldSystemFont(ofSize: 13)
         label.textColor = UIColor.lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    
+
     
     
     // =====================================================  댓글라인구분선  =====================================================
@@ -323,7 +398,8 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         label.text = "  댓글"
         label.textColor = UIColor.white
         label.textAlignment = .left
-        label.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.layer.cornerRadius = 13
@@ -377,7 +453,8 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("쓰기", for: UIControlState())
-        btn.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        btn.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         btn.addTarget(self, action: #selector(replyBtnAction), for: .touchUpInside)
         return btn
     }()
@@ -408,7 +485,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
                         return
                     }
                     
-                    
+          
                     //랜덤 키
                     let replyRef = ref.child("replys").child(self.pidLabel.text!)
                     
@@ -457,10 +534,6 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             }
         }
       
-        
-        
-        
-
     }
     
     //구분선
@@ -483,7 +556,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     // ======================================================        진입점        ======================================================
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "수다글"
+        self.navigationItem.title = "일기보기"
         
         //취소 바 버튼
         
@@ -501,7 +574,8 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         self.view.addSubview(uiScrollView)
         
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         //self.navigationController?.navigationBar.isTranslucent = false
         
         replyView.delegate = self
@@ -518,7 +592,31 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         hideKeyboard()
         setLayout()
+        checkBlessBtn()
         fetchReply()
+    }
+    
+    //축복해요 체크 버튼
+    func checkBlessBtn(){
+        let currentUid = Auth.auth().currentUser?.uid
+        let ref = Database.database().reference()
+        ref.child("bless").child(pidLabel.text!).observe(.value) { (snapshot) in
+            for child in snapshot.children{
+               
+                let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
+                let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
+
+                if let checkUid = childValue["uid"]{
+                    if(checkUid as? String == currentUid){
+                        print("이미 좋아요를 눌렀네요?")
+                        self.likeButton.tintColor = UIColor.lightGray
+                        self.likesLabel.textColor = UIColor.lightGray
+                        self.likeButton.isEnabled = false
+                    }
+                }
+                
+            }
+        }
     }
     
     
@@ -537,6 +635,13 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         uiScrollView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         //uiScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -3.0).isActive = true
         
+        
+        
+        uiScrollView.addSubview(seeImage)
+        uiScrollView.addSubview(replyImage)
+        uiScrollView.addSubview(likeButton)
+        uiScrollView.addSubview(likesLabel)
+        
         uiScrollView.addSubview(uidLabel)
         uiScrollView.addSubview(pidLabel)
         uiScrollView.addSubview(nameLabel)
@@ -549,6 +654,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         uiScrollView.addSubview(replySeperateView)
         uiScrollView.addSubview(scrollViewBottom)
         uiScrollView.addSubview(replyView)
+        
         
         nameLabel.topAnchor.constraint(equalTo: uiScrollView.topAnchor, constant: 20).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: uiScrollView.leadingAnchor).isActive = true
@@ -567,27 +673,58 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         dateLabel.heightAnchor.constraint(equalToConstant: 12).isActive = true
         
         
-        hitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 30).isActive = true
-        hitLabel.leadingAnchor.constraint(equalTo: uiScrollView.leadingAnchor).isActive = true
+        seeImage.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
+        seeImage.leadingAnchor.constraint(equalTo: uiScrollView.leadingAnchor, constant: 0).isActive = true
+        seeImage.widthAnchor.constraint(equalToConstant: 15).isActive = true
+        seeImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        seeImage.bottomAnchor.constraint(equalTo: replyHitLabel.bottomAnchor).isActive = true
+        
+        
+        hitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
+        hitLabel.leadingAnchor.constraint(equalTo: seeImage.trailingAnchor, constant: 5).isActive = true
         hitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        hitLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        hitLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        hitLabel.bottomAnchor.constraint(equalTo: replyHitLabel.bottomAnchor).isActive = true
         
         
-        replyHitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 30).isActive = true
-        replyHitLabel.leadingAnchor.constraint(equalTo: hitLabel.trailingAnchor, constant: 15).isActive = true
+        replyImage.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
+        replyImage.leadingAnchor.constraint(equalTo: hitLabel.trailingAnchor, constant: 10).isActive = true
+        replyImage.widthAnchor.constraint(equalToConstant: 15).isActive = true
+        replyImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        replyImage.bottomAnchor.constraint(equalTo: replyHitLabel.bottomAnchor).isActive = true
+        
+        
+        replyHitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
+        replyHitLabel.leadingAnchor.constraint(equalTo: replyImage.trailingAnchor, constant: 5).isActive = true
         replyHitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        replyHitLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        replyHitLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
-        pidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
-        pidLabel.leadingAnchor.constraint(equalTo: replyHitLabel.trailingAnchor, constant: 15).isActive = true
-        pidLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        
+        likeButton.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
+        likeButton.leadingAnchor.constraint(equalTo: replyHitLabel.trailingAnchor, constant: 10).isActive = true
+        likeButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        likeButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        likeButton.bottomAnchor.constraint(equalTo: replyHitLabel.bottomAnchor).isActive = true
+        
+
+        
+        likesLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
+        likesLabel.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 2).isActive = true
+        likesLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        likesLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+       likesLabel.bottomAnchor.constraint(equalTo: replyHitLabel.bottomAnchor).isActive = true
+
+        
+        
+        pidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
+        pidLabel.leadingAnchor.constraint(equalTo: likesLabel.trailingAnchor, constant: 5).isActive = true
+        pidLabel.widthAnchor.constraint(equalToConstant: 10).isActive = true
         pidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
-        uidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
-        uidLabel.leadingAnchor.constraint(equalTo: pidLabel.trailingAnchor, constant: 15).isActive = true
-        uidLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        uidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
+        uidLabel.leadingAnchor.constraint(equalTo: pidLabel.trailingAnchor, constant: 5).isActive = true
+        uidLabel.widthAnchor.constraint(equalToConstant: 10).isActive = true
         uidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        
         
         replyLine.topAnchor.constraint(equalTo: hitLabel.bottomAnchor, constant: 35).isActive = true
         replyLine.centerXAnchor.constraint(equalTo: uiScrollView.centerXAnchor).isActive = true

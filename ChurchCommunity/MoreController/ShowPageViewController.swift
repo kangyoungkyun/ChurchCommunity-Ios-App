@@ -20,7 +20,8 @@ class ShowPageViewController: UIViewController {
         
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         return label
     }()
     
@@ -31,7 +32,8 @@ class ShowPageViewController: UIViewController {
         label.text = "작성글"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         return label
     }()
     
@@ -41,7 +43,8 @@ class ShowPageViewController: UIViewController {
         label.text = "작성댓글"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         return label
     }()
     
@@ -59,7 +62,8 @@ class ShowPageViewController: UIViewController {
     //이름 구분선 만들기
     let nameSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -75,7 +79,8 @@ class ShowPageViewController: UIViewController {
     //글수 구분선 만들기
     let birthSeperatorView : UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -95,7 +100,8 @@ class ShowPageViewController: UIViewController {
     //구분선 만들기
     let mesageSeperatorView : UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -108,7 +114,8 @@ class ShowPageViewController: UIViewController {
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.white
-        label.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         label.layer.cornerRadius = 7
         label.clipsToBounds = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(sendMesage))
@@ -130,7 +137,8 @@ class ShowPageViewController: UIViewController {
         label.text = "  받은쪽지:  "
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.textColor = UIColor.white
-        label.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         label.layer.cornerRadius = 7
         label.clipsToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -181,7 +189,8 @@ self.navigationController?.pushViewController(viewController, animated: true)*/
         sendBtn.setTitle("쪽지보내기", for: UIControlState())
         //sendBtn.font = UIFont.boldSystemFont(ofSize: 17)
         sendBtn.setTitleColor(UIColor.white, for: UIControlState())
-        sendBtn.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        sendBtn.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         sendBtn.layer.cornerRadius = 7
         sendBtn.clipsToBounds = true
         sendBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -226,10 +235,11 @@ self.navigationController?.pushViewController(viewController, animated: true)*/
     //출석체크내기 버튼
     var todayCheckBtn: UIButton = {
         let sendBtn = UIButton()
-        sendBtn.setTitle("출석체크", for: UIControlState())
+        sendBtn.setTitle("영성체크", for: UIControlState())
         //sendBtn.font = UIFont.boldSystemFont(ofSize: 17)
         sendBtn.setTitleColor(UIColor.white, for: UIControlState())
-        sendBtn.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        sendBtn.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         sendBtn.layer.cornerRadius = 7
         sendBtn.clipsToBounds = true
         sendBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -272,7 +282,7 @@ self.navigationController?.pushViewController(viewController, animated: true)*/
                                                 "uid" : myId!]
                 
                 dotoriRef.setValue(dotoriInfo)
-                let alert = UIAlertController(title: "축하합니다.", message:"오늘의 도토리가 적립되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: "축하합니다.", message:"오늘의 달란트가 적립되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }else{
@@ -281,7 +291,7 @@ self.navigationController?.pushViewController(viewController, animated: true)*/
                 if let uid = childValue["uid"] as? String{
                     if (uid == myId!){
                         //같은 아이디가 있으면 도토리 적립 취소
-                        let alertAlready = UIAlertController(title: "알림", message:"도토리가 이미 적립되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
+                        let alertAlready = UIAlertController(title: "알림", message:"달란트가 이미 적립되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
                         
                         alertAlready.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: { (alert) in
                             ref.removeAllObservers()
@@ -314,10 +324,11 @@ self.navigationController?.pushViewController(viewController, animated: true)*/
     //도토리 라벨
     var dotoriLabel: UILabel = {
         let label = UILabel()
-        label.text = "도토리"
+        label.text = "달란트"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         return label
     }()
     
@@ -335,7 +346,8 @@ self.navigationController?.pushViewController(viewController, animated: true)*/
     //도토리 구분선
     let dotoriSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        view.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -345,7 +357,8 @@ self.navigationController?.pushViewController(viewController, animated: true)*/
         super.viewDidLoad()
 
         self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         self.navigationItem.title = "마이페이지"
         //취소 바 버튼
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(cancelAction))

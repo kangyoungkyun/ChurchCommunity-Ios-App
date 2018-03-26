@@ -34,7 +34,8 @@ class MoreReplyCell: UITableViewCell {
     //이름
     var nameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(red:0.22, green:0.78, blue:0.20, alpha:1.0)
+        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
         label.text = "앗.."
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
