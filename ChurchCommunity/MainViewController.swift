@@ -143,10 +143,19 @@ class MainViewController: UIViewController {
                 
                 //로그인 성공했을 때
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                let tabBarController = appDelegate.tabBarController
+                //let tabBarController = appDelegate.tabBarController
                 //인디케이터 종료
                 AppDelegate.instance().dissmissActivityIndicator()
-                self.present(tabBarController!, animated: true, completion: nil)
+                //self.present(tabBarController!, animated: true, completion: nil)
+                
+                
+                let layout = UICollectionViewFlowLayout()
+                //가로로 스크롤되게 설정
+                layout.scrollDirection = .horizontal
+                //SwipingController 객체를 생성하고 최상위 뷰로 설정
+                let viewcontroller = TodayCollectionVC(collectionViewLayout: layout)
+              
+                self.present(viewcontroller, animated: true, completion: nil)
             }
         }
     }
@@ -203,9 +212,18 @@ class MainViewController: UIViewController {
             //유저아이디가 있으면 0.1 초 뒤에 appDelegate에 있는 tabBarController 참조 가져오기
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.03) { //0.1초 뒤
                 // Your code with delay
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                let tabBarController = appDelegate.tabBarController
-                self.present(tabBarController!, animated: true, completion: nil)
+                //let appDelegate = UIApplication.shared.delegate as! AppDelegate
+               // let tabBarController = appDelegate.tabBarController
+                //self.present(tabBarController!, animated: true, completion: nil)
+            
+            
+                let layout = UICollectionViewFlowLayout()
+                //가로로 스크롤되게 설정
+                layout.scrollDirection = .horizontal
+                //SwipingController 객체를 생성하고 최상위 뷰로 설정
+                let viewcontroller = TodayCollectionVC(collectionViewLayout: layout)
+                
+                self.present(viewcontroller, animated: true, completion: nil)
             }
            
             

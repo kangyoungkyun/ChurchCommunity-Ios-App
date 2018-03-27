@@ -178,10 +178,17 @@ class SignViewController: UIViewController {
                 
                 //tabbarController 가져오기
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                let tabBarController = appDelegate.tabBarController
+                //let tabBarController = appDelegate.tabBarController
                 //인디케이터 종료
                 AppDelegate.instance().dissmissActivityIndicator()
-                self.present(tabBarController!, animated: true, completion: nil)
+                //self.present(tabBarController!, animated: true, completion: nil)
+                
+                let layout = UICollectionViewFlowLayout()
+                //가로로 스크롤되게 설정
+                layout.scrollDirection = .horizontal
+                //SwipingController 객체를 생성하고 최상위 뷰로 설정
+                let viewcontroller = TodayCollectionVC(collectionViewLayout: layout)
+                self.present(viewcontroller, animated: true, completion: nil)
             }
         }
     }

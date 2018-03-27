@@ -408,3 +408,37 @@ let unselectedColor = UIColor(red: 16.0/255.0, green: 224.0/255.0, blue: 223.0/2
 
 UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: unselectedColor], for: .normal)
 UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: selectedColor], for: .selected)
+
+
+
+
+
+
+
+
+//컬렉션뷰 델리게이트 관련 :https://stackoverflow.com/questions/33796005/present-alertview-from-uicollectionviewcell
+The collection view cell should not depend on knowledge of its parent view or view controller in order to maintain a functional separation of responsibilities that is part of a proper app architecture.
+
+Therefore, to get the cell to adopt the behavior of showing an alert, the delegation pattern can be used. This is done by adding a protocol to the view controller that has the collection view.
+
+@protocol CollectionViewCellDelegate: class {
+func showAlert()
+}
+And having the view controller conform to that protocol:
+
+class MyViewController: UIViewController, CollectionViewCellDelegate {
+Also add a delegate property to the cell:
+
+weak var delegate: CollectionViewCellDelegate?
+Move the showAlert() function inside your collection view controller.
+
+When you make a cell, assign the delegate for the cell to the collection view controller.
+
+func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+
+// Other cell code here.
+
+cell.delegate = self
+When it is time to show the alert, have the cell call
+
+delegate.showAlert()

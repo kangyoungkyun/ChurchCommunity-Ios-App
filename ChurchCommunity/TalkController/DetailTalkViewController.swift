@@ -927,7 +927,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         }
         
         
-        let noShowAction = UIAlertAction(title: "글비공개", style: .default) { (alert) in
+        let noShowAction = UIAlertAction(title: "비공개", style: .default) { (alert) in
             print("글비공개")
             
             self.noShowAction(pid:self.pidLabel.text!)
@@ -972,9 +972,8 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         alertController.addAction(modifyAction)
         alertController.addAction(deleteAction)
-        alertController.addAction(noShowAction)
         alertController.addAction(showAction)
-       
+        alertController.addAction(noShowAction)
         alertController.addAction(cancelAction)
         
         self.present(
