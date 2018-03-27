@@ -222,6 +222,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             }
             
             uidLabel.text = onePost?.uid
+            showOrNotButton.setTitle(onePost?.show, for: UIControlState())
             
         }
     }
@@ -292,6 +293,20 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     
 }
 
+    
+    //버튼
+    let showOrNotButton: UIButton = {
+        let starButton = UIButton(type: .system)
+        starButton.setTitle("비공개", for: UIControlState())
+        starButton.titleLabel?.font = UIFont.systemFont(ofSize: 11)
+        starButton.tintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+        starButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        return starButton
+    }()
+    
+
+    
     
     //likes
     var likesLabel: UILabel = {
@@ -592,7 +607,9 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         super.viewDidLoad()
         self.navigationItem.title = "일기보기"
         
-
+        
+        
+        
         //취소 바 버튼
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(goTalkViewController))
         
@@ -670,7 +687,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         //uiScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -3.0).isActive = true
         
         
-        
+        uiScrollView.addSubview(showOrNotButton)
         uiScrollView.addSubview(seeImage)
         uiScrollView.addSubview(replyImage)
         uiScrollView.addSubview(likeButton)
@@ -692,11 +709,15 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         nameLabel.topAnchor.constraint(equalTo: uiScrollView.topAnchor, constant: 20).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: uiScrollView.leadingAnchor).isActive = true
-        nameLabel.trailingAnchor.constraint(equalTo: uiScrollView.trailingAnchor).isActive = true
+        nameLabel.trailingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
         nameLabel.bottomAnchor.constraint(equalTo: txtLabel.topAnchor, constant: -15).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 12).isActive = true
         nameLabel.widthAnchor.constraint(equalTo: uiScrollView.widthAnchor).isActive = true
         
+        
+        showOrNotButton.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
+        showOrNotButton.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor, constant: -15).isActive = true
+        showOrNotButton.heightAnchor.constraint(equalToConstant: 12).isActive = true
         
         
         txtLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
@@ -722,7 +743,7 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         
         replyImage.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
-        replyImage.leadingAnchor.constraint(equalTo: hitLabel.trailingAnchor, constant: 10).isActive = true
+        replyImage.leadingAnchor.constraint(equalTo: hitLabel.trailingAnchor, constant: 15).isActive = true
         replyImage.widthAnchor.constraint(equalToConstant: 15).isActive = true
         replyImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
         replyImage.bottomAnchor.constraint(equalTo: replyHitLabel.bottomAnchor).isActive = true
@@ -868,6 +889,28 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
     }
     
     
+    //글공개
+    func showAction(pid:String){
+        print("글나누기\(pid)")
+        let showing = ["show" : "y"]
+        //여기가 문제
+        let ref = Database.database().reference()
+        ref.child("posts").child(pid).updateChildValues(showing)
+        let alert = UIAlertController(title: "알림 ", message:"글이 나눔방에 게시되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    //글비공개
+    func noShowAction(pid:String){
+        print("글비공개\(pid)")
+        //fb db 연결 후 posts 테이블에 key가 pid인 데이터의 hit 개수 변경해주기
+        let showing = ["show" : "n"]
+        //여기가 문제
+        let ref = Database.database().reference()
+        ref.child("posts").child(pid).updateChildValues(showing)
+
+    }
     
     //글 설정 네비게이션 바 버튼 아이템을 눌렀을 때
     @objc func goSettingAlertAction(){
@@ -876,6 +919,20 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
             title: nil,
             message: nil,
             preferredStyle: .alert)
+        
+        let showAction = UIAlertAction(title: "글공개", style: .default) { (alert) in
+            print("글나누기")
+            self.showAction(pid:self.pidLabel.text!)
+            
+        }
+        
+        
+        let noShowAction = UIAlertAction(title: "글비공개", style: .default) { (alert) in
+            print("글비공개")
+            
+            self.noShowAction(pid:self.pidLabel.text!)
+        }
+        
         
         let modifyAction = UIAlertAction(title: "글수정", style: .default) { (alert) in
             print("댓글 수정")
@@ -915,6 +972,9 @@ class DetailTalkViewController: UIViewController, UITableViewDelegate,UITableVie
         
         alertController.addAction(modifyAction)
         alertController.addAction(deleteAction)
+        alertController.addAction(noShowAction)
+        alertController.addAction(showAction)
+       
         alertController.addAction(cancelAction)
         
         self.present(

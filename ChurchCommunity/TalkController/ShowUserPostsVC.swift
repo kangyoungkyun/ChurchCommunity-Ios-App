@@ -97,7 +97,7 @@ class ShowUserPostsVC: UITableViewController,UISearchBarDelegate  {
         
         let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
-        self.navigationItem.title = "일기보기"
+        self.navigationItem.title = "글모음"
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.searchController = searchController
         
@@ -147,7 +147,7 @@ class ShowUserPostsVC: UITableViewController,UISearchBarDelegate  {
             cell?.hitLabel.text = "\(searchPosts[indexPath.row].hit!) 번 읽음"
             cell?.txtLabel.text = searchPosts[indexPath.row].text
             cell?.uidLabel.text = searchPosts[indexPath.row].uid
-            
+            cell?.showOrNotButton.setTitle(searchPosts[indexPath.row].show, for: UIControlState())
             if(searchPosts[indexPath.row].blessCount == nil){
                 cell?.likesLabel.text = "0 명"
             }else{
@@ -162,7 +162,7 @@ class ShowUserPostsVC: UITableViewController,UISearchBarDelegate  {
             cell?.pidLabel.text = posts[indexPath.row].pid
             cell?.replyHitLabel.text = "\(posts[indexPath.row].reply!) 개 댓글"
             cell?.uidLabel.text = posts[indexPath.row].uid
-            
+            cell?.showOrNotButton.setTitle(posts[indexPath.row].show, for: UIControlState())
             if(posts[indexPath.row].blessCount == nil){
                 cell?.likesLabel.text = "0 명"
             }else{
@@ -197,7 +197,7 @@ class ShowUserPostsVC: UITableViewController,UISearchBarDelegate  {
         let pid = cell?.pidLabel.text
         let replyHitLabel = cell?.replyHitLabel.text
         let uid = cell?.uidLabel.text
-        
+        let show = cell?.showOrNotButton.titleLabel?.text
         //조회수 문자를 배열로 변경
         let xs = hit!.characters.split(separator:" ").map{ String($0) }
         let hitNum = Int(xs[0])! + 1
@@ -219,7 +219,7 @@ class ShowUserPostsVC: UITableViewController,UISearchBarDelegate  {
         onePost.pid = pid
         onePost.reply = String(replyNum)
         onePost.uid = uid
-        
+         onePost.show = show
         //디테일 페이지로 이동
         let detailTalkViewController = DetailTalkViewController()
         detailTalkViewController.onePost = onePost
@@ -241,8 +241,10 @@ class ShowUserPostsVC: UITableViewController,UISearchBarDelegate  {
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
                 
                 
-                if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"], let reply = childValue["reply"] {
+                if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"], let reply = childValue["reply"],let show = childValue["show"] {
                     
+                    if(show as? String == "y"){
+
                     if(self.userId == String(describing: uid)){
                         ref.child("bless").observe(.value, with: { (snapshot) in
                             
@@ -277,8 +279,10 @@ class ShowUserPostsVC: UITableViewController,UISearchBarDelegate  {
                         postToShow.text = text as! String
                         postToShow.uid = uid as! String
                         postToShow.reply = String(describing: reply)
+                        postToShow.show = "공개"
                         self.posts.insert(postToShow, at: 0) //
                     }
+                        }
                 }
             }
         }

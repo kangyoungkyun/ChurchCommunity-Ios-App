@@ -22,24 +22,25 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     var searchPosts = [Post]()
     let cellId = "cellId"
     
-    let searchController : UISearchController = {
-        let uisearchController = UISearchController(searchResultsController: nil)
-        uisearchController.searchBar.placeholder = "검색"
-        uisearchController.searchBar.backgroundColor =  UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
-        
-        return uisearchController
-    }()
+//    let searchController : UISearchController = {
+//        let uisearchController = UISearchController(searchResultsController: nil)
+//        uisearchController.searchBar.placeholder = "검색"
+//        uisearchController.searchBar.backgroundColor =  UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+//
+//        return uisearchController
+//    }()
     
     //검색버튼 눌렀을 때
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchPosts.removeAll()
-        //print("서치바 \(String(describing: searchController.searchBar.text!))")
-        searchPosts = posts.filter({ (post) -> Bool in
-            guard let text = searchController.searchBar.text else{return false}
-            return post.text.contains(text)
-        })
-        self.tableView.reloadData()
-    }
+    
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        searchPosts.removeAll()
+//        //print("서치바 \(String(describing: searchController.searchBar.text!))")
+//        searchPosts = posts.filter({ (post) -> Bool in
+//            guard let text = searchController.searchBar.text else{return false}
+//            return post.text.contains(text)
+//        })
+//        self.tableView.reloadData()
+//    }
     
     
     
@@ -74,7 +75,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         showPost()
         
         searchPosts.removeAll()
-        searchController.searchBar.delegate = self
+        //searchController.searchBar.delegate = self
         
         //네비게이션 바 색깔 변경
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
@@ -88,7 +89,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         self.navigationItem.title = "영성일기"
         navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.searchController = searchController
+        //navigationItem.searchController = searchController
         
         
         tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
@@ -105,9 +106,9 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     }
     //행 개수
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(searchController.isActive && searchController.searchBar.text != ""){
-            return searchPosts.count
-        }
+//        if(searchController.isActive && searchController.searchBar.text != ""){
+//            return searchPosts.count
+//        }
         return posts.count
     }
     
@@ -127,22 +128,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         
         cell?.addSubview(additionalSeparator)
         
-        if(searchController.isActive && searchController.searchBar.text != ""){
-            cell?.dateLabel.text = searchPosts[indexPath.row].date
-            cell?.nameLabel.text = searchPosts[indexPath.row].name
-            cell?.replyHitLabel.text = "\(searchPosts[indexPath.row].reply!) 개 댓글"
-            cell?.pidLabel.text = searchPosts[indexPath.row].pid
-            cell?.hitLabel.text = "\(searchPosts[indexPath.row].hit!) 번 읽음"
-            cell?.txtLabel.text = searchPosts[indexPath.row].text
-            cell?.uidLabel.text = searchPosts[indexPath.row].uid
-            
-            if(searchPosts[indexPath.row].blessCount == nil){
-                cell?.likesLabel.text = "0 명"
-            }else{
-                cell?.likesLabel.text = "\(searchPosts[indexPath.row].blessCount!) 명"
-            }
-            
-        }else{
+    
             cell?.txtLabel.text = posts[indexPath.row].text
             cell?.hitLabel.text = "\(posts[indexPath.row].hit!) 번 읽음"
             cell?.dateLabel.text = posts[indexPath.row].date
@@ -150,13 +136,13 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
             cell?.pidLabel.text = posts[indexPath.row].pid
             cell?.replyHitLabel.text = "\(posts[indexPath.row].reply!) 개 댓글"
             cell?.uidLabel.text = posts[indexPath.row].uid
-            
+            cell?.showOrNotButton.setTitle(posts[indexPath.row].show, for: UIControlState())
             if(posts[indexPath.row].blessCount == nil){
                  cell?.likesLabel.text = "0 명"
             }else{
                 cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!) 명"
             }
-        }
+      
         return cell!
     }
     
@@ -182,7 +168,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         let pid = cell?.pidLabel.text
         let replyHitLabel = cell?.replyHitLabel.text
         let uid = cell?.uidLabel.text
-        
+        let show = cell?.showOrNotButton.titleLabel?.text
         //조회수 문자를 배열로 변경
         let xs = hit!.characters.split(separator:" ").map{ String($0) }
         let hitNum = Int(xs[0])! + 1
@@ -204,7 +190,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         onePost.pid = pid
         onePost.reply = String(replyNum)
         onePost.uid = uid
-        
+        onePost.show = show
         //디테일 페이지로 이동
         let detailTalkViewController = DetailTalkViewController()
         detailTalkViewController.onePost = onePost
@@ -225,9 +211,9 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
                 let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
                 
-                
-                if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"], let reply = childValue["reply"] {
+                if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"], let reply = childValue["reply"],let show = childValue["show"] {
                     
+                    if (show as? String == "y"){
                     
                     ref.child("bless").observe(.value, with: { (snapshot) in
                      
@@ -238,12 +224,10 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
                             let childSnapshot = childs as! DataSnapshot
                             let key = childSnapshot.key
                             let val = childSnapshot.value as! [String:Any]
-
                                                         if (key == pid as? String) {
                                                             print("축복받은 개수 몇개?")
                                                             print(pid,key,val.count)
                                                             postToShow.blessCount = "\(val.count)"
-                                             
                                                         }
                         }
                          self.tableView.reloadData()
@@ -263,8 +247,11 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
                     postToShow.text = text as! String
                     postToShow.uid = uid as! String
                     postToShow.reply = String(describing: reply)
+                          postToShow.show = "공개"
+                         self.posts.insert(postToShow, at: 0) //
                 }
-                self.posts.insert(postToShow, at: 0) //
+               
+            }
             }
             
         }

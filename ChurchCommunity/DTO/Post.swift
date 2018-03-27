@@ -26,4 +26,6 @@ class Post: NSObject {
     
     var blessCount:String!
     
+    var show:String!
+    
 }

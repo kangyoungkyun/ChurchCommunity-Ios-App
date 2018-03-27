@@ -104,12 +104,22 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         //글쓰기 방
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_border_color.png"), style: .plain, target: self, action:  #selector(writeAction))
         
+                self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:#imageLiteral(resourceName: "ic_person.png"), style: .plain, target: self, action:  #selector(myAction))
+
         
         tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
         
     }
+    
+    //mypage보기
+    @objc func myAction(){
+        let viewController = ShowPageViewController()
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    
     
     //글쓰기
     @objc func writeAction(){
@@ -179,7 +189,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
             cell?.hitLabel.text = "\(searchPosts[indexPath.row].hit!) 번 읽음"
             cell?.txtLabel.text = searchPosts[indexPath.row].text
             cell?.uidLabel.text = searchPosts[indexPath.row].uid
-            
+             cell?.showOrNotButton.setTitle(searchPosts[indexPath.row].show, for: UIControlState())
             if(searchPosts[indexPath.row].blessCount == nil){
                 cell?.likesLabel.text = "0 명"
             }else{
@@ -194,7 +204,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
             cell?.pidLabel.text = posts[indexPath.row].pid
             cell?.replyHitLabel.text = "\(posts[indexPath.row].reply!) 개 댓글"
             cell?.uidLabel.text = posts[indexPath.row].uid
-            
+            cell?.showOrNotButton.setTitle(posts[indexPath.row].show, for: UIControlState())
             if(posts[indexPath.row].blessCount == nil){
                 cell?.likesLabel.text = "0 명"
             }else{
@@ -229,6 +239,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         let pid = cell?.pidLabel.text
         let replyHitLabel = cell?.replyHitLabel.text
         let uid = cell?.uidLabel.text
+        let show = cell?.showOrNotButton.titleLabel?.text
         
         //조회수 문자를 배열로 변경
         let xs = hit!.characters.split(separator:" ").map{ String($0) }
@@ -251,6 +262,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         onePost.pid = pid
         onePost.reply = String(replyNum)
         onePost.uid = uid
+        onePost.show = show
         
         //디테일 페이지로 이동
         let detailTalkViewController = DetailTalkViewController()
@@ -262,6 +274,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
     //포스트 조회 함수
     func showPost(){
         let myId = Auth.auth().currentUser?.uid
+       
         print("start showPost")
         let ref = Database.database().reference()
         ref.child("posts").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
@@ -272,8 +285,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
                 let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
                 
-                
-                if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"], let reply = childValue["reply"] {
+                    if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"], let reply = childValue["reply"], let show = childValue["show"]{
                     
                     if(myId == String(describing: uid)){
                         ref.child("bless").observe(.value, with: { (snapshot) in
@@ -309,9 +321,16 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
                         postToShow.text = text as! String
                         postToShow.uid = uid as! String
                         postToShow.reply = String(describing: reply)
+                        if(show as? String == "y"){
+                            postToShow.show = "공개"
+                        }else{
+                             postToShow.show = "비공개"
+                        }
+                        
                         self.posts.insert(postToShow, at: 0) //
                     }
                 }
+                
             }
         }
         ref.removeAllObservers()

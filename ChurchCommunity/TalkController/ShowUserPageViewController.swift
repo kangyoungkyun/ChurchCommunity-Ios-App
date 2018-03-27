@@ -18,7 +18,7 @@ class ShowUserPageViewController: UIViewController {
     //이름
     var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "닉네임"
+        label.text = "필명"
         
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +31,7 @@ class ShowUserPageViewController: UIViewController {
     //댓글수
     var birthLabel: UILabel = {
         let label = UILabel()
-        label.text = "영성일기"
+        label.text = "0"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
@@ -224,7 +224,8 @@ class ShowUserPageViewController: UIViewController {
         //self.view.addSubview(todayCheckBtn)
         self.view.addSubview(sendBtn)
         
-          self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_list_white.png"), style: .plain, target: self, action:  #selector(showUserPost))
+          //self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_list_white.png"), style: .plain, target: self, action:  #selector(showUserPost))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "글모음", style: .plain, target: self, action: #selector(showUserPost))
         showMyUserData()
         setLayout()
         

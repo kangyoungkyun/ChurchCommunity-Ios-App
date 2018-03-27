@@ -11,7 +11,7 @@ import Firebase
 class WriteViewController: UIViewController,UITextViewDelegate {
     var placeholderLabel : UILabel = {
         let ph = UILabel()
-        ph.text = "당신의 생각을 들려주세요 :)"
+        ph.text = "하나님 드릴말씀이있어요."
         ph.font = UIFont.systemFont(ofSize: 18)
         ph.sizeToFit()
         return ph
@@ -47,10 +47,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:#imageLiteral(resourceName: "ic_cancel.png"), style: .plain, target: self, action:  #selector(cancelAction))
         //보내기 바 버튼
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_send.png"), style: .plain, target: self, action:  #selector(writeAction))
-        
-        
-        //view.backgroundColor = UIColor.white
-        
+
         
         //텍스트 뷰의 위임자를 자기자신으로 - 반드시 해줘야 함!
         textFiedlView.delegate = self
@@ -118,7 +115,8 @@ class WriteViewController: UIViewController,UITextViewDelegate {
                                           "text" : textMsg!,
                                           "hit": 0,
                                           "date": ServerValue.timestamp(),
-                                          "reply":0]
+                                          "reply":0,
+                                          "show":"n"]
             //해당 경로에 삽입
             PostReference.setValue(postInfo)
             

@@ -13,6 +13,19 @@ import UIKit
 class TalkCell: UITableViewCell {
     
     
+    
+    //버튼
+    let showOrNotButton: UIButton = {
+        let starButton = UIButton(type: .system)
+        starButton.setTitle("비공개", for: UIControlState())
+        starButton.titleLabel?.font = UIFont.systemFont(ofSize: 11)
+        starButton.tintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+        starButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        return starButton
+    }()
+    
+    
     //버튼
     let seeImage: UIButton = {
 
@@ -155,6 +168,7 @@ class TalkCell: UITableViewCell {
          addSubview(replyImage)
         addSubview(likeButton)
         addSubview(likesLabel)
+        addSubview(showOrNotButton)
         setLayout()
     }
 
@@ -172,8 +186,14 @@ class TalkCell: UITableViewCell {
         txtLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15).isActive = true
         txtLabel.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
+        
+        showOrNotButton.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
+        showOrNotButton.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor, constant: -15).isActive = true
+        showOrNotButton.heightAnchor.constraint(equalToConstant: 12).isActive = true
+        
+        
         dateLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
-        dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -15).isActive = true
+        dateLabel.trailingAnchor.constraint(equalTo: txtLabel.trailingAnchor).isActive = true
         dateLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
         

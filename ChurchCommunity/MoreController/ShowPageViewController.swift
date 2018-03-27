@@ -186,53 +186,53 @@ class ShowPageViewController: UIViewController {
     
     
     // ========================================= 쪽지보내기 버튼  =========================================
-    //쪽지보내기 버튼
-    var sendBtn: UIButton = {
-        let sendBtn = UIButton()
-        sendBtn.setTitle("쪽지보내기", for: UIControlState())
-        //sendBtn.font = UIFont.boldSystemFont(ofSize: 17)
-        sendBtn.setTitleColor(UIColor.white, for: UIControlState())
-        sendBtn.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
-
-        sendBtn.layer.cornerRadius = 7
-        sendBtn.clipsToBounds = true
-        sendBtn.translatesAutoresizingMaskIntoConstraints = false
-        sendBtn.addTarget(self, action: #selector(sendMesageBtnAction), for: .touchUpInside)
-        return sendBtn
-    }()
-    //쪽지보내기 버튼 클릭
-    @objc func sendMesageBtnAction(){
-        print("쪽지보내기 버튼 클릭")
-       
-        let myUid = Auth.auth().currentUser?.uid
-        let myName = Auth.auth().currentUser?.displayName
-       
-        
-        let alertController = UIAlertController(
-            title: nil,
-            message: nil,
-            preferredStyle: .alert)
-        
-        let modifyAction = UIAlertAction(title: "쪽지보내기", style: .default) { (alert) in
-            print("쪽지보내기")
-            
-            //나에게 보내기
-            self.sendMsgController(toid: myUid!, toname: myName!, fromid: myUid!, fromname: myName!)
-            
-        }
-
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (alert) in
-            print("취소")
-        }
-        alertController.addAction(cancelAction)
-        alertController.addAction(modifyAction)
- 
-        
-        self.present(
-            alertController,
-            animated: true,
-            completion: nil)
-    }
+//    //쪽지보내기 버튼
+//    var sendBtn: UIButton = {
+//        let sendBtn = UIButton()
+//        sendBtn.setTitle("쪽지보내기", for: UIControlState())
+//        //sendBtn.font = UIFont.boldSystemFont(ofSize: 17)
+//        sendBtn.setTitleColor(UIColor.white, for: UIControlState())
+//        sendBtn.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+//
+//        sendBtn.layer.cornerRadius = 7
+//        sendBtn.clipsToBounds = true
+//        sendBtn.translatesAutoresizingMaskIntoConstraints = false
+//        sendBtn.addTarget(self, action: #selector(sendMesageBtnAction), for: .touchUpInside)
+//        return sendBtn
+//    }()
+//    //쪽지보내기 버튼 클릭
+//    @objc func sendMesageBtnAction(){
+//        print("쪽지보내기 버튼 클릭")
+//
+//        let myUid = Auth.auth().currentUser?.uid
+//        let myName = Auth.auth().currentUser?.displayName
+//
+//
+//        let alertController = UIAlertController(
+//            title: nil,
+//            message: nil,
+//            preferredStyle: .alert)
+//
+//        let modifyAction = UIAlertAction(title: "쪽지보내기", style: .default) { (alert) in
+//            print("쪽지보내기")
+//
+//            //나에게 보내기
+//            self.sendMsgController(toid: myUid!, toname: myName!, fromid: myUid!, fromname: myName!)
+//
+//        }
+//
+//        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (alert) in
+//            print("취소")
+//        }
+//        alertController.addAction(cancelAction)
+//        alertController.addAction(modifyAction)
+//
+//
+//        self.present(
+//            alertController,
+//            animated: true,
+//            completion: nil)
+//    }
     
     // ========================================= 출석체크 버튼  =========================================
     //출석체크내기 버튼
@@ -406,7 +406,7 @@ class ShowPageViewController: UIViewController {
         self.view.addSubview(getMsgLabel)
         self.view.addSubview(sendMsgLabel)
         self.view.addSubview(todayCheckBtn)
-        self.view.addSubview(sendBtn)
+        //self.view.addSubview(sendBtn)
         
         self.view.addSubview(dotoriLabel)
         self.view.addSubview(dotoriTextField)
@@ -440,15 +440,8 @@ class ShowPageViewController: UIViewController {
         //nameTextField.topAnchor.constraintEqualToSystemSpacingBelow(view.topAnchor, multiplier: 2)
         nameTextField.topAnchor.constraint(equalTo: view.topAnchor,constant:40).isActive = true
         nameTextField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 5).isActive = true
-        nameTextField.rightAnchor.constraint(equalTo: sendBtn.leftAnchor).isActive = true
+        nameTextField.rightAnchor.constraint(equalTo:view.rightAnchor).isActive = true
         //구분선
-        
-        
-        sendBtn.topAnchor.constraint(equalTo: view.topAnchor,constant:40).isActive = true
-        sendBtn.leftAnchor.constraint(equalTo: nameTextField.rightAnchor, constant: 2).isActive = true
-        sendBtn.rightAnchor.constraint(equalTo: view.rightAnchor,constant: -30).isActive = true
-        sendBtn.widthAnchor.constraint(equalToConstant: 90).isActive = true
-        sendBtn.heightAnchor.constraint(equalToConstant: 22).isActive = true
         
         
         nameSeperatorView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor,constant:5).isActive = true
