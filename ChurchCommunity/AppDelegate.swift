@@ -66,7 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController = UITabBarController()
         tabBarController?.view.backgroundColor = UIColor.white
         tabBarController?.view.tintColor = UIColor.white
-        tabBarController?.tabBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+        tabBarController?.tabBar.barTintColor = .lightGray
+        //UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
 
 
         

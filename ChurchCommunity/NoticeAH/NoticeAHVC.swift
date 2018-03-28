@@ -28,17 +28,18 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
     let cellId = "cellId"
     
     
-    let searchController : UISearchController = {
+ /*   let searchController : UISearchController = {
         let uisearchController = UISearchController(searchResultsController: nil)
         uisearchController.searchBar.placeholder = "검색"
         //uisearchController.searchBar.barTintColor = UIColor.white
         uisearchController.searchBar.backgroundColor =  UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
         
         return uisearchController
-    }()
+    }()*/
+    
     
     //검색버튼 눌렀을 때
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+   /* func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchPosts.removeAll()
         //print("서치바 \(String(describing: searchController.searchBar.text!))")
         searchPosts = posts.filter({ (post) -> Bool in
@@ -46,15 +47,44 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
             return post.text.contains(text)
         })
         self.tableView.reloadData()
-        // print("필터 개수는? \(searchPosts.count)")
-        //searchController.searchBar.text = ""
+
+    }*/
+    
+    
+
+     //탭바 스크롤 하면 숨기기
+   override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
+        changeTabBar(hidden: true, animated: true)
     }
-    
-    
+    else{
+        changeTabBar(hidden: false, animated: true)
+    }
+    }
+    func changeTabBar(hidden:Bool, animated: Bool){
+        print("changeTabbar")
+        guard let tabBar = self.tabBarController?.tabBar else { return; }
+        if tabBar.isHidden == hidden{ return }
+        let frame = tabBar.frame
+        let offset = hidden ? frame.size.height : -frame.size.height
+        let duration:TimeInterval = (animated ? 0.5 : 0.0)
+        tabBar.isHidden = false
+        
+        UIView.animate(withDuration: duration, animations: {
+            tabBar.frame = frame.offsetBy(dx: 0, dy: offset)
+        }, completion: { (true) in
+            tabBar.isHidden = hidden
+        })
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let headrView = UIView()
+        headrView.backgroundColor = UIColor.lightGray
+        headrView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height:150)
+        tableView.tableHeaderView = headrView
+        tableView.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
         
         activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,8 +101,8 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
             // print("start DispatchQueue")
             OperationQueue.main.addOperation() {
                 //   print("start OperationQueue")
-                self.tableView.separatorStyle = .singleLine
-                Thread.sleep(forTimeInterval: 1.5)
+                 self.tableView.separatorStyle = .none
+                Thread.sleep(forTimeInterval: 1.3)
                 //   print("start forTimeInterval")
                 self.activityIndicatorView.stopAnimating()
                 self.tableView.reloadData()
@@ -83,35 +113,50 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         showPost()
         
         searchPosts.removeAll()
-        searchController.searchBar.delegate = self
+        //searchController.searchBar.delegate = self
         
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
-        
+        self.navigationController?.navigationBar.barTintColor = .lightGray
         self.navigationController?.navigationBar.isTranslucent = false
         
-        
-        
-        
+
         let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         self.navigationItem.title = "MY"
         navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.searchController = searchController
+        //navigationItem.searchController = searchController
         
         
         
         //글쓰기 방
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_border_color.png"), style: .plain, target: self, action:  #selector(writeAction))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_create.png"), style: .plain, target: self, action:  #selector(writeAction))
         
-                self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:#imageLiteral(resourceName: "ic_person.png"), style: .plain, target: self, action:  #selector(myAction))
+               // self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:#imageLiteral(resourceName: "ic_create.png"), style: .plain, target: self, action:  #selector(myAction))
 
         
         tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
         
+        //네비게이션 바 색깔 변경
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor.red
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 140
+        
     }
+
+override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return UITableViewAutomaticDimension
+}
+
+override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    return UITableViewAutomaticDimension
+}
+    
     
     //mypage보기
     @objc func myAction(){
@@ -158,9 +203,9 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
     }
     //행 개수
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(searchController.isActive && searchController.searchBar.text != ""){
+       /* if(searchController.isActive && searchController.searchBar.text != ""){
             return searchPosts.count
-        }
+        }*/
         return posts.count
     }
     
@@ -173,15 +218,31 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         //cell?.delegate = self
         
         
-        let screenSize = UIScreen.main.bounds
-        let separatorHeight = CGFloat(3.0)
-        let additionalSeparator = UIView.init(frame: CGRect(x: 0, y: (cell?.frame.size.height)!-separatorHeight, width: screenSize.width, height: separatorHeight))
-        additionalSeparator.backgroundColor = UIColor(red:0.37, green:0.51, blue:0.71, alpha:1.0)
+      //  let screenSize = UIScreen.main.bounds
+      //  let separatorHeight = CGFloat(3.0)
+      //  let additionalSeparator = UIView.init(frame: CGRect(x: 0, y: (cell?.frame.size.height)!-separatorHeight, width: screenSize.width, height: separatorHeight))
+       // additionalSeparator.backgroundColor = UIColor(red:0.37, green:0.51, blue:0.71, alpha:1.0)
         
-        cell?.addSubview(additionalSeparator)
+       // cell?.addSubview(additionalSeparator)
         
+        cell?.txtLabel.text = posts[indexPath.row].text
+        cell?.txtLabel.setLineSpacing(lineSpacing: 7)
+        cell?.txtLabel.textAlignment = .center
+        cell?.hitLabel.text = "\(posts[indexPath.row].hit!) 번 읽음"
+        cell?.dateLabel.text = posts[indexPath.row].date
+        cell?.nameLabel.text = posts[indexPath.row].name
+        cell?.pidLabel.text = posts[indexPath.row].pid
+        cell?.replyHitLabel.text = "\(posts[indexPath.row].reply!) 개 댓글"
+        cell?.uidLabel.text = posts[indexPath.row].uid
+        cell?.showOrNotButton.setTitle(posts[indexPath.row].show, for: UIControlState())
         
-        if(searchController.isActive && searchController.searchBar.text != ""){
+        if(posts[indexPath.row].blessCount == nil){
+            cell?.likesLabel.text = "0 명"
+        }else{
+            cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!) 명"
+        }
+        
+        /*if(searchController.isActive && searchController.searchBar.text != ""){
             cell?.dateLabel.text = searchPosts[indexPath.row].date
             cell?.nameLabel.text = searchPosts[indexPath.row].name
             cell?.replyHitLabel.text = "\(searchPosts[indexPath.row].reply!) 개 댓글"
@@ -211,16 +272,11 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
                 cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!) 명"
             }
             
-        }
+        }*/
         
         return cell!
     }
     
-    //셀의 높이
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
-        
-    }
     
     //셀을 클릭했을 때
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -311,7 +367,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
                             let date = NSDate(timeIntervalSince1970: t/1000)
                             // print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
                             let dayTimePeriodFormatter = DateFormatter()
-                            dayTimePeriodFormatter.dateFormat = "M월 d일 hh:mm a"
+                            dayTimePeriodFormatter.dateFormat = "M월 d일 hh시"
                             let dateString = dayTimePeriodFormatter.string(from: date as Date)
                             postToShow.date = dateString
                         }

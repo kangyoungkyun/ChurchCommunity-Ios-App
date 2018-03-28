@@ -2,7 +2,9 @@ import UIKit
 import Firebase
 
 protocol CollectionViewCellDelegate: class {
-    func showAlert()
+    func writeAction()
+    
+    func showAllPosts()
 }
 
 class PageCell: UICollectionViewCell {
@@ -34,13 +36,13 @@ class PageCell: UICollectionViewCell {
             let paragraphStyle = NSMutableParagraphStyle()
             //높이 설정
             paragraphStyle.lineSpacing = 11
-            let attributedText = NSMutableAttributedString(string: unwrappedPage.headerText, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 18)])
-            attributedText.append(NSAttributedString(string: "\n\n\n\(unwrappedPage.bodyText)", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor:UIColor(red:0.17, green:0.17, blue:0.17, alpha:1.0)]))
+            let attributedText = NSMutableAttributedString(string: unwrappedPage.headerText, attributes: [NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 24.5)])
+            attributedText.append(NSAttributedString(string: "\n\n\n\(unwrappedPage.bodyText)", attributes: [NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5), NSAttributedStringKey.foregroundColor:UIColor(red:0.17, green:0.17, blue:0.17, alpha:1.0)]))
             //줄간격설정
             attributedText.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range: NSMakeRange(0, attributedText.length))
             myTextView.attributedText = attributedText
             myTextView.textAlignment = .center
-
+        
         }
         
     }
@@ -57,7 +59,7 @@ class PageCell: UICollectionViewCell {
     //글쓰러가기 버튼
     @objc func writeAction(){
         print("글쓰러가기 버튼")
-        delegate?.showAlert()
+        delegate?.writeAction()
      
 
     }
@@ -74,14 +76,15 @@ class PageCell: UICollectionViewCell {
     //글 보러가기 버튼
     @objc func showAction(){
           print("글보러가기 버튼")
-         delegate?.showAlert()
+         delegate?.showAllPosts()
     }
     
 
     let dateLable: UILabel = {
         let lable = UILabel()
         lable.translatesAutoresizingMaskIntoConstraints = false
-        lable.font = UIFont.systemFont(ofSize: 14)
+       lable.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 14.5)
+        lable.textColor = UIColor.lightGray
         lable.adjustsFontSizeToFitWidth=true
         lable.minimumScaleFactor=0.5;
         return lable

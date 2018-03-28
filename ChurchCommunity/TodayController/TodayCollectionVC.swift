@@ -12,8 +12,21 @@ private let reuseIdentifier = "Cell"
 
 class TodayCollectionVC: UICollectionViewController, UICollectionViewDelegateFlowLayout,CollectionViewCellDelegate {
     
-    func showAlert() {
-        let myUid = Auth.auth().currentUser?.uid
+    func showAllPosts() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let tabBarController = appDelegate.tabBarController
+        //인디케이터 종료
+        self.present(tabBarController!, animated: true, completion: nil)
+    }
+    
+    func writeAction() {
+        
+        let writeView = WriteViewController()
+        //글쓰기 화면을 rootView로 만들어 주기
+        let navController = UINavigationController(rootViewController: writeView)
+        self.present(navController, animated: true, completion: nil)
+        
+       /* let myUid = Auth.auth().currentUser?.uid
         let ref = Database.database().reference()
         ref.child("users").child(myUid!).observe(.value) { (snapshot) in
             
@@ -36,10 +49,9 @@ class TodayCollectionVC: UICollectionViewController, UICollectionViewDelegateFlo
                 }
             }
             
-        }
+        }*/
     }
     
-
     
     let pages = [
         Page(imageName: "mypic1", headerText: "피난처", bodyText: ""),

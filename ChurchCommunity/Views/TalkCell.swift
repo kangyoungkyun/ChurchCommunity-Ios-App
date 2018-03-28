@@ -6,22 +6,51 @@
 //  Copyright © 2018년 MacBookPro. All rights reserved.
 //
 
-
+extension UILabel {
+    
+    func setLineSpacing(lineSpacing: CGFloat = 0.0, lineHeightMultiple: CGFloat = 0.0) {
+        
+        guard let labelText = self.text else { return }
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = lineSpacing
+        paragraphStyle.lineHeightMultiple = lineHeightMultiple
+        
+        let attributedString:NSMutableAttributedString
+        if let labelattributedText = self.attributedText {
+            attributedString = NSMutableAttributedString(attributedString: labelattributedText)
+        } else {
+            attributedString = NSMutableAttributedString(string: labelText)
+        }
+        
+        // Line spacing attribute
+        attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+        
+        self.attributedText = attributedString
+    }
+}
 
 import UIKit
 
 class TalkCell: UITableViewCell {
     
-    
+    let containerView: UIView = {
+      let view = UIView()
+      //view.backgroundColor = .brown
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 1.2
+      view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+    }()
     
     //버튼
     let showOrNotButton: UIButton = {
         let starButton = UIButton(type: .system)
-        starButton.setTitle("비공개", for: UIControlState())
+        //starButton.setTitle("비공개", for: UIControlState())
         starButton.titleLabel?.font = UIFont.systemFont(ofSize: 11)
-        starButton.tintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+        starButton.tintColor = UIColor.lightGray
         starButton.translatesAutoresizingMaskIntoConstraints = false
-        
+         starButton.isHidden = true
         return starButton
     }()
     
@@ -31,6 +60,7 @@ class TalkCell: UITableViewCell {
 
         let starButton = UIButton(type: .system)
         starButton.setImage(#imageLiteral(resourceName: "ic_remove_red_eye.png"), for: .normal)
+         starButton.isHidden = true
         //starButton.frame = CGRect(x:0,y:0,width:15,height:15)
         starButton.tintColor = UIColor.lightGray
         starButton.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +70,9 @@ class TalkCell: UITableViewCell {
 
         //버튼
         let replyImage: UIButton = {
+            
             let starButton = UIButton(type: .system)
+            starButton.isHidden = true
             starButton.setImage(#imageLiteral(resourceName: "ic_comment.png"), for: .normal)
             starButton.tintColor = UIColor.lightGray
             starButton.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +84,8 @@ class TalkCell: UITableViewCell {
             let likeButton: UIButton = {
                 let starButton = UIButton(type: .system)
                 starButton.setImage(#imageLiteral(resourceName: "ic_favorite.png"), for: .normal)
-                starButton.tintColor = .lightGray
+                starButton.tintColor = .red
+                starButton.isHidden = true
                 starButton.translatesAutoresizingMaskIntoConstraints = false
                 return starButton
             }()
@@ -60,9 +93,10 @@ class TalkCell: UITableViewCell {
     //likes
     var likesLabel: UILabel = {
         let label = UILabel()
-        label.text = "0 명"
-        label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = UIColor.lightGray
+        label.text = ""
+        label.isHidden = true
+        label.font = UIFont.systemFont(ofSize: 11)
+        label.textColor = UIColor.white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -92,10 +126,9 @@ class TalkCell: UITableViewCell {
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "이름"
-        label.font = UIFont.boldSystemFont(ofSize: 17)
+         label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 12.5)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
-
+        label.textColor = UIColor.lightGray
         return label
     }()
     
@@ -105,28 +138,23 @@ class TalkCell: UITableViewCell {
     var txtLabel: UILabel = {
         let label = UILabel()
         
-                    let paragraphStyle = NSMutableParagraphStyle()
-                   //줄 높이
-                    paragraphStyle.lineSpacing = 4
-        
-                    let attribute = NSMutableAttributedString(string: "텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트텍스트", attributes: [NSAttributedStringKey.font:UIFont.systemFont(ofSize: 12),NSAttributedStringKey.foregroundColor:UIColor.black])
-                        //줄간격 셋팅
-        
-                        attribute.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range: NSMakeRange(0, attribute.length))
-        
-        
+        label.setLineSpacing(lineSpacing: 18.0)
         label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 2
+        label.numberOfLines = 0
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.attributedText = attribute
-        //label.tag = "pidTag"
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 13.5)
+
         return label
     }()
+    
+    
+    
     //날짜
     var dateLabel: UILabel = {
         let label = UILabel()
         label.text = "1시간전"
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 14.5)
         label.textColor = UIColor.lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -135,14 +163,18 @@ class TalkCell: UITableViewCell {
     var hitLabel: UILabel = {
         let label = UILabel()
         label.text = "6번 읽음"
+        label.isEnabled = true
+        label.isHidden = true
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor.lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     //댓글 수
+    
     var replyHitLabel: UILabel = {
         let label = UILabel()
+        label.isHidden = true
         label.text = "15 댓글"
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor.lightGray
@@ -155,85 +187,46 @@ class TalkCell: UITableViewCell {
         
         //선택됐을 때 no hover
         selectionStyle = .none
-         addSubview(uidLabel)
-        addSubview(pidLabel)
-        addSubview(nameLabel)
-        addSubview(txtLabel)
-        addSubview(dateLabel)
-        addSubview(hitLabel)
-        addSubview(replyHitLabel)
-        
-        
-        addSubview(seeImage)
-         addSubview(replyImage)
-        addSubview(likeButton)
-        addSubview(likesLabel)
-        addSubview(showOrNotButton)
+        addSubview(containerView)
         setLayout()
     }
 
     
-    
     func setLayout(){
         
-        nameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 15).isActive = true
-        nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15).isActive = true
-        nameLabel.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        nameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        containerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 3).isActive = true
+        containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -3).isActive = true
         
-        txtLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
-        txtLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor).isActive = true
-        txtLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15).isActive = true
-        txtLabel.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
-        
-        showOrNotButton.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
-        showOrNotButton.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor, constant: -15).isActive = true
-        showOrNotButton.heightAnchor.constraint(equalToConstant: 12).isActive = true
+        containerView.addSubview(uidLabel)
+        containerView.addSubview(pidLabel)
+        containerView.addSubview(nameLabel)
+        containerView.addSubview(txtLabel)
+        containerView.addSubview(dateLabel)
+        containerView.addSubview(hitLabel)
+
         
         
-        dateLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
-        dateLabel.trailingAnchor.constraint(equalTo: txtLabel.trailingAnchor).isActive = true
-        dateLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        containerView.addSubview(seeImage)
+        containerView.addSubview(likeButton)
+        containerView.addSubview(likesLabel)
+
         
         
+        dateLabel.topAnchor.constraint(equalTo: containerView.topAnchor,constant: 35).isActive = true
+        dateLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        //dateLabel.trailingAnchor.constraint(equalTo: txtLabel.trailingAnchor).isActive = true
+        //dateLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
-        seeImage.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
-        seeImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15).isActive = true
-        seeImage.widthAnchor.constraint(equalToConstant: 15).isActive = true
-        seeImage.heightAnchor.constraint(equalToConstant: 14).isActive = true
-        
-        
-        
-        hitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
-        hitLabel.leadingAnchor.constraint(equalTo: seeImage.trailingAnchor, constant: 5).isActive = true
-        hitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        hitLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        txtLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor,constant: 35).isActive = true
+        txtLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15).isActive = true
+        txtLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15).isActive = true
+        txtLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -95).isActive = true
         
         
-        
-        replyImage.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
-        replyImage.leadingAnchor.constraint(equalTo: hitLabel.trailingAnchor, constant: 15).isActive = true
-        replyImage.widthAnchor.constraint(equalToConstant: 15).isActive = true
-        replyImage.heightAnchor.constraint(equalToConstant: 14).isActive = true
-        
-        
-        replyHitLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
-        replyHitLabel.leadingAnchor.constraint(equalTo: replyImage.trailingAnchor, constant: 5).isActive = true
-        replyHitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        replyHitLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        
-        
-        likeButton.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
-        likeButton.leadingAnchor.constraint(equalTo: replyHitLabel.trailingAnchor, constant: 15).isActive = true
-        likeButton.widthAnchor.constraint(equalToConstant: 15).isActive = true
-        likeButton.heightAnchor.constraint(equalToConstant: 14).isActive = true
-        
-        
-        likesLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true
-        likesLabel.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 5).isActive = true
-        likesLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        likesLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 35).isActive = true
+        nameLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         
         
         pidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 5).isActive = true

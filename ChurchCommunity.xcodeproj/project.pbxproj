@@ -117,6 +117,7 @@
 		52A7121B205CCE4800E43E8F /* Start1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 52A7121A205CCE4800E43E8F /* Start1.jpg */; };
 		52C2EB4A205A5F53005B4904 /* AlertTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C2EB49205A5F53005B4904 /* AlertTableViewController.swift */; };
 		52C2EB4C205A674A005B4904 /* textAlert.txt in Resources */ = {isa = PBXBuildFile; fileRef = 52C2EB4B205A674A005B4904 /* textAlert.txt */; };
+		52CAC7AF206ABA4D00BFB176 /* NanumMyeongjo-YetHangul.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52CAC7AE206ABA3400BFB176 /* NanumMyeongjo-YetHangul.ttf */; };
 		52CFE0E4205F1F77006BADE7 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CFE0E3205F1F77006BADE7 /* BirthViewController.swift */; };
 		52CFE0E6205F2085006BADE7 /* Birth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CFE0E5205F2085006BADE7 /* Birth.swift */; };
 		52CFE0E8205F2128006BADE7 /* BirthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CFE0E7205F2128006BADE7 /* BirthCell.swift */; };
@@ -252,6 +253,7 @@
 		52A7121A205CCE4800E43E8F /* Start1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Start1.jpg; sourceTree = "<group>"; };
 		52C2EB49205A5F53005B4904 /* AlertTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewController.swift; sourceTree = "<group>"; };
 		52C2EB4B205A674A005B4904 /* textAlert.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = textAlert.txt; sourceTree = "<group>"; };
+		52CAC7AE206ABA3400BFB176 /* NanumMyeongjo-YetHangul.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumMyeongjo-YetHangul.ttf"; sourceTree = "<group>"; };
 		52CFE0E3205F1F77006BADE7 /* BirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewController.swift; sourceTree = "<group>"; };
 		52CFE0E5205F2085006BADE7 /* Birth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Birth.swift; sourceTree = "<group>"; };
 		52CFE0E7205F2128006BADE7 /* BirthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthCell.swift; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 		52858A472055E64D005C9BB9 /* ChurchCommunity */ = {
 			isa = PBXGroup;
 			children = (
+				52CAC7AE206ABA3400BFB176 /* NanumMyeongjo-YetHangul.ttf */,
 				52858A622055EBDE005C9BB9 /* Pic */,
 				52C2EB48205A5F20005B4904 /* Func */,
 				52858A482055E64D005C9BB9 /* AppDelegate.swift */,
@@ -683,6 +686,7 @@
 				52858A792055EC5D005C9BB9 /* ic_done_3@.png in Resources */,
 				529618D6205D5D12005D338F /* ic_cancel.png in Resources */,
 				52858A8E20561228005C9BB9 /* GoogleService-Info.plist in Resources */,
+				52CAC7AF206ABA4D00BFB176 /* NanumMyeongjo-YetHangul.ttf in Resources */,
 				521E73792069BF3800C56EF6 /* pen.jpg in Resources */,
 				521936D320688BB600FB624C /* ic_person_outline.png in Resources */,
 				52A7121B205CCE4800E43E8F /* Start1.jpg in Resources */,

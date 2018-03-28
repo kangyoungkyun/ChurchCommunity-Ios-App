@@ -42,11 +42,38 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
 //        self.tableView.reloadData()
 //    }
     
-    
+    //탭바 스크롤 하면 숨기기
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
+            changeTabBar(hidden: true, animated: true)
+        }
+        else{
+            changeTabBar(hidden: false, animated: true)
+        }
+    }
+    func changeTabBar(hidden:Bool, animated: Bool){
+        print("changeTabbar")
+        guard let tabBar = self.tabBarController?.tabBar else { return; }
+        if tabBar.isHidden == hidden{ return }
+        let frame = tabBar.frame
+        let offset = hidden ? frame.size.height : -frame.size.height
+        let duration:TimeInterval = (animated ? 0.5 : 0.0)
+        tabBar.isHidden = false
+        
+        UIView.animate(withDuration: duration, animations: {
+            tabBar.frame = frame.offsetBy(dx: 0, dy: offset)
+        }, completion: { (true) in
+            tabBar.isHidden = hidden
+        })
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let headrView = UIView()
+        headrView.backgroundColor = UIColor.lightGray
+        headrView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height:50)
+        tableView.tableHeaderView = headrView
         
         activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,13 +84,11 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         activityIndicatorView.startAnimating()
         tableView.separatorStyle = .none
         
-        //print("start 인디케이터")
-        
         DispatchQueue.main.async {
             // print("start DispatchQueue")
             OperationQueue.main.addOperation() {
                 //   print("start OperationQueue")
-                self.tableView.separatorStyle = .singleLine
+                self.tableView.separatorStyle = .none
                 Thread.sleep(forTimeInterval: 1.5)
                 //   print("start forTimeInterval")
                 self.activityIndicatorView.stopAnimating()
@@ -78,30 +103,38 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         //searchController.searchBar.delegate = self
         
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
-        
+
+        self.navigationController?.navigationBar.barTintColor = .white
         self.navigationController?.navigationBar.isTranslucent = false
-        
-        
-        
+   
         
         let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
-        self.navigationItem.title = "영성일기"
         navigationController?.navigationBar.prefersLargeTitles = false
         //navigationItem.searchController = searchController
         
+        tableView.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
         
         tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
 
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 140
+        //tableView.reloadData()
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
     }
     //행 개수
@@ -119,38 +152,37 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TalkCell
         
         //cell?.delegate = self
-
         
-        let screenSize = UIScreen.main.bounds
-        let separatorHeight = CGFloat(6.0)
-        let additionalSeparator = UIView.init(frame: CGRect(x: 0, y: (cell?.frame.size.height)!-separatorHeight, width: screenSize.width, height: separatorHeight))
-        additionalSeparator.backgroundColor = UIColor(red:0.37, green:0.51, blue:0.71, alpha:1.0)
         
-        cell?.addSubview(additionalSeparator)
+        
+        //let screenSize = UIScreen.main.bounds
+        //let separatorHeight = CGFloat(6.0)
+        //let additionalSeparator = UIView.init(frame: CGRect(x: 0, y: (cell?.frame.size.height)!-separatorHeight, width: screenSize.width, height: separatorHeight))
+       // additionalSeparator.backgroundColor = UIColor(red:0.37, green:0.51, blue:0.71, alpha:1.0)
+        
+        //cell?.addSubview(additionalSeparator)
         
     
             cell?.txtLabel.text = posts[indexPath.row].text
-            cell?.hitLabel.text = "\(posts[indexPath.row].hit!) 번 읽음"
-            cell?.dateLabel.text = posts[indexPath.row].date
+            cell?.txtLabel.setLineSpacing(lineSpacing: 7)
+            cell?.txtLabel.textAlignment = .center
+            cell?.hitLabel.text = "\(posts[indexPath.row].hit!)"
+            cell?.dateLabel.text = "\(posts[indexPath.row].date!)"
             cell?.nameLabel.text = posts[indexPath.row].name
             cell?.pidLabel.text = posts[indexPath.row].pid
             cell?.replyHitLabel.text = "\(posts[indexPath.row].reply!) 개 댓글"
             cell?.uidLabel.text = posts[indexPath.row].uid
             cell?.showOrNotButton.setTitle(posts[indexPath.row].show, for: UIControlState())
             if(posts[indexPath.row].blessCount == nil){
-                 cell?.likesLabel.text = "0 명"
+                 cell?.likesLabel.text = "0"
             }else{
-                cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!) 명"
+                cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!)"
             }
       
         return cell!
     }
     
-    //셀의 높이
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
-        
-    }
+
     
     //셀을 클릭했을 때
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -237,7 +269,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
                         let date = NSDate(timeIntervalSince1970: t/1000)
                         // print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
                         let dayTimePeriodFormatter = DateFormatter()
-                        dayTimePeriodFormatter.dateFormat = "M월 d일 hh:mm a"
+                        dayTimePeriodFormatter.dateFormat = "M월 d일 hh시"
                         let dateString = dayTimePeriodFormatter.string(from: date as Date)
                         postToShow.date = dateString
                     }
@@ -247,8 +279,8 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
                     postToShow.text = text as! String
                     postToShow.uid = uid as! String
                     postToShow.reply = String(describing: reply)
-                          postToShow.show = "공개"
-                         self.posts.insert(postToShow, at: 0) //
+                    postToShow.show = "공개"
+                    self.posts.insert(postToShow, at: 0) //
                 }
                
             }

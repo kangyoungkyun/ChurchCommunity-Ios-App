@@ -14,6 +14,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         ph.text = "하나님 드릴말씀이있어요."
         ph.font = UIFont.systemFont(ofSize: 18)
         ph.sizeToFit()
+        ph.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 16.5)
         return ph
     }()
     
@@ -26,7 +27,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         tf.autocorrectionType = .no
         tf.autocapitalizationType = .none
         tf.tintColor = .black
-        tf.font = UIFont.systemFont(ofSize: 18)
+        tf.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 16.5)
         //키보드 항상 보이게
         tf.becomeFirstResponder()
         return tf
@@ -37,9 +38,6 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
-
-        self.navigationItem.title = "일기쓰기"
-        
         
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "back.png")!)
         
@@ -64,6 +62,12 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         placeholderLabel.textColor = UIColor.lightGray
         placeholderLabel.isHidden = !textFiedlView.text.isEmpty
         
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor.red
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        
+        
+        
         setLayout()
     }
     
@@ -75,8 +79,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
     
     //취소 함수
     @objc func cancelAction(){
-        //print("cancelAction")
-        self.dismiss(animated: true, completion: nil)
+       self.dismiss(animated: true, completion: nil)
     }
     
     //완료 함수
@@ -134,7 +137,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         textFiedlView.topAnchor.constraint(equalTo: view.topAnchor,constant:50).isActive = true
         textFiedlView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant:4).isActive = true
         textFiedlView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant:-4).isActive = true
-        textFiedlView.heightAnchor.constraint(equalToConstant:view.frame.height / 2).isActive = true
+        textFiedlView.heightAnchor.constraint(equalToConstant:view.frame.height).isActive = true
         
     }
 }

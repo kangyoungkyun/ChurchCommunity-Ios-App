@@ -59,7 +59,7 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
     
         let section = indexPath.section
         let row = indexPath.row
-    
+        weak var pvc = self.presentingViewController
         
         //공지사항
         if(section == 0 && row == 0){
@@ -133,12 +133,22 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
              self.navigationController?.pushViewController(viewController, animated: true)
             
         }*/
+            
         else if (section == 1 && row == 0){
             print("로그아웃")
             let firebaseAuth = Auth.auth()
             do {
                 try firebaseAuth.signOut()
-                self.dismiss(animated: true, completion: nil)
+                
+                self.dismiss(animated: true, completion: {
+                    
+                    let viewController = MainViewController()
+                    pvc?.present(viewController, animated: true, completion: nil)
+
+                })
+
+                
+                
             } catch let signOutError as NSError {
                 print ("Error signing out: %@", signOutError)
             }
