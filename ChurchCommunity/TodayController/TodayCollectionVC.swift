@@ -55,7 +55,7 @@ class TodayCollectionVC: UICollectionViewController, UICollectionViewDelegateFlo
     
     let pages = [
         Page(imageName: "mypic1", headerText: "피난처", bodyText: ""),
-        Page(imageName: "mypic2", headerText: "", bodyText: "주님 나를 도와주세요\n아무것도 모르고\n아무것도 못해요\n내 생명이 항상 위험하지만\n주님은 나의 피난처에요\n주님 나를 도와주세요. \n\n\n <도움/송현숙>"),
+        Page(imageName: "mypic2", headerText: "", bodyText: "주님 나를 도와주세요\n아무것도 모르고\n아무것도 못해요\n내 생명이 항상 위험하지만\n주님은 나의 피난처에요\n주님 나를 도와주세요.\n\n <도움/송현숙>"),
         Page(imageName: "mypic3", headerText: "일상\n시편", bodyText: "")
     ]
     

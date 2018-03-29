@@ -11,13 +11,15 @@ import Firebase
 class WriteViewController: UIViewController,UITextViewDelegate {
     var placeholderLabel : UILabel = {
         let ph = UILabel()
-        ph.text = "당신의 생각을 들려주세요.    "
+        ph.text = "주님,"
         ph.sizeToFit()
-        //ph.textAlignment = .center
-        ph.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 16.5)
+        ph.numberOfLines = 2
+        ph.minimumScaleFactor = 10
+        ph.adjustsFontSizeToFitWidth = true
+        ph.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 14.5)
         return ph
     }()
-
+    
     
     //글쓰기 텍스트 필드
     let textFiedlView : UITextView = {
@@ -37,8 +39,6 @@ class WriteViewController: UIViewController,UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "닫기", style: .plain, target: self, action:  #selector(cancelAction))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action:  #selector(writeAction))
@@ -51,19 +51,20 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         
         //계층 구조를 이용해서 텍스트 뷰에 lable을 넣어 주었음
         textFiedlView.addSubview(placeholderLabel)
-        
-        //textFiedlView.backgroundColor = UIColor(patternImage: UIImage(named: "back.png")!)
-        
         textFiedlView.backgroundColor = UIColor.white
         //라벨의 위치를 정해 줌
         placeholderLabel.frame.origin = CGPoint(x: 8, y: (textFiedlView.font?.pointSize)! / 2)
+        
+        //placeholderLabel.frame.size = CGSize(width: 300, height: 50)
         placeholderLabel.textColor = UIColor.lightGray
         placeholderLabel.isHidden = !textFiedlView.text.isEmpty
+        
         
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-        self.navigationItem.title = "마음"
+        
+        self.view.backgroundColor = UIColor.white
         
         //네비게이션 바 타이틀 폰트 바꾸기
         self.navigationController?.navigationBar.titleTextAttributes =
@@ -79,19 +80,40 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([
             NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14.0)!,
             NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
-        
+        setNavTitle()
         setLayout()
+    }
+    
+    //몇번째 시편인지 가져오기
+    func setNavTitle(){
+        var allCount = 0
+        let myId = Auth.auth().currentUser?.uid
+        let ref = Database.database().reference()
+        ref.child("posts").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
+            for child in snapshot.children{
+                let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
+                let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
+                if let uid = childValue["uid"]{
+                    if(myId == String(describing: uid)){
+                        allCount = allCount + 1
+                    }
+                }
+            }
+            self.navigationItem.title = "시편 \(allCount + 1)편"
+            allCount = 0
+        }
+         ref.removeAllObservers()
     }
     
     //텍스트 뷰에 글을 쓸때 호출됨
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !textFiedlView.text.isEmpty
-        //print("textViewDidChange")
     }
     
+    //weak var pvc = self.presentingViewController
     //취소 함수
     @objc func cancelAction(){
-       self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     //완료 함수
@@ -104,8 +126,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
             
             let userId = CurrentUser.uid
             let userName = CurrentUser.displayName
-            
-            
+
             if textFiedlView.text.count == 0{
                 let alert = UIAlertController(title: "알림 ", message:"내용을 확인해주세요.", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
@@ -142,7 +163,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         }
     }
     
-  
+    
     
     func setLayout(){
         

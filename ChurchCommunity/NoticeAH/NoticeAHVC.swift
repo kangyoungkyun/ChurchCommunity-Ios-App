@@ -33,7 +33,6 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
      
      }*/
     
-    
     var posts = [Post]()
     var searchPosts = [Post]()
     let cellId = "cellId"
@@ -45,7 +44,6 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         let button = UIButton(type: .system)
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 0.8
-        //button.setImage(#imageLiteral(resourceName: "pencil.png"), for: UIControlState())
         button.frame = CGRect(x: view.frame.width - 60, y: view.frame.height - 90 , width: 45, height: 45)
         button.layer.cornerRadius = button.frame.width/2
         button.clipsToBounds = true
@@ -54,7 +52,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         button.addTarget(self, action: #selector(writeActionFlotingButton), for: .touchUpInside)
         return button
     }()
-    
+    //플로팅 액션 버튼
     @objc func writeActionFlotingButton(){
         print("바탕화면에서 글쓰기 버튼 클릭!")
         let writeView = WriteViewController()
@@ -63,7 +61,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         self.present(navController, animated: true, completion: nil)
     }
     
-    //닉네임
+    //필명 라벨
     var nameLable: UILabel = {
         let label = UILabel()
         label.text = ""
@@ -73,53 +71,61 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         return label
     }()
     
-    //소개
+    //소개글 라벨
     lazy var introLable: UILabel = {
         let label = UILabel()
-        label.text = ""
-        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 14.5)
+        label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
+        label.sizeToFit()
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 13.5)
         label.textColor = UIColor.lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.lineBreakMode = .byWordWrapping
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectName))
         label.isUserInteractionEnabled = true
         label.addGestureRecognizer(tapGesture)
+        
+        //라벨 줄 간격
+        let attributedString = NSMutableAttributedString(string: "")
+        // *** Create instance of `NSMutableParagraphStyle`
+        let paragraphStyle = NSMutableParagraphStyle()
+        // *** set LineSpacing property in points ***
+        paragraphStyle.lineSpacing = 2.5 // Whatever line spacing you want in points
+        // *** Apply attribute to string ***
+        attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+        // *** Set Attributed String to your label ***
+        label.attributedText = attributedString;
+        
         return label
     }()
     
     @objc func handleSelectName(){
         
-        let alert = UIAlertController(title: "", message: "인생 문장", preferredStyle: .alert)
+        let alert = UIAlertController(title: "", message: "좋아하는 말씀 또는 문장", preferredStyle: .alert)
         alert.addTextField { (myTextField) in
             
             myTextField.textColor = UIColor.lightGray
-            myTextField.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 12.5)
-            myTextField.placeholder = "안녕하세요!!"
+            myTextField.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 11.5)
+        
             
         }
         
         let ok = UIAlertAction(title: "작성", style: .default) { (ok) in
             let txt = alert.textFields?[0].text
-            
             let key = Auth.auth().currentUser?.uid
             let ref = Database.database().reference()
             ref.child("users").child(key!).updateChildValues(["stateMsg" : txt ?? ""])
-            
         }
         
         let cancel = UIAlertAction(title: "닫기", style: .cancel) { (cancel) in
-            
             //code
-            
         }
         
         alert.addAction(cancel)
-        
         alert.addAction(ok)
-        
         self.present(alert, animated: true, completion: nil)
-        
-        
+
         
     }
     
@@ -152,6 +158,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
     
     
     //탭바 스크롤 하면 숨기기
+    /*
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
             changeTabBar(hidden: true, animated: true)
@@ -174,8 +181,9 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         }, completion: { (true) in
             tabBar.isHidden = hidden
         })
-    }
+    }*/
     
+    //진입점
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -212,20 +220,21 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         searchPosts.removeAll()
         //searchController.searchBar.delegate = self
         
-        //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = .lightGray
+        tableView.backgroundColor = .white
+        tableView.backgroundView?.backgroundColor = .white
+
         self.navigationController?.navigationBar.isTranslucent = false
-        
-        
         navigationController?.navigationBar.prefersLargeTitles = false
         //navigationItem.searchController = searchController
         
         
-       // self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "글쓰기", style: .plain, target: self, action:  #selector(writeAction))
+       //self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "글모음", style: .plain, target: self, action:  #selector(writeAction))
+        
+
         
         //네비게이션 바 버튼 아이템 글꼴 바꾸기
-        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([
-            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14.0)!,
+        self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([
+            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 13.0)!,
             NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
         
         
@@ -250,11 +259,11 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         let  off = self.tableView.contentOffset.y
         writeButton.frame = CGRect(x: view.frame.width - 60, y: off + (view.frame.height - 135), width: writeButton.frame.size.width, height: writeButton.frame.size.height)
     }
-    
+    //동적 테이블 높이
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
-    
+    //동적 테이블 높이
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
@@ -265,19 +274,16 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         let viewController = ShowPageViewController()
         self.navigationController?.pushViewController(viewController, animated: true)
     }
-    
-    
+
     
     //글쓰기
     @objc func writeAction(){
-        
         let myUid = Auth.auth().currentUser?.uid
         let ref = Database.database().reference()
         ref.child("users").child(myUid!).observe(.value) { (snapshot) in
             
             let childSnapshot = snapshot //자식 DataSnapshot 가져오기
             let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
-            
             
             if let pass = childValue["pass"] as? String{
                 if pass == "n"{
@@ -293,14 +299,10 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
                     self.present(navController, animated: true, completion: nil)
                 }
             }
-            
         }
-        
-        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
     }
     //행 개수
@@ -314,9 +316,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
     //테이블 뷰 셀의 구성 및 데이터 할당 부분
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TalkCell
-        
         //cell?.delegate = self
         
         cell?.txtLabel.text = posts[indexPath.row].text
@@ -367,14 +367,12 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
          }
          
          }*/
-        
         return cell!
     }
     
     
     //셀을 클릭했을 때
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         
         print("셀 클릭")
         
@@ -431,7 +429,6 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         print("start showPost")
         let ref = Database.database().reference()
         
-        
         //user db에서 한줄 글 불러오기
         
         ref.child("users").child(myId!).observe(.value) { (snapt) in
@@ -439,15 +436,10 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
             if let myStateMsg = childValue["stateMsg"] as? String{
                 self.introLable.text = myStateMsg
             }else{
-                self.introLable.text = "인생 한줄"
+                self.introLable.text = "좋아하는 말씀 또는 문장"
             }
             
         }
-        
-        //없으면 임시글 넣어주기
-        
-        
-        
         ref.child("posts").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
             self.posts.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
             for child in snapshot.children{
@@ -502,7 +494,6 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
                         self.posts.insert(postToShow, at: 0) //
                     }
                 }
-                
             }
             self.countLable.text = "총 \(allCount)편 / \(showPostCount)편 공개"
             allCount = 0
@@ -520,12 +511,12 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         nameLable.widthAnchor.constraint(equalTo : headerView.widthAnchor).isActive = true
         nameLable.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
-        
         headerView.addSubview(introLable)
-        introLable.topAnchor.constraint(equalTo: nameLable.bottomAnchor,constant:25).isActive = true
+        introLable.topAnchor.constraint(equalTo: nameLable.bottomAnchor,constant:20).isActive = true
         introLable.leadingAnchor.constraint(equalTo: headerView.leadingAnchor,constant:15).isActive = true
-        introLable.widthAnchor.constraint(equalTo : headerView.widthAnchor).isActive = true
-        introLable.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        introLable.trailingAnchor.constraint(equalTo: headerView.trailingAnchor,constant:-35).isActive = true
+        //introLable.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        introLable.bottomAnchor.constraint(equalTo: headerView.bottomAnchor,constant:-35).isActive = true
         
         headerView.addSubview(countLable)
         countLable.topAnchor.constraint(equalTo: introLable.bottomAnchor,constant:65).isActive = true

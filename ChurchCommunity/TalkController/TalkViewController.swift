@@ -22,26 +22,77 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     var searchPosts = [Post]()
     let cellId = "cellId"
     
-//    let searchController : UISearchController = {
-//        let uisearchController = UISearchController(searchResultsController: nil)
-//        uisearchController.searchBar.placeholder = "검색"
-//        uisearchController.searchBar.backgroundColor =  UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
-//
-//        return uisearchController
-//    }()
+    //    let searchController : UISearchController = {
+    //        let uisearchController = UISearchController(searchResultsController: nil)
+    //        uisearchController.searchBar.placeholder = "검색"
+    //        uisearchController.searchBar.backgroundColor =  UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+    //
+    //        return uisearchController
+    //    }()
     
     //검색버튼 눌렀을 때
     
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        searchPosts.removeAll()
-//        //print("서치바 \(String(describing: searchController.searchBar.text!))")
-//        searchPosts = posts.filter({ (post) -> Bool in
-//            guard let text = searchController.searchBar.text else{return false}
-//            return post.text.contains(text)
-//        })
-//        self.tableView.reloadData()
-//    }
+    //    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    //        searchPosts.removeAll()
+    //        //print("서치바 \(String(describing: searchController.searchBar.text!))")
+    //        searchPosts = posts.filter({ (post) -> Bool in
+    //            guard let text = searchController.searchBar.text else{return false}
+    //            return post.text.contains(text)
+    //        })
+    //        self.tableView.reloadData()
+    //    }
     
+    var todayPostsCountLable: UILabel = {
+        let label = UILabel()
+        label.text = "인생들의 시편"
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 20.5)
+        label.textColor = UIColor.black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    //소개
+    lazy var introLable: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
+        label.sizeToFit()
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 13.5)
+        label.textColor = UIColor.lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.lineBreakMode = .byWordWrapping
+        //라벨 줄 간격
+        let attributedString = NSMutableAttributedString(string: "하나님은 우리의 피난처시요 힘이시니\n환난 중에 만날 큰 도움이시라.")
+        // *** Create instance of `NSMutableParagraphStyle`
+        let paragraphStyle = NSMutableParagraphStyle()
+        // *** set LineSpacing property in points ***
+        paragraphStyle.lineSpacing = 2.5 // Whatever line spacing you want in points
+        // *** Apply attribute to string ***
+        attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+        // *** Set Attributed String to your label ***
+        label.attributedText = attributedString;
+        
+        return label
+    }()
+    
+    
+    //글 개수 / 공개개수
+    var countLable: UILabel = {
+        let label = UILabel()
+        label.text = "오늘 작성된 시편/   편"
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 11.5)
+        label.textColor = UIColor.lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let headerView : UIView = {
+        let header = UIView()
+        header.backgroundColor = UIColor.white
+        return header
+    }()
+    
+    
+    //글쓰기 플로팅 버튼
     lazy var writeButton: UIButton = {
         let button = UIButton(type: .system)
         button.layer.borderColor = UIColor.lightGray.cgColor
@@ -65,6 +116,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     }
     
     //탭바 스크롤 하면 숨기기
+    /*
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
             changeTabBar(hidden: true, animated: true)
@@ -73,6 +125,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
             changeTabBar(hidden: false, animated: true)
         }
     }
+    
     func changeTabBar(hidden:Bool, animated: Bool){
         print("changeTabbar")
         guard let tabBar = self.tabBarController?.tabBar else { return; }
@@ -88,15 +141,22 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
             tabBar.isHidden = hidden
         })
     }
+    */
+    //override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+     //   cell.backgroundColor = UIColor.white
+   // }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //오늘 날짜 체크
+        getSingle()
         
-        let headrView = UIView()
-        headrView.backgroundColor = UIColor.lightGray
-        headrView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height:50)
-        tableView.tableHeaderView = headrView
+        //테이블 뷰 헤더 지정
+        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height:220)
+        tableView.tableHeaderView = headerView
+        setHeaderViewLayout()
         
+        //인디케이터 작동
         activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(activityIndicatorView)
@@ -105,19 +165,14 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         activityIndicatorView.bringSubview(toFront: self.view)
         activityIndicatorView.startAnimating()
         tableView.separatorStyle = .none
-        
         DispatchQueue.main.async {
-            // print("start DispatchQueue")
             OperationQueue.main.addOperation() {
-                //   print("start OperationQueue")
                 self.tableView.separatorStyle = .none
                 Thread.sleep(forTimeInterval: 1.9)
-                //   print("start forTimeInterval")
                 self.activityIndicatorView.stopAnimating()
                 self.tableView.reloadData()
             }
         }
-        
         
         showPost()
         
@@ -125,49 +180,45 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         //searchController.searchBar.delegate = self
         
         //네비게이션 바 색깔 변경
-
         self.navigationController?.navigationBar.barTintColor = .white
         self.navigationController?.navigationBar.isTranslucent = false
-   
         
-        let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
-        navigationController?.navigationBar.titleTextAttributes = textAttributes
-        navigationController?.navigationBar.prefersLargeTitles = false
-        //navigationItem.searchController = searchController
         
-        tableView.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
+        //네비게이션 바 색깔 변경
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor.lightGray
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         
+        //테이블 배경 및 뒷배경 흰색 지정
+        tableView.backgroundColor = .white
+        tableView.backgroundView?.backgroundColor = .white
+        
+        //테이블 셀 등록 및 표시줄 제거
         tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
-
         
+        //동적 테이블 셀 높이
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
-       
         
+        //테이블 뷰에 플로팅 버튼 추가
         tableView.addSubview(writeButton)
-    //    writeButton.trailingAnchor.constraint(equalTo: tableView.trailingAnchor,constant:-100).isActive = true
-     //   writeButton.bottomAnchor.constraint(equalTo: tableView.bottomAnchor,constant:-100).isActive = true
         
-        //writeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-       //  writeButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-       // writeButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
-        //  writeButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
         
         
     }
-    
+    //플로팅 버튼 관련 함수
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let  off = self.tableView.contentOffset.y
         writeButton.frame = CGRect(x: view.frame.width - 60, y: off + (view.frame.height - 135), width: writeButton.frame.size.width, height: writeButton.frame.size.height)
     }
     
-
+    //동적 테이블 함수
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
-    
+    //동적 테이블 함수
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
@@ -178,54 +229,47 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     }
     //행 개수
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if(searchController.isActive && searchController.searchBar.text != ""){
-//            return searchPosts.count
-//        }
+        //        if(searchController.isActive && searchController.searchBar.text != ""){
+        //            return searchPosts.count
+        //        }
         return posts.count
     }
     
     //테이블 뷰 셀의 구성 및 데이터 할당 부분
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TalkCell
-        
         //cell?.delegate = self
-        
-        
-        
         //let screenSize = UIScreen.main.bounds
         //let separatorHeight = CGFloat(6.0)
         //let additionalSeparator = UIView.init(frame: CGRect(x: 0, y: (cell?.frame.size.height)!-separatorHeight, width: screenSize.width, height: separatorHeight))
-       // additionalSeparator.backgroundColor = UIColor(red:0.37, green:0.51, blue:0.71, alpha:1.0)
+        // additionalSeparator.backgroundColor = UIColor(red:0.37, green:0.51, blue:0.71, alpha:1.0)
         
         //cell?.addSubview(additionalSeparator)
         
-    
-            cell?.txtLabel.text = posts[indexPath.row].text
-            cell?.txtLabel.setLineSpacing(lineSpacing: 7)
-            cell?.txtLabel.textAlignment = .center
-            cell?.hitLabel.text = "\(posts[indexPath.row].hit!)"
-            cell?.dateLabel.text = "\(posts[indexPath.row].date!)"
-            cell?.nameLabel.text = posts[indexPath.row].name
-            cell?.pidLabel.text = posts[indexPath.row].pid
-            cell?.replyHitLabel.text = "\(posts[indexPath.row].reply!) 개 댓글"
-            cell?.uidLabel.text = posts[indexPath.row].uid
-            cell?.showOrNotButton.setTitle(posts[indexPath.row].show, for: UIControlState())
-            if(posts[indexPath.row].blessCount == nil){
-                 cell?.likesLabel.text = "0"
-            }else{
-                cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!)"
-            }
-      
+        cell?.txtLabel.text = posts[indexPath.row].text
+        cell?.txtLabel.setLineSpacing(lineSpacing: 7)
+        cell?.txtLabel.textAlignment = .center
+        cell?.hitLabel.text = "\(posts[indexPath.row].hit!)"
+        cell?.dateLabel.text = "\(posts[indexPath.row].date!)"
+        cell?.nameLabel.text = posts[indexPath.row].name
+        cell?.pidLabel.text = posts[indexPath.row].pid
+        cell?.replyHitLabel.text = "\(posts[indexPath.row].reply!) 개 댓글"
+        cell?.uidLabel.text = posts[indexPath.row].uid
+        cell?.showOrNotButton.setTitle(posts[indexPath.row].show, for: UIControlState())
+        if(posts[indexPath.row].blessCount == nil){
+            cell?.likesLabel.text = "0"
+        }else{
+            cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!)"
+        }
+        
         return cell!
     }
     
-
     
     //셀을 클릭했을 때
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        
         print("셀 클릭")
         
         //선택한 셀 정보 가져오기
@@ -269,11 +313,21 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         navigationController?.pushViewController(detailTalkViewController, animated: true)
     }
     
+    var today = ""
+    //현재 날짜 한글
+    func getSingle(){
+        let date = Date()
+        let calendar = Calendar.current //켈린더 객체 생성
+        let month = calendar.component(.month, from: date)  //월
+        let day = calendar.component(.day, from: date)      //일
+        today = "\(month)\(day)"
+        print("\(month)\(day)")
+        
+    }
     
     //포스트 조회 함수
     func showPost(){
-        //AppDelegate.instance().showActivityIndicator()
-        print("start showPost")
+        var todayPost = 0
         let ref = Database.database().reference()
         ref.child("posts").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
             self.posts.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
@@ -285,49 +339,83 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
                 
                 if let name = childValue["name"],  let date = childValue["date"], let hit = childValue["hit"], let pid = childValue["pid"], let uid = childValue["uid"], let text = childValue["text"], let reply = childValue["reply"],let show = childValue["show"] {
                     
-                    if (show as? String == "y"){
-                    
-                    ref.child("bless").observe(.value, with: { (snapshot) in
-                     
-                        for (childs ) in snapshot.children{
-                            //print("bless key:->", key)
-                            //print("bless childs:->", childs)
-                            // print("bless childsDataSnapshot:->", childs as! DataSnapshot)
-                            let childSnapshot = childs as! DataSnapshot
-                            let key = childSnapshot.key
-                            let val = childSnapshot.value as! [String:Any]
-                                                        if (key == pid as? String) {
-                                                            print("축복받은 개수 몇개?")
-                                                            print(pid,key,val.count)
-                                                            postToShow.blessCount = "\(val.count)"
-                                                        }
-                        }
-                         self.tableView.reloadData()
-                    })
-                    //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
+                    //오늘 날짜에 작성된 글 개수 파악
                     if let t = date as? TimeInterval {
                         let date = NSDate(timeIntervalSince1970: t/1000)
-                        // print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
-                        let dayTimePeriodFormatter = DateFormatter()
-                        dayTimePeriodFormatter.dateFormat = "M월 d일 hh시"
-                        let dateString = dayTimePeriodFormatter.string(from: date as Date)
-                        postToShow.date = dateString
+                        let calendar = Calendar.current //켈린더 객체 생성
+                        let month = calendar.component(.month, from: date as Date)  //월
+                        let day = calendar.component(.day, from: date as Date)      //일
+                        
+                        if("\(month)\(day)" == self.today){
+                            todayPost = todayPost + 1
+                        }
+                        self.countLable.text = "오늘 작성된 시편/ \(todayPost)편"
                     }
-                    postToShow.name = name as! String
-                    postToShow.hit = String(describing: hit)
-                    postToShow.pid = pid as! String
-                    postToShow.text = text as! String
-                    postToShow.uid = uid as! String
-                    postToShow.reply = String(describing: reply)
-                    postToShow.show = "공개"
-                    self.posts.insert(postToShow, at: 0) //
+                    //공개를 허용한 글만 담벼락에 보이기
+                    if (show as? String == "y"){
+                        
+                        ref.child("bless").observe(.value, with: { (snapshot) in
+                            
+                            for (childs ) in snapshot.children{
+
+                                let childSnapshot = childs as! DataSnapshot
+                                let key = childSnapshot.key
+                                let val = childSnapshot.value as! [String:Any]
+                                if (key == pid as? String) {
+                                    print("축복받은 개수 몇개?")
+                                    print(pid,key,val.count)
+                                    postToShow.blessCount = "\(val.count)"
+                                }
+                            }
+                            self.tableView.reloadData()
+                        })
+                        
+                        //firebase에서 가져온 날짜 데이터를 ios 맞게 변환
+                        if let t = date as? TimeInterval {
+                            let date = NSDate(timeIntervalSince1970: t/1000)
+                            // print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
+                            let dayTimePeriodFormatter = DateFormatter()
+                            dayTimePeriodFormatter.dateFormat = "M월 d일 hh시"
+                            let dateString = dayTimePeriodFormatter.string(from: date as Date)
+                            postToShow.date = dateString
+                        }
+                        
+                        postToShow.name = name as! String
+                        postToShow.hit = String(describing: hit)
+                        postToShow.pid = pid as! String
+                        postToShow.text = text as! String
+                        postToShow.uid = uid as! String
+                        postToShow.reply = String(describing: reply)
+                        postToShow.show = "공개"
+                        self.posts.insert(postToShow, at: 0)
+                    }
+                    
                 }
-               
             }
-            }
-            
         }
-         ref.removeAllObservers()
+       todayPost = 0
+        ref.removeAllObservers()
+    }
+    
+    //헤더뷰 레이아웃
+    func setHeaderViewLayout(){
+        headerView.addSubview(todayPostsCountLable)
+        todayPostsCountLable.topAnchor.constraint(equalTo: headerView.topAnchor,constant:55).isActive = true
+        todayPostsCountLable.leadingAnchor.constraint(equalTo: headerView.leadingAnchor,constant:15).isActive = true
+        todayPostsCountLable.widthAnchor.constraint(equalTo : headerView.widthAnchor).isActive = true
+        todayPostsCountLable.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        
+        headerView.addSubview(introLable)
+        introLable.topAnchor.constraint(equalTo: todayPostsCountLable.bottomAnchor,constant:20).isActive = true
+        introLable.leadingAnchor.constraint(equalTo: headerView.leadingAnchor,constant:15).isActive = true
+        introLable.trailingAnchor.constraint(equalTo: headerView.trailingAnchor,constant:-35).isActive = true
+        introLable.bottomAnchor.constraint(equalTo: headerView.bottomAnchor,constant:-35).isActive = true
+        
+        headerView.addSubview(countLable)
+        countLable.topAnchor.constraint(equalTo: introLable.bottomAnchor,constant:65).isActive = true
+        countLable.trailingAnchor.constraint(equalTo: headerView.trailingAnchor,constant:-15).isActive = true
+        countLable.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        countLable.bottomAnchor.constraint(equalTo: headerView.bottomAnchor,constant:-10).isActive = true
         
     }
 }

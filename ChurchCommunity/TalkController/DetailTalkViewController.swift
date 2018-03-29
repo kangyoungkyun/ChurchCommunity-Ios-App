@@ -31,8 +31,7 @@ class DetailTalkViewController: UIViewController {
     
     var replys = [Reply]()
     let cellId = "cellId"
-    
-    
+
     let uiScrollView : UIScrollView={
         let scv = UIScrollView()
         scv.translatesAutoresizingMaskIntoConstraints = false
@@ -91,7 +90,7 @@ class DetailTalkViewController: UIViewController {
     
     
     //버튼
-    let likeButton: UIButton = {
+    lazy var likeButton: UIButton = {
         let starButton = UIButton(type: .system)
         starButton.setImage(#imageLiteral(resourceName: "ic_favorite.png"), for: .normal)
         starButton.tintColor = UIColor.red
@@ -178,7 +177,7 @@ class DetailTalkViewController: UIViewController {
         
         let myid = Auth.auth().currentUser?.uid
         if(uidLabel.text == myid!){
-            let viewController = ShowPageViewController()
+            let viewController = NoticeAHVC()
             self.navigationController?.pushViewController(viewController, animated: true)
         }else{
             let viewController = ShowUserPost()
@@ -233,7 +232,7 @@ class DetailTalkViewController: UIViewController {
     }()
     
     
-    // ===================================================== 좋아요 애니메이션  =====================================================
+    // =============================================== 좋아요 애니메이션  ===========================================
     
     func generateAnimatedView(){
         let imageView = UIImageView(image: #imageLiteral(resourceName: "heart.png"))
@@ -250,7 +249,7 @@ class DetailTalkViewController: UIViewController {
         view.addSubview(imageView)
     }
     
-    // ======================================================        진입점        ======================================================
+    // =====================      진입점        =================================
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "일기보기"
@@ -266,10 +265,8 @@ class DetailTalkViewController: UIViewController {
         
         //네비게이션 바 색깔 변경
         self.navigationController?.navigationBar.barTintColor = UIColor.white
-        self.navigationController?.navigationBar.tintColor = UIColor.red
+        self.navigationController?.navigationBar.tintColor = UIColor.lightGray
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-        
-        
         
         
         self.navigationItem.title = ""
@@ -282,45 +279,40 @@ class DetailTalkViewController: UIViewController {
         
         //네비게이션 바 버튼 아이템 글꼴 바꾸기
         self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([
-            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14.0)!,
+            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 13.0)!,
             NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
         
         self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([
-            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14.0)!,
+            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 13.0)!,
             NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
-        //uiScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 700)
+        
         
         hideKeyboard()
         setLayout()
         checkBlessBtn()
         
-        
-        
-        
-        
     }
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        changeTabBar(hidden: true, animated: true)
-    }
-    
-    
-    func changeTabBar(hidden:Bool, animated: Bool){
-        print("changeTabbar")
-        guard let tabBar = self.tabBarController?.tabBar else { return; }
-        if tabBar.isHidden == hidden{ return }
-        let frame = tabBar.frame
-        let offset = hidden ? frame.size.height : -frame.size.height
-        let duration:TimeInterval = (animated ? 0.5 : 0.0)
-        tabBar.isHidden = false
-        
-        UIView.animate(withDuration: duration, animations: {
-            tabBar.frame = frame.offsetBy(dx: 0, dy: offset)
-        }, completion: { (true) in
-            tabBar.isHidden = hidden
-        })
-    }
+    /*//탭바 숨기기
+     override func viewWillAppear(_ animated: Bool) {
+     changeTabBar(hidden: true, animated: true)
+     }
+     
+     func changeTabBar(hidden:Bool, animated: Bool){
+     print("changeTabbar")
+     guard let tabBar = self.tabBarController?.tabBar else { return; }
+     if tabBar.isHidden == hidden{ return }
+     let frame = tabBar.frame
+     let offset = hidden ? frame.size.height : -frame.size.height
+     let duration:TimeInterval = (animated ? 0.5 : 0.0)
+     tabBar.isHidden = false
+     
+     UIView.animate(withDuration: duration, animations: {
+     tabBar.frame = frame.offsetBy(dx: 0, dy: offset)
+     }, completion: { (true) in
+     tabBar.isHidden = hidden
+     })
+     }*/
     
     //축복해요 체크 버튼
     func checkBlessBtn(){
@@ -354,13 +346,11 @@ class DetailTalkViewController: UIViewController {
     //레이아웃 조정
     func  setLayout(){
         
-        
         view.addSubview(uiScrollView)
         uiScrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         uiScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         uiScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         uiScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
         
         
         let myView = UIView()
@@ -375,8 +365,7 @@ class DetailTalkViewController: UIViewController {
         myView.widthAnchor.constraint(equalTo: uiScrollView.widthAnchor).isActive = true
         //myView.heightAnchor.constraint(equalToConstant: 2000).isActive = true
         
-        
-        
+
         myView.addSubview(dateLabel)
         
         dateLabel.topAnchor.constraint(equalTo: myView.topAnchor,constant: 130).isActive = true
@@ -411,10 +400,6 @@ class DetailTalkViewController: UIViewController {
         showOrNotButton.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant:-50).isActive = true
         
         /*
-         
-         
-         
-         
          //likesLabel.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 2).isActive = true
          //likesLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
          //likesLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -441,9 +426,7 @@ class DetailTalkViewController: UIViewController {
          uidLabel.widthAnchor.constraint(equalToConstant: 10).isActive = true
          uidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
          
-
          */
-        
     }
     
     //글공개
@@ -472,6 +455,7 @@ class DetailTalkViewController: UIViewController {
         
     }
     
+    
     //글 설정 네비게이션 바 버튼 아이템을 눌렀을 때
     @objc func goSettingAlertAction(){
         print(" 글 설정 얼러트 창 뛰우기")
@@ -486,10 +470,8 @@ class DetailTalkViewController: UIViewController {
             
         }
         
-        
         let noShowAction = UIAlertAction(title: "비공개", style: .default) { (alert) in
             print("글비공개")
-            
             self.noShowAction(pid:self.pidLabel.text!)
         }
         
@@ -543,8 +525,9 @@ class DetailTalkViewController: UIViewController {
         
     }
     
+    
     var modifyText:String?
-    //수다방 글 수정 alert controller 창
+    //상세 글 수정 alert controller 창
     var modifyMainText:String?
     func settingAlertAction(txt:String, pid:String)
     {
@@ -577,12 +560,10 @@ class DetailTalkViewController: UIViewController {
         })
         
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
-        
         alertController.addAction(somethingAction)
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion:{})
-        
         
     }
     

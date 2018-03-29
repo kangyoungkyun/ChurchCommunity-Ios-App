@@ -65,11 +65,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //로그인 성공 후 기본 레이아웃은 탭바 컨트롤러
         tabBarController = UITabBarController()
         tabBarController?.view.backgroundColor = UIColor.white
-        tabBarController?.view.tintColor = UIColor.white
-        tabBarController?.tabBar.barTintColor = .lightGray
-        //UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+        tabBarController?.view.tintColor = UIColor.black
+        tabBarController?.tabBar.barTintColor = UIColor(red:1.00, green:1.00, blue:1.00, alpha:1.0)
 
-
+        tabBarController?.tabBar.setValue(true, forKey: "_hidesShadow")
+        UITabBar.appearance().shadowImage = UIImage()
+        UITabBar.appearance().backgroundColor = UIColor.white
+        UITabBar.appearance().layer.borderWidth = 0.0
+        UITabBar.appearance().clipsToBounds = true
         
         //collectionView layout - 반드시 넣어줘야 함
         //let layout = UICollectionViewFlowLayout()
@@ -87,11 +90,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let settingVC = SettingViewController()
         
-
+        //let writeVC = WriteViewController()
+        
         
         let talkNavVC = UINavigationController(rootViewController: talkVC)
         let noticeNavVC = UINavigationController(rootViewController: noticeAH)
-        //let jobNavVC = UINavigationController(rootViewController: jobAH)
+        //let writeNavVC = UINavigationController(rootViewController: writeVC)
          //let makatingNavVC = UINavigationController(rootViewController: makating)
         let settingNavVC = UINavigationController(rootViewController: settingVC)
         
@@ -100,29 +104,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     
         //탭바 이미지 넣기
-        talkNavVC.tabBarItem.image = UIImage(named:"ic_event_note")?.withRenderingMode(.alwaysTemplate)
-        noticeNavVC.tabBarItem.image = UIImage(named:"ic_person_outline")?.withRenderingMode(.alwaysTemplate)
-        //jobNavVC.tabBarItem.image = UIImage(named:"ic_event_note")?.withRenderingMode(.alwaysTemplate)
+        talkNavVC.tabBarItem.image = UIImage(named:"ic_event_note_white")?.withRenderingMode(.alwaysTemplate)
+        noticeNavVC.tabBarItem.image = UIImage(named:"ic_person_outline_white")?.withRenderingMode(.alwaysTemplate)
+        //writeNavVC.tabBarItem.image = UIImage(named:"ic_event_note")?.withRenderingMode(.alwaysTemplate)
         //makatingNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
-        settingNavVC.tabBarItem.image = UIImage(named:"ic_view_headline")?.withRenderingMode(.alwaysTemplate)
+        settingNavVC.tabBarItem.image = UIImage(named:"ic_view_headline_white")?.withRenderingMode(.alwaysTemplate)
         
         
         //이미지 선택되었을 때
         
        
-        talkNavVC.tabBarItem.selectedImage = UIImage(named:"ic_event_note_white")?.withRenderingMode(.alwaysOriginal)
-        noticeNavVC.tabBarItem.selectedImage = UIImage(named:"ic_person_outline_white")?.withRenderingMode(.alwaysOriginal)
-        //jobNavVC.tabBarItem.selectedImage = UIImage(named:"ic_event_note_white")?.withRenderingMode(.alwaysOriginal)
+        talkNavVC.tabBarItem.selectedImage = UIImage(named:"ic_event_note")?.withRenderingMode(.alwaysOriginal)
+        noticeNavVC.tabBarItem.selectedImage = UIImage(named:"ic_person_outline")?.withRenderingMode(.alwaysOriginal)
+        //writeNavVC.tabBarItem.selectedImage = UIImage(named:"ic_event_note_white")?.withRenderingMode(.alwaysOriginal)
         //makatingNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
-        settingNavVC.tabBarItem.selectedImage = UIImage(named:"ic_view_headline_white")?.withRenderingMode(.alwaysOriginal)
+        settingNavVC.tabBarItem.selectedImage = UIImage(named:"ic_view_headline")?.withRenderingMode(.alwaysOriginal)
        
 
         
-        talkNavVC.tabBarItem.title = "영성일기"
-        noticeNavVC.tabBarItem.title = "나의일기"
-        //jobNavVC.tabBarItem.title = "듣는일기"
+        talkNavVC.tabBarItem.title = "인생시편"
+        noticeNavVC.tabBarItem.title = "나의시편"
+        //writeNavVC.tabBarItem.title = "시편기록"
         //makatingNavVC.tabBarItem.title = "친구일기"
         settingNavVC.tabBarItem.title = "더보기"
+        
+        
+        let appearance = UITabBarItem.appearance()
+        let attributes = [NSAttributedStringKey.font:UIFont(name: "NanumMyeongjo-YetHangul", size: 10)]
+        appearance.setTitleTextAttributes(attributes, for: .normal)
+        
+    
         
         return true
     }

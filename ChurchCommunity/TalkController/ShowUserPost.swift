@@ -439,7 +439,7 @@
                 if let myStateMsg = childValue["stateMsg"] as? String{
                     self.introLable.text = myStateMsg
                 }else{
-                    self.introLable.text = "인생 한줄"
+                    self.introLable.text = "좋아하는 말씀 또는 문장"
                 }
                 
             }

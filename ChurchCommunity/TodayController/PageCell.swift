@@ -136,13 +136,13 @@ class PageCell: UICollectionViewCell {
         myTextView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         
         
-        writeButton.topAnchor.constraint(equalTo: myTextView.bottomAnchor, constant: 50).isActive = true
+        writeButton.topAnchor.constraint(equalTo: myTextView.bottomAnchor, constant: 20).isActive = true
         writeButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         writeButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         writeButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         
-         lookButton.topAnchor.constraint(equalTo: writeButton.bottomAnchor, constant: 10).isActive = true
+         lookButton.topAnchor.constraint(equalTo: myTextView.bottomAnchor, constant: 50).isActive = true
        lookButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         lookButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         lookButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
