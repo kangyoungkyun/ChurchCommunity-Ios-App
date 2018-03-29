@@ -96,11 +96,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let settingNavVC = UINavigationController(rootViewController: settingVC)
         
         
-        tabBarController?.setViewControllers([talkNavVC,noticeNavVC,settingNavVC], animated: false)
+        tabBarController?.setViewControllers([noticeNavVC,talkNavVC,settingNavVC], animated: false)
         
     
-    
-        
         //탭바 이미지 넣기
         talkNavVC.tabBarItem.image = UIImage(named:"ic_event_note")?.withRenderingMode(.alwaysTemplate)
         noticeNavVC.tabBarItem.image = UIImage(named:"ic_person_outline")?.withRenderingMode(.alwaysTemplate)

@@ -36,7 +36,7 @@ class PageCell: UICollectionViewCell {
             let paragraphStyle = NSMutableParagraphStyle()
             //높이 설정
             paragraphStyle.lineSpacing = 11
-            let attributedText = NSMutableAttributedString(string: unwrappedPage.headerText, attributes: [NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 24.5)])
+            let attributedText = NSMutableAttributedString(string: unwrappedPage.headerText, attributes: [NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 22.5)])
             attributedText.append(NSAttributedString(string: "\n\n\n\(unwrappedPage.bodyText)", attributes: [NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5), NSAttributedStringKey.foregroundColor:UIColor(red:0.17, green:0.17, blue:0.17, alpha:1.0)]))
             //줄간격설정
             attributedText.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range: NSMakeRange(0, attributedText.length))
@@ -114,7 +114,7 @@ class PageCell: UICollectionViewCell {
         let year = calendar.component(.year, from: date)    //년
         let month = calendar.component(.month, from: date)  //월
         let day = calendar.component(.day, from: date)      //일
-        dateLable.text = "\(year)년 \(month)월 \(day)일, 맑음"
+        dateLable.text = "\(year)년 \(month)월 \(day)일, 시편"
        
     }
     private func setupLayout() {

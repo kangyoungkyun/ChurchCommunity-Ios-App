@@ -489,3 +489,121 @@ pvc?.present(viewController, animated: true, completion: nil)
 })
 
 
+
+
+플로팅 엑션 바
+참고:https://stackoverflow.com/questions/48298984/insert-a-floating-action-button-on-uitableview-in-swift-4
+
+
+1.
+lazy var writeButton: UIButton = {
+let button = UIButton(type: .system)
+button.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+
+button.setTitle("로그인", for: UIControlState())
+//button.translatesAutoresizingMaskIntoConstraints = false
+button.setTitleColor(UIColor.white, for: UIControlState())
+button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+button.frame = CGRect(x: 285, y: 485, width: 60, height: 60)
+button.layer.cornerRadius = 10; // this value vary as per your desire
+button.clipsToBounds = true
+//button.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
+return button
+}()
+
+2. 뷰디드로드
+tableView.addSubview(writeButton)
+
+
+3. 오버라이드
+override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
+print("음음음음")
+let  off = self.tableView.contentOffset.y
+
+writeButton.frame = CGRect(x: 285, y:   off + 485, width: writeButton.frame.size.width, height: writeButton.frame.size.height)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//뷰컨트롤안에 뷰를 넣는 방법
+
+참고:https://stackoverflow.com/questions/43150320/embed-uiviewcontroller-inside-a-uiview
+참고:https://cocoacasts.com/managing-view-controllers-with-container-view-controllers/
+As others said you can't embed a viewcontroller's view inside a view. What you can do is embed a viewcontroller inside another viewcontroller as a childviewcontroller.
+
+Try replacing your newView code with:
+
+let storyboard = UIStoryboard(name: "Main", bundle: nil)
+var controller: UIViewController = storyboard.instantiateViewController(withIdentifier: "testView") as UIViewController
+
+//add as a childviewcontroller
+addChildViewController(controller)
+
+// Add the child's View as a subview
+self.view.addSubview(controller.view)
+controller.view.frame = view.bounds
+controller.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+// tell the childviewcontroller it's contained in it's parent
+controller.didMove(toParentViewController: self)
+EDIT: To change how and where the childviewcontroller appears, simply update it's frame. for example to make it half the height and anchored to the bottom:
+
+controller.view.frame = CGRect(x: 0, y: view.center.y, width: view.size.width, height: view.size.height * 0.5)
+
+
+
+
+
+//내가 만든 뷰 컨트롤러 안에 스크롤 뷰 넣는 방법
+
+view.addSubview(uiScrollView)
+uiScrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+uiScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+uiScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+uiScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+
+
+
+let myView = UIView()
+myView.backgroundColor = .blue
+myView.translatesAutoresizingMaskIntoConstraints = false
+
+uiScrollView.addSubview(myView)
+myView.topAnchor.constraint(equalTo: uiScrollView.topAnchor).isActive = true
+myView.leadingAnchor.constraint(equalTo: uiScrollView.leadingAnchor).isActive = true
+myView.trailingAnchor.constraint(equalTo: uiScrollView.trailingAnchor).isActive = true
+myView.bottomAnchor.constraint(equalTo: uiScrollView.bottomAnchor).isActive = true
+myView.widthAnchor.constraint(equalTo: uiScrollView.widthAnchor).isActive = true
+//myView.heightAnchor.constraint(equalToConstant: 2000).isActive = true
+
+
+
+myView.addSubview(dateLabel)
+
+dateLabel.topAnchor.constraint(equalTo: myView.topAnchor,constant: 150).isActive = true
+dateLabel.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
+
+
+
+myView.addSubview(txtLabel)
+txtLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor,constant: 45).isActive = true
+txtLabel.leadingAnchor.constraint(equalTo: myView.leadingAnchor,constant: 35).isActive = true
+txtLabel.trailingAnchor.constraint(equalTo: myView.trailingAnchor,constant: -35).isActive = true
+//txtLabel.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 0).isActive = true
+//txtLabel.heightAnchor.constraint(equalTo: myView.heightAnchor).isActive = true
+
+myView.addSubview(nameLabel)
+nameLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 45).isActive = true
+nameLabel.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
+nameLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant: -45).isActive = true
+

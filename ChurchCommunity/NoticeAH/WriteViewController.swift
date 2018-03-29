@@ -11,13 +11,13 @@ import Firebase
 class WriteViewController: UIViewController,UITextViewDelegate {
     var placeholderLabel : UILabel = {
         let ph = UILabel()
-        ph.text = "하나님 드릴말씀이있어요."
-        ph.font = UIFont.systemFont(ofSize: 18)
+        ph.text = "당신의 생각을 들려주세요.    "
         ph.sizeToFit()
+        //ph.textAlignment = .center
         ph.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 16.5)
         return ph
     }()
-    
+
     
     //글쓰기 텍스트 필드
     let textFiedlView : UITextView = {
@@ -27,6 +27,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         tf.autocorrectionType = .no
         tf.autocapitalizationType = .none
         tf.tintColor = .black
+        //tf.textAlignment = .center
         tf.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 16.5)
         //키보드 항상 보이게
         tf.becomeFirstResponder()
@@ -36,16 +37,12 @@ class WriteViewController: UIViewController,UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
-        
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "back.png")!)
-        
-        //취소 바 버튼
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:#imageLiteral(resourceName: "ic_cancel.png"), style: .plain, target: self, action:  #selector(cancelAction))
-        //보내기 바 버튼
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_send.png"), style: .plain, target: self, action:  #selector(writeAction))
 
+        
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "닫기", style: .plain, target: self, action:  #selector(cancelAction))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action:  #selector(writeAction))
+        
         
         //텍스트 뷰의 위임자를 자기자신으로 - 반드시 해줘야 함!
         textFiedlView.delegate = self
@@ -55,18 +52,33 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         //계층 구조를 이용해서 텍스트 뷰에 lable을 넣어 주었음
         textFiedlView.addSubview(placeholderLabel)
         
-        textFiedlView.backgroundColor = UIColor(patternImage: UIImage(named: "back.png")!)
+        //textFiedlView.backgroundColor = UIColor(patternImage: UIImage(named: "back.png")!)
         
+        textFiedlView.backgroundColor = UIColor.white
         //라벨의 위치를 정해 줌
-        placeholderLabel.frame.origin = CGPoint(x: 5, y: (textFiedlView.font?.pointSize)! / 2)
+        placeholderLabel.frame.origin = CGPoint(x: 8, y: (textFiedlView.font?.pointSize)! / 2)
         placeholderLabel.textColor = UIColor.lightGray
         placeholderLabel.isHidden = !textFiedlView.text.isEmpty
         
         self.navigationController?.navigationBar.barTintColor = UIColor.white
-        self.navigationController?.navigationBar.tintColor = UIColor.red
+        self.navigationController?.navigationBar.tintColor = UIColor.lightGray
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        self.navigationItem.title = "마음"
+        
+        //네비게이션 바 타이틀 폰트 바꾸기
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSAttributedStringKey.foregroundColor: UIColor.lightGray,
+             NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5)!]
         
         
+        //네비게이션 바 버튼 아이템 글꼴 바꾸기
+        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([
+            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14.0)!,
+            NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
+        
+        self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([
+            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14.0)!,
+            NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
         
         setLayout()
     }
@@ -135,8 +147,8 @@ class WriteViewController: UIViewController,UITextViewDelegate {
     func setLayout(){
         
         textFiedlView.topAnchor.constraint(equalTo: view.topAnchor,constant:50).isActive = true
-        textFiedlView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant:4).isActive = true
-        textFiedlView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant:-4).isActive = true
+        textFiedlView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant:0).isActive = true
+        textFiedlView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant:0).isActive = true
         textFiedlView.heightAnchor.constraint(equalToConstant:view.frame.height).isActive = true
         
     }

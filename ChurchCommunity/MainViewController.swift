@@ -17,13 +17,15 @@ class MainViewController: UIViewController {
     
     let mainTitle : UILabel = {
         let title =  UILabel()
-        title.text = "행복한 우리동네 로그인"
+        title.text = "일상 시편 로그인"
         title.font = UIFont.boldSystemFont(ofSize: 18)
         title.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
 
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
+    
+    
     
     //이미지 뷰
     let imageView: UIImageView = {
@@ -176,6 +178,26 @@ class MainViewController: UIViewController {
         let signView = SignViewController()
         self.present(signView, animated: true, completion: nil)
     }
+    
+    /*
+    override func viewWillAppear(_ animated: Bool) {
+        
+        //페이지 안에서 로그아웃 버튼을 눌렀을 때 한번더 로그아웃 해주기
+        if(logout){
+            print("확실히 로그아웃")
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+                
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
+            
+        }else{
+            
+        }
+    }
+ */
     
     override func viewDidLoad() {
         super.viewDidLoad()

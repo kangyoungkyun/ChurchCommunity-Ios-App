@@ -11,7 +11,7 @@ import Firebase
 private let reuseIdentifier = "Cell"
 
 class TodayCollectionVC: UICollectionViewController, UICollectionViewDelegateFlowLayout,CollectionViewCellDelegate {
-    
+    var logout = false
     func showAllPosts() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let tabBarController = appDelegate.tabBarController
@@ -56,7 +56,7 @@ class TodayCollectionVC: UICollectionViewController, UICollectionViewDelegateFlo
     let pages = [
         Page(imageName: "mypic1", headerText: "피난처", bodyText: ""),
         Page(imageName: "mypic2", headerText: "", bodyText: "주님 나를 도와주세요\n아무것도 모르고\n아무것도 못해요\n내 생명이 항상 위험하지만\n주님은 나의 피난처에요\n주님 나를 도와주세요. \n\n\n <도움/송현숙>"),
-        Page(imageName: "mypic3", headerText: "영성 일기 모음", bodyText: "")
+        Page(imageName: "mypic3", headerText: "일상\n시편", bodyText: "")
     ]
     
     //페이지 컨트롤러
@@ -76,6 +76,21 @@ class TodayCollectionVC: UICollectionViewController, UICollectionViewDelegateFlo
         pageControl.currentPage = Int(x / view.frame.width)
         
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //페이지 안에서 로그아웃 버튼을 눌렀을 때 한번더 로그아웃 해주기
+        
+         let firebaseAuth = Auth.auth().currentUser?.uid
+        
+        if (firebaseAuth == nil){
+            print("로그아웃된것이 확인되었습니다.")
+            dismiss(animated: true, completion: nil)
+        }
+        
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

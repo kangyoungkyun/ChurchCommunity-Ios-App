@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pen.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="gmn-gs-9x0">
-                                <rect key="frame" x="-679" y="-69" width="1802" height="805"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mind.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="gmn-gs-9x0">
+                                <rect key="frame" x="0.0" y="-45" width="375" height="781"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -33,6 +33,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="pen.jpg" width="4592" height="3448"/>
+        <image name="mind.jpg" width="482" height="762"/>
     </resources>
 </document>

@@ -8,12 +8,11 @@
 
 class CurvedView:UIView{
     override func draw(_ rect: CGRect) {
-       let path = customPath()
+        let path = customPath()
         path.lineWidth = 3
         path.stroke()
     }
 }
-
 func customPath() -> UIBezierPath{
     let path = UIBezierPath()
     path.move(to: CGPoint(x: 0, y: 200))
@@ -29,27 +28,20 @@ func customPath() -> UIBezierPath{
 import UIKit
 import Firebase
 class DetailTalkViewController: UIViewController {
-
+    
     var replys = [Reply]()
     let cellId = "cellId"
     
     
     let uiScrollView : UIScrollView={
-            let scv = UIScrollView()
-            scv.translatesAutoresizingMaskIntoConstraints = false
+        let scv = UIScrollView()
+        scv.translatesAutoresizingMaskIntoConstraints = false
+        scv.isScrollEnabled = true
         scv.showsHorizontalScrollIndicator = false
         scv.showsVerticalScrollIndicator = false
-            scv.backgroundColor = UIColor.yellow
-            return scv
-    }()
-    
-    //스크롤뷰 바텀
-    var scrollViewBottom: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = UIColor.blue
-        label.font = UIFont.boldSystemFont(ofSize: 17)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        
+        scv.backgroundColor = UIColor.white
+        return scv
     }()
     
     //넘어온 데이터
@@ -79,7 +71,7 @@ class DetailTalkViewController: UIViewController {
     let seeImage: UIButton = {
         let starButton = UIButton(type: .system)
         starButton.setImage(#imageLiteral(resourceName: "ic_remove_red_eye.png"), for: .normal)
-
+        
         starButton.tintColor = UIColor.lightGray
         starButton.isHidden = true
         starButton.translatesAutoresizingMaskIntoConstraints = false
@@ -99,7 +91,7 @@ class DetailTalkViewController: UIViewController {
     
     
     //버튼
-     let likeButton: UIButton = {
+    let likeButton: UIButton = {
         let starButton = UIButton(type: .system)
         starButton.setImage(#imageLiteral(resourceName: "ic_favorite.png"), for: .normal)
         starButton.tintColor = UIColor.red
@@ -108,38 +100,31 @@ class DetailTalkViewController: UIViewController {
         return starButton
     }()
     
-
-
-//축복해요 클릭되었을 때
-@objc func touchBlessBtn(){
-    //print("좋아요1")
-    (0...10).forEach { (_) in
-        generateAnimatedView()
+    //축복해요 클릭되었을 때
+    @objc func touchBlessBtn(){
+        //print("좋아요1")
+        (0...10).forEach { (_) in
+            generateAnimatedView()
+        }
+        let ref = Database.database().reference()
+        //랜덤 키
+        let blessRef = ref.child("bless").child(self.pidLabel.text!)
+        let blessKey = ref.child("bless").childByAutoId().key
+        //데이터 객체 만들기
+        let blessInfo: [String:Any] = [ "uid" : Auth.auth().currentUser?.uid ?? ""]
+        blessRef.child(blessKey).setValue(blessInfo)
+        
     }
-    let ref = Database.database().reference()
-    //랜덤 키
-    let blessRef = ref.child("bless").child(self.pidLabel.text!)
-    let blessKey = ref.child("bless").childByAutoId().key
-    //데이터 객체 만들기
-    let blessInfo: [String:Any] = [ "uid" : Auth.auth().currentUser?.uid ?? ""]
-    blessRef.child(blessKey).setValue(blessInfo)
-    
-
-    
-}
-
     
     //버튼
     let showOrNotButton: UIButton = {
         let starButton = UIButton(type: .system)
         starButton.setTitle("비공개", for: UIControlState())
-       starButton.titleLabel?.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 8.5)!
+        starButton.titleLabel?.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 8.5)!
         starButton.tintColor = UIColor.lightGray
         starButton.translatesAutoresizingMaskIntoConstraints = false
         return starButton
     }()
-    
-
     
     
     //likes
@@ -147,7 +132,7 @@ class DetailTalkViewController: UIViewController {
         let label = UILabel()
         label.isHidden = true
         label.text = "잘읽었어요"
- label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 12.5)
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 12.5)
         label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -175,12 +160,12 @@ class DetailTalkViewController: UIViewController {
     }()
     
     //이름
-   lazy var nameLabel: UILabel = {
+    lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .lightGray
-    
+        
         label.text = "이름"
-         label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 12.5)
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 12.5)
         label.translatesAutoresizingMaskIntoConstraints = false
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectName))
         label.isUserInteractionEnabled = true
@@ -190,26 +175,26 @@ class DetailTalkViewController: UIViewController {
     
     //글에서 이름이 클릭되었을 때
     @objc func handleSelectName(){
-
+        
         let myid = Auth.auth().currentUser?.uid
         if(uidLabel.text == myid!){
             let viewController = ShowPageViewController()
             self.navigationController?.pushViewController(viewController, animated: true)
         }else{
-            let viewController = ShowUserPageViewController()
-            viewController.userUid = uidLabel.text
+            let viewController = ShowUserPost()
+            viewController.userId = uidLabel.text
             viewController.userName = nameLabel.text
             let navController = UINavigationController(rootViewController: viewController)
             self.present(navController, animated: true, completion: nil)
         }
-
+        
     }
-
+    
     
     //텍스트
     var txtLabel: UILabel = {
         let label = UILabel()
-         label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 13.5)
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 13.5)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -221,7 +206,7 @@ class DetailTalkViewController: UIViewController {
     var dateLabel: UILabel = {
         let label = UILabel()
         label.text = "1시간전"
-         label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 14.5)
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 14.5)
         label.textColor = UIColor.lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -231,7 +216,7 @@ class DetailTalkViewController: UIViewController {
         let label = UILabel()
         label.text = "6번 읽음"
         label.isHidden = true
-         label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 12.5)
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 12.5)
         label.textColor = UIColor.lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -248,12 +233,9 @@ class DetailTalkViewController: UIViewController {
     }()
     
     
-
-    
-    
     // ===================================================== 좋아요 애니메이션  =====================================================
-
-     func generateAnimatedView(){
+    
+    func generateAnimatedView(){
         let imageView = UIImageView(image: #imageLiteral(resourceName: "heart.png"))
         let dimension = 20 + drand48() * 10
         imageView.frame = CGRect(x:0,y:0,width:dimension, height:dimension)
@@ -265,7 +247,7 @@ class DetailTalkViewController: UIViewController {
         animation.isRemovedOnCompletion = false
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         imageView.layer.add(animation, forKey: nil)
-         view.addSubview(imageView)
+        view.addSubview(imageView)
     }
     
     // ======================================================        진입점        ======================================================
@@ -273,29 +255,57 @@ class DetailTalkViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = "일기보기"
         //취소 바 버튼
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "이전", style: .plain, target: self, action: #selector(goTalkViewController))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "뒤로", style: .plain, target: self, action: #selector(goTalkViewController))
         //로그인 한 유저의. id와 지금 쓴글의 사람의 uid와 같으면 오른쪽 설정바 보이게
         if(Auth.auth().currentUser?.uid == uidLabel.text){
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_settings_white.png"), style: .plain, target: self, action:  #selector(goSettingAlertAction))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "설정", style: .plain, target: self, action:  #selector(goSettingAlertAction))
         }
+        
+        
         self.view.backgroundColor = UIColor.white
         
         //네비게이션 바 색깔 변경
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         self.navigationController?.navigationBar.tintColor = UIColor.red
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        
+        
+        
+        
+        self.navigationItem.title = ""
+        
+        //네비게이션 바 타이틀 폰트 바꾸기
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSAttributedStringKey.foregroundColor: UIColor.lightGray,
+             NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5)!]
+        
+        
+        //네비게이션 바 버튼 아이템 글꼴 바꾸기
+        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([
+            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14.0)!,
+            NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
+        
+        self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([
+            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14.0)!,
+            NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
+        //uiScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 700)
+        
         hideKeyboard()
         setLayout()
         checkBlessBtn()
-       
+        
+        
+        
+        
+        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         changeTabBar(hidden: true, animated: true)
     }
- 
-  
+    
+    
     func changeTabBar(hidden:Bool, animated: Bool){
         print("changeTabbar")
         guard let tabBar = self.tabBarController?.tabBar else { return; }
@@ -318,10 +328,10 @@ class DetailTalkViewController: UIViewController {
         let ref = Database.database().reference()
         ref.child("bless").child(pidLabel.text!).observe(.value) { (snapshot) in
             for child in snapshot.children{
-               
+                
                 let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
-
+                
                 if let checkUid = childValue["uid"]{
                     if(checkUid as? String == currentUid){
                         print("이미 좋아요를 눌렀네요?")
@@ -344,105 +354,98 @@ class DetailTalkViewController: UIViewController {
     //레이아웃 조정
     func  setLayout(){
         
-
-//        view.addSubview(uiScrollView)
-//        view.addSubview(scrollViewBottom)
-//        uiScrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-//        uiScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//        uiScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//        //uiScrollView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        
+        view.addSubview(uiScrollView)
+        uiScrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        uiScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        uiScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        uiScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         
         
-
-        view.addSubview(dateLabel)
+        let myView = UIView()
+        myView.backgroundColor = .white
+        myView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(showOrNotButton)
-        view.addSubview(seeImage)
-      
-        view.addSubview(likeButton)
-        view.addSubview(likesLabel)
+        uiScrollView.addSubview(myView)
+        myView.topAnchor.constraint(equalTo: uiScrollView.topAnchor).isActive = true
+        myView.leadingAnchor.constraint(equalTo: uiScrollView.leadingAnchor).isActive = true
+        myView.trailingAnchor.constraint(equalTo: uiScrollView.trailingAnchor).isActive = true
+        myView.bottomAnchor.constraint(equalTo: uiScrollView.bottomAnchor).isActive = true
+        myView.widthAnchor.constraint(equalTo: uiScrollView.widthAnchor).isActive = true
+        //myView.heightAnchor.constraint(equalToConstant: 2000).isActive = true
         
-        view.addSubview(uidLabel)
-        view.addSubview(pidLabel)
-        view.addSubview(nameLabel)
-        view.addSubview(txtLabel)
         
-        view.addSubview(hitLabel)
-
-      
-
-
-    
-        dateLabel.topAnchor.constraint(equalTo: view.topAnchor,constant: 170).isActive = true
-        dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-
         
+        myView.addSubview(dateLabel)
+        
+        dateLabel.topAnchor.constraint(equalTo: myView.topAnchor,constant: 130).isActive = true
+        dateLabel.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
+        
+        
+        myView.addSubview(txtLabel)
         txtLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor,constant: 45).isActive = true
-       txtLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        //txtLabel.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 0).isActive = true
+        txtLabel.leadingAnchor.constraint(equalTo: myView.leadingAnchor,constant: 35).isActive = true
+        txtLabel.trailingAnchor.constraint(equalTo: myView.trailingAnchor,constant: -35).isActive = true
+        //txtLabel.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 0).isActive = true
+        //txtLabel.heightAnchor.constraint(equalTo: myView.heightAnchor).isActive = true
         
+        myView.addSubview(nameLabel)
         nameLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 45).isActive = true
-        nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-
-        likeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        likeButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        likeButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        likeButton.bottomAnchor.constraint(equalTo: showOrNotButton.topAnchor, constant:-15).isActive = true
+        nameLabel.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
+        //nameLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant: -45).isActive = true
         
-         showOrNotButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        myView.addSubview(likeButton)
+        likeButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 35).isActive = true
+        likeButton.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
+        likeButton.widthAnchor.constraint(equalToConstant: 18).isActive = true
+        likeButton.heightAnchor.constraint(equalToConstant: 18).isActive = true
+        //likeButton.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant:-45).isActive = true
+        
+        
+        myView.addSubview(showOrNotButton)
+        showOrNotButton.topAnchor.constraint(equalTo: likeButton.bottomAnchor, constant: 20).isActive = true
+        showOrNotButton.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
         showOrNotButton.heightAnchor.constraint(equalToConstant: 12).isActive = true
-        showOrNotButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:-100).isActive = true
-        
-        
-       //likesLabel.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 2).isActive = true
-        //likesLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        //likesLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        //likesLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:-100).isActive = true
-
-        
-       // seeImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80).isActive = true
-        //seeImage.widthAnchor.constraint(equalToConstant: 30).isActive = true
-       // seeImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        //seeImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:-100).isActive = true
-        
-        //hitLabel.leadingAnchor.constraint(equalTo: seeImage.trailingAnchor, constant: 5).isActive = true
-        //hitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
-       // hitLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        //hitLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
-        
-        
-       
-
-        
-
-        
-
-        
-        pidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
-        pidLabel.leadingAnchor.constraint(equalTo: likesLabel.trailingAnchor, constant: 5).isActive = true
-        pidLabel.widthAnchor.constraint(equalToConstant: 10).isActive = true
-        pidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        
-        uidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
-        uidLabel.leadingAnchor.constraint(equalTo: pidLabel.trailingAnchor, constant: 5).isActive = true
-        uidLabel.widthAnchor.constraint(equalToConstant: 10).isActive = true
-        uidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        
+        showOrNotButton.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant:-50).isActive = true
         
         /*
-        
-        //스크롤뷰 바닥
-        scrollViewBottom.topAnchor.constraint(equalTo: uidLabel.bottomAnchor, constant: 15).isActive = true
-        scrollViewBottom.leadingAnchor.constraint(equalTo: uiScrollView.leadingAnchor, constant: 0).isActive = true
-        scrollViewBottom.trailingAnchor.constraint(equalTo: uiScrollView.trailingAnchor, constant: 0).isActive = true
-        scrollViewBottom.bottomAnchor.constraint(equalTo: uiScrollView.bottomAnchor,constant: -500).isActive = true
-        
-        
-        */
+         
+         
+         
+         
+         //likesLabel.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 2).isActive = true
+         //likesLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+         //likesLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+         //likesLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:-100).isActive = true
+         
+         
+         // seeImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80).isActive = true
+         //seeImage.widthAnchor.constraint(equalToConstant: 30).isActive = true
+         // seeImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
+         //seeImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:-100).isActive = true
+         
+         //hitLabel.leadingAnchor.constraint(equalTo: seeImage.trailingAnchor, constant: 5).isActive = true
+         //hitLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+         // hitLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+         //hitLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+         
+         pidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
+         pidLabel.leadingAnchor.constraint(equalTo: likesLabel.trailingAnchor, constant: 5).isActive = true
+         pidLabel.widthAnchor.constraint(equalToConstant: 10).isActive = true
+         pidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+         
+         uidLabel.topAnchor.constraint(equalTo: txtLabel.bottomAnchor, constant: 15).isActive = true
+         uidLabel.leadingAnchor.constraint(equalTo: pidLabel.trailingAnchor, constant: 5).isActive = true
+         uidLabel.widthAnchor.constraint(equalToConstant: 10).isActive = true
+         uidLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+         
+
+         */
         
     }
-
+    
     //글공개
     func showAction(pid:String){
         print("글나누기\(pid)")
@@ -450,7 +453,7 @@ class DetailTalkViewController: UIViewController {
         //여기가 문제
         let ref = Database.database().reference()
         ref.child("posts").child(pid).updateChildValues(showing)
-        let alert = UIAlertController(title: "알림 ", message:"글이 나눔방에 게시되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "", message:"글을 공개했습니다.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
@@ -463,7 +466,10 @@ class DetailTalkViewController: UIViewController {
         //여기가 문제
         let ref = Database.database().reference()
         ref.child("posts").child(pid).updateChildValues(showing)
-
+        let alert = UIAlertController(title: "", message:"글을 비공개했습니다.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     //글 설정 네비게이션 바 버튼 아이템을 눌렀을 때
@@ -474,7 +480,7 @@ class DetailTalkViewController: UIViewController {
             message: nil,
             preferredStyle: .alert)
         
-        let showAction = UIAlertAction(title: "글공개", style: .default) { (alert) in
+        let showAction = UIAlertAction(title: "공개", style: .default) { (alert) in
             print("글나누기")
             self.showAction(pid:self.pidLabel.text!)
             
@@ -488,13 +494,13 @@ class DetailTalkViewController: UIViewController {
         }
         
         
-        let modifyAction = UIAlertAction(title: "글수정", style: .default) { (alert) in
+        let modifyAction = UIAlertAction(title: "수정", style: .default) { (alert) in
             print("글 수정")
             
             self.settingAlertAction(txt: self.txtLabel.text!, pid: self.pidLabel.text!)
         }
         
-        let deleteAction = UIAlertAction(title: "글삭제", style: .destructive) { (alert) in
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { (alert) in
             
             let xss = self.replyHitLabel.text?.characters.split(separator:" ").map{ String($0) }
             let replyNum = Int(xss![0])!
@@ -502,7 +508,7 @@ class DetailTalkViewController: UIViewController {
             if(replyNum == 0){
                 let ref = Database.database().reference()
                 ref.child("posts").child(self.pidLabel.text!).removeValue()
-                let alert = UIAlertController(title: "알림 ", message:"삭제되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: "", message:"삭제되었습니다.", preferredStyle: UIAlertControllerStyle.alert)
                 let alertAction = UIAlertAction(title: "확인", style: UIAlertActionStyle.default,handler: { (action) in
                     self.navigationController?.popViewController(animated: true)
                 } )
@@ -511,7 +517,7 @@ class DetailTalkViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             }else{
                 
-                let alert = UIAlertController(title: "알림 ", message:"댓글이 있는 글은 삭제할 수 없습니다.", preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertController(title: "", message:"댓글이 있는 글은 삭제할 수 없습니다.", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return
@@ -584,6 +590,6 @@ class DetailTalkViewController: UIViewController {
 extension CGRect {
     init(_ x:CGFloat, _ y:CGFloat, _ w:CGFloat, _ h:CGFloat) {
         self.init(x:x, y:y, width:w, height:h)
-}
+    }
 }
 

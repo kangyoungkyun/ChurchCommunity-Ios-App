@@ -42,6 +42,28 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
 //        self.tableView.reloadData()
 //    }
     
+    lazy var writeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.borderWidth = 0.8
+        //button.setImage(#imageLiteral(resourceName: "pencil.png"), for: UIControlState())
+        button.frame = CGRect(x: view.frame.width - 60, y: view.frame.height - 90 , width: 45, height: 45)
+        button.layer.cornerRadius = button.frame.width/2
+        button.clipsToBounds = true
+        button.layer.masksToBounds = true
+        button.setBackgroundImage(#imageLiteral(resourceName: "pencil.png"), for: UIControlState())
+        button.addTarget(self, action: #selector(writeAction), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func writeAction(){
+        print("바탕화면에서 글쓰기 버튼 클릭!")
+        let writeView = WriteViewController()
+        //글쓰기 화면을 rootView로 만들어 주기
+        let navController = UINavigationController(rootViewController: writeView)
+        self.present(navController, animated: true, completion: nil)
+    }
+    
     //탭바 스크롤 하면 숨기기
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
@@ -89,7 +111,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
             OperationQueue.main.addOperation() {
                 //   print("start OperationQueue")
                 self.tableView.separatorStyle = .none
-                Thread.sleep(forTimeInterval: 1.5)
+                Thread.sleep(forTimeInterval: 1.9)
                 //   print("start forTimeInterval")
                 self.activityIndicatorView.stopAnimating()
                 self.tableView.reloadData()
@@ -122,8 +144,25 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
-        //tableView.reloadData()
+       
+        
+        tableView.addSubview(writeButton)
+    //    writeButton.trailingAnchor.constraint(equalTo: tableView.trailingAnchor,constant:-100).isActive = true
+     //   writeButton.bottomAnchor.constraint(equalTo: tableView.bottomAnchor,constant:-100).isActive = true
+        
+        //writeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+       //  writeButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+       // writeButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
+        //  writeButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        
+        
     }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let  off = self.tableView.contentOffset.y
+        writeButton.frame = CGRect(x: view.frame.width - 60, y: off + (view.frame.height - 135), width: writeButton.frame.size.width, height: writeButton.frame.size.height)
+    }
+    
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
@@ -229,6 +268,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         //글쓰기 화면을 rootView로 만들어 주기
         navigationController?.pushViewController(detailTalkViewController, animated: true)
     }
+    
     
     //포스트 조회 함수
     func showPost(){

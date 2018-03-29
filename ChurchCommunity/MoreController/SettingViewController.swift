@@ -140,12 +140,7 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
             do {
                 try firebaseAuth.signOut()
                 
-                self.dismiss(animated: true, completion: {
-                    
-                    let viewController = MainViewController()
-                    pvc?.present(viewController, animated: true, completion: nil)
-
-                })
+                self.dismiss(animated: true, completion: nil)
 
                 
                 
