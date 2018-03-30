@@ -44,8 +44,8 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     var todayPostsCountLable: UILabel = {
         let label = UILabel()
-        label.text = "인생들의 시편"
-        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 20.5)
+        label.text = "사람들의 시편"
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 21.5)
         label.textColor = UIColor.black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -56,7 +56,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
         label.sizeToFit()
-        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 13.5)
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5)
         label.textColor = UIColor.lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         label.lineBreakMode = .byWordWrapping
@@ -260,7 +260,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         if(posts[indexPath.row].blessCount == nil){
             cell?.likesLabel.text = "0"
         }else{
-            cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!)"
+            cell?.likesLabel.text = posts[indexPath.row].blessCount!
         }
         
         return cell!
@@ -279,6 +279,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         let name = cell?.nameLabel.text
         let text = cell?.txtLabel.text
         let hit = cell?.hitLabel.text
+        let blssCount = cell?.likesLabel.text
         let date = cell?.dateLabel.text
         let pid = cell?.pidLabel.text
         let replyHitLabel = cell?.replyHitLabel.text
@@ -306,6 +307,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         onePost.reply = String(replyNum)
         onePost.uid = uid
         onePost.show = show
+        onePost.blessCount = blssCount
         //디테일 페이지로 이동
         let detailTalkViewController = DetailTalkViewController()
         detailTalkViewController.onePost = onePost
@@ -350,12 +352,11 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
                             todayPost = todayPost + 1
                         }
                         self.countLable.text = "오늘 작성된 시편/ \(todayPost)편"
+                        print("오늘 작성된 시편의 개수는?  \(todayPost) ")
                     }
                     //공개를 허용한 글만 담벼락에 보이기
                     if (show as? String == "y"){
-                        
                         ref.child("bless").observe(.value, with: { (snapshot) in
-                            
                             for (childs ) in snapshot.children{
 
                                 let childSnapshot = childs as! DataSnapshot
@@ -392,9 +393,12 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
                     
                 }
             }
+             todayPost = 0
+            print("초기화 됐나요1? \(todayPost)")
         }
-       todayPost = 0
+      //print("초기화 됐나요2? \(todayPost)")
         ref.removeAllObservers()
+        //print("초기화 됐나요3? \(todayPost)")
     }
     
     //헤더뷰 레이아웃
@@ -406,7 +410,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         todayPostsCountLable.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
         headerView.addSubview(introLable)
-        introLable.topAnchor.constraint(equalTo: todayPostsCountLable.bottomAnchor,constant:20).isActive = true
+        introLable.topAnchor.constraint(equalTo: todayPostsCountLable.bottomAnchor,constant:15).isActive = true
         introLable.leadingAnchor.constraint(equalTo: headerView.leadingAnchor,constant:15).isActive = true
         introLable.trailingAnchor.constraint(equalTo: headerView.trailingAnchor,constant:-35).isActive = true
         introLable.bottomAnchor.constraint(equalTo: headerView.bottomAnchor,constant:-35).isActive = true

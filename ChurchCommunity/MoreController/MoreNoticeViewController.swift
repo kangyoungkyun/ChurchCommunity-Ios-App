@@ -14,6 +14,7 @@ class MoreNoticeViewController: UIViewController {
         didSet{
             //textFiedlView.text = text
             textFiedlView.text = text?.replacingOccurrences(of: "\\n", with: "\n")
+            textFiedlView.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5)
         }
     }
     
@@ -46,10 +47,24 @@ class MoreNoticeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
 
         self.navigationController?.navigationBar.isTranslucent = false
 
+        self.view.backgroundColor = UIColor.white
+        
+        
+        //네비게이션 바 색깔 변경
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor.lightGray
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        
+        
+        
+        //네비게이션 바 타이틀 폰트 바꾸기
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSAttributedStringKey.foregroundColor: UIColor.lightGray,
+             NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 18.5)!]
+        
         
         self.navigationItem.title = titleName
         navigationController?.navigationBar.prefersLargeTitles = false

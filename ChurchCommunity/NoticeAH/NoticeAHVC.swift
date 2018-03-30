@@ -65,7 +65,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
     var nameLable: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 20.5)
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 21.5)
         label.textColor = UIColor.black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -77,7 +77,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
         label.sizeToFit()
-        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 13.5)
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5)
         label.textColor = UIColor.lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         label.lineBreakMode = .byWordWrapping
@@ -228,7 +228,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         //navigationItem.searchController = searchController
         
         
-       //self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "글모음", style: .plain, target: self, action:  #selector(writeAction))
+       self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "글쓰기", style: .plain, target: self, action:  #selector(writeAction))
         
 
         
@@ -238,7 +238,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
             NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
         
         
-        tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(NoticeAVCell.self, forCellReuseIdentifier: cellId)
         tableView.showsHorizontalScrollIndicator = false
         tableView.showsVerticalScrollIndicator = false
         
@@ -316,8 +316,18 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
     //테이블 뷰 셀의 구성 및 데이터 할당 부분
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TalkCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? NoticeAVCell
         //cell?.delegate = self
+        
+        //버튼에 밑줄
+      //  var attrs = [
+        //    NSAttributedStringKey.underlineStyle : 1]
+       // var attributedString = NSMutableAttributedString(string:"")
+       // let buttonTitleStr = NSMutableAttributedString(string:"\(posts[indexPath.row].show!)", attributes:attrs)
+       // attributedString.append(buttonTitleStr)
+        //cell?.show.setAttributedTitle(attributedString, for: .normal)
+        
+        
         
         cell?.txtLabel.text = posts[indexPath.row].text
         cell?.txtLabel.setLineSpacing(lineSpacing: 7)
@@ -328,12 +338,12 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         cell?.pidLabel.text = posts[indexPath.row].pid
         cell?.replyHitLabel.text = "\(posts[indexPath.row].reply!) 개 댓글"
         cell?.uidLabel.text = posts[indexPath.row].uid
-        cell?.showOrNotButton.setTitle(posts[indexPath.row].show, for: UIControlState())
-        
+        cell?.show.setTitle(posts[indexPath.row].show, for: UIControlState())
+        cell?.likesLabel.text = posts[indexPath.row].blessCount
         if(posts[indexPath.row].blessCount == nil){
-            cell?.likesLabel.text = "0 명"
+            cell?.likesLabel.text = "0"
         }else{
-            cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!) 명"
+            cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!)"
         }
         
         /*if(searchController.isActive && searchController.searchBar.text != ""){
@@ -377,7 +387,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         print("셀 클릭")
         
         //선택한 셀 정보 가져오기
-        let cell = tableView.cellForRow(at: indexPath) as? TalkCell
+        let cell = tableView.cellForRow(at: indexPath) as? NoticeAVCell
         
         //값 할당
         let name = cell?.nameLabel.text
@@ -387,8 +397,8 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         let pid = cell?.pidLabel.text
         let replyHitLabel = cell?.replyHitLabel.text
         let uid = cell?.uidLabel.text
-        let show = cell?.showOrNotButton.titleLabel?.text
-        
+        let show = cell?.show.titleLabel?.text
+        let blessCount = cell?.likesLabel.text
         //조회수 문자를 배열로 변경
         let xs = hit!.characters.split(separator:" ").map{ String($0) }
         let hitNum = Int(xs[0])! + 1
@@ -411,7 +421,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         onePost.reply = String(replyNum)
         onePost.uid = uid
         onePost.show = show
-        
+        onePost.blessCount = blessCount
         //디테일 페이지로 이동
         let detailTalkViewController = DetailTalkViewController()
         detailTalkViewController.onePost = onePost
@@ -512,7 +522,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         nameLable.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
         headerView.addSubview(introLable)
-        introLable.topAnchor.constraint(equalTo: nameLable.bottomAnchor,constant:20).isActive = true
+        introLable.topAnchor.constraint(equalTo: nameLable.bottomAnchor,constant:15).isActive = true
         introLable.leadingAnchor.constraint(equalTo: headerView.leadingAnchor,constant:15).isActive = true
         introLable.trailingAnchor.constraint(equalTo: headerView.trailingAnchor,constant:-35).isActive = true
         //introLable.widthAnchor.constraint(equalToConstant: 300).isActive = true

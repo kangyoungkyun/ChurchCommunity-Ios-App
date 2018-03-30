@@ -18,12 +18,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mind.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="gmn-gs-9x0">
-                                <rect key="frame" x="0.0" y="-45" width="375" height="781"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="daily.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="dZF-Dz-LkV">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dZF-Dz-LkV" secondAttribute="trailing" id="BTV-yF-cZP"/>
+                            <constraint firstItem="dZF-Dz-LkV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="REp-R7-fnI"/>
+                            <constraint firstItem="dZF-Dz-LkV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-20" id="UP2-j6-a5X"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="dZF-Dz-LkV" secondAttribute="bottom" id="bQs-C1-WBL"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -33,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="mind.jpg" width="482" height="762"/>
+        <image name="daily.jpg" width="375" height="766"/>
     </resources>
 </document>

@@ -149,9 +149,9 @@ class ShowUserPostsVC: UITableViewController,UISearchBarDelegate  {
             cell?.uidLabel.text = searchPosts[indexPath.row].uid
             cell?.showOrNotButton.setTitle(searchPosts[indexPath.row].show, for: UIControlState())
             if(searchPosts[indexPath.row].blessCount == nil){
-                cell?.likesLabel.text = "0 명"
+                cell?.likesLabel.text = "0"
             }else{
-                cell?.likesLabel.text = "\(searchPosts[indexPath.row].blessCount!) 명"
+                cell?.likesLabel.text = "\(searchPosts[indexPath.row].blessCount!)"
             }
             
         }else{
@@ -164,9 +164,9 @@ class ShowUserPostsVC: UITableViewController,UISearchBarDelegate  {
             cell?.uidLabel.text = posts[indexPath.row].uid
             cell?.showOrNotButton.setTitle(posts[indexPath.row].show, for: UIControlState())
             if(posts[indexPath.row].blessCount == nil){
-                cell?.likesLabel.text = "0 명"
+                cell?.likesLabel.text = "0"
             }else{
-                cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!) 명"
+                cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!)"
             }
             
         }

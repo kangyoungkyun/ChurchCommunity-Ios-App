@@ -74,6 +74,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().layer.borderWidth = 0.0
         UITabBar.appearance().clipsToBounds = true
         
+        
+
+
+        
+        
         //collectionView layout - 반드시 넣어줘야 함
         //let layout = UICollectionViewFlowLayout()
 
@@ -100,30 +105,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let settingNavVC = UINavigationController(rootViewController: settingVC)
         
         
-        tabBarController?.setViewControllers([noticeNavVC,talkNavVC,settingNavVC], animated: false)
+        tabBarController?.setViewControllers([talkNavVC,noticeNavVC,settingNavVC], animated: false)
         
     
         //탭바 이미지 넣기
-        talkNavVC.tabBarItem.image = UIImage(named:"ic_event_note_white")?.withRenderingMode(.alwaysTemplate)
-        noticeNavVC.tabBarItem.image = UIImage(named:"ic_person_outline_white")?.withRenderingMode(.alwaysTemplate)
+        talkNavVC.tabBarItem.image = UIImage(named:"ic_inbox")?.withRenderingMode(.alwaysTemplate)
+        noticeNavVC.tabBarItem.image = UIImage(named:"ic_account_circle")?.withRenderingMode(.alwaysTemplate)
         //writeNavVC.tabBarItem.image = UIImage(named:"ic_event_note")?.withRenderingMode(.alwaysTemplate)
         //makatingNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
-        settingNavVC.tabBarItem.image = UIImage(named:"ic_view_headline_white")?.withRenderingMode(.alwaysTemplate)
+        settingNavVC.tabBarItem.image = UIImage(named:"ic_view_headline")?.withRenderingMode(.alwaysTemplate)
         
         
         //이미지 선택되었을 때
         
        
-        talkNavVC.tabBarItem.selectedImage = UIImage(named:"ic_event_note")?.withRenderingMode(.alwaysOriginal)
-        noticeNavVC.tabBarItem.selectedImage = UIImage(named:"ic_person_outline")?.withRenderingMode(.alwaysOriginal)
+        talkNavVC.tabBarItem.selectedImage = UIImage(named:"ic_inbox")?.withRenderingMode(.alwaysOriginal)
+        noticeNavVC.tabBarItem.selectedImage = UIImage(named:"ic_account_circle")?.withRenderingMode(.alwaysOriginal)
         //writeNavVC.tabBarItem.selectedImage = UIImage(named:"ic_event_note_white")?.withRenderingMode(.alwaysOriginal)
         //makatingNavVC.tabBarItem.image = UIImage(named:"ic_add_alert")?.withRenderingMode(.alwaysTemplate)
         settingNavVC.tabBarItem.selectedImage = UIImage(named:"ic_view_headline")?.withRenderingMode(.alwaysOriginal)
        
-
-        
-        talkNavVC.tabBarItem.title = "인생시편"
-        noticeNavVC.tabBarItem.title = "나의시편"
+        talkNavVC.tabBarItem.title = "글모음"
+        noticeNavVC.tabBarItem.title = "나의글"
         //writeNavVC.tabBarItem.title = "시편기록"
         //makatingNavVC.tabBarItem.title = "친구일기"
         settingNavVC.tabBarItem.title = "더보기"
@@ -133,6 +136,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let attributes = [NSAttributedStringKey.font:UIFont(name: "NanumMyeongjo-YetHangul", size: 10)]
         appearance.setTitleTextAttributes(attributes, for: .normal)
         
+        
+        
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 20)!
+        ]
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 15)!], for: UIControlState.normal)
     
         
         return true

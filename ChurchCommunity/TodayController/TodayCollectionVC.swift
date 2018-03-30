@@ -99,12 +99,29 @@ class TodayCollectionVC: UICollectionViewController, UICollectionViewDelegateFlo
         //배경색을 흰색
         collectionView?.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
 
+        collectionView?.showsHorizontalScrollIndicator = false
+        collectionView?.showsVerticalScrollIndicator = false
+        
         //collectionView에 cell을 등록해주는 작업, 여기서는 직접 만든 cell을 넣어주었고, 아이디를 설정해 주었다.
         collectionView?.register(PageCell.self, forCellWithReuseIdentifier: "cellId")
         //페이징기능 허용
         collectionView?.isPagingEnabled = true
+        
+        getSingle()
     }
 
+    var todate = ""
+    //현재 날짜 한글
+    func getSingle(){
+        var date = Date()
+        let calendar = Calendar.current //켈린더 객체 생성
+        let year = calendar.component(.year, from: date)    //년
+        let month = calendar.component(.month, from: date)  //월
+        let day = calendar.component(.day, from: date)      //일
+        
+        todate = "\(year)년 \(month)월 \(day)일,"
+        
+    }
 
   
     //스택뷰 객세 생성과 위치 설정 함수

@@ -11,7 +11,7 @@ import Firebase
 class WriteViewController: UIViewController,UITextViewDelegate {
     var placeholderLabel : UILabel = {
         let ph = UILabel()
-        ph.text = "주님,"
+        ph.text = "당신의 생각을 들려주세요. "
         ph.sizeToFit()
         ph.numberOfLines = 2
         ph.minimumScaleFactor = 10
@@ -30,7 +30,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         tf.autocapitalizationType = .none
         tf.tintColor = .black
         //tf.textAlignment = .center
-        tf.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 16.5)
+        tf.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 14.5)
         //키보드 항상 보이게
         tf.becomeFirstResponder()
         return tf
@@ -74,11 +74,11 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         
         //네비게이션 바 버튼 아이템 글꼴 바꾸기
         self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([
-            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14.0)!,
+            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14)!,
             NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
         
         self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([
-            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14.0)!,
+            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14)!,
             NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
         setNavTitle()
         setLayout()
@@ -131,6 +131,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
                 let alert = UIAlertController(title: "알림 ", message:"내용을 확인해주세요.", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "확인", style: UIAlertActionStyle.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
+                AppDelegate.instance().dissmissActivityIndicator()
                 return
             }
             
@@ -152,7 +153,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
                                           "hit": 0,
                                           "date": ServerValue.timestamp(),
                                           "reply":0,
-                                          "show":"n"]
+                                          "show":"y"]
             //해당 경로에 삽입
             PostReference.setValue(postInfo)
             

@@ -17,6 +17,10 @@ extension TodayCollectionVC{
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pages.count
     }
+    
+    
+
+    
     //컬렉션 뷰의 cell을 구성하는 함수
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //위에서 등록해준 커스텀 셀을 가져와서 리턴해줌
@@ -28,14 +32,17 @@ extension TodayCollectionVC{
             let page = pages[0]
             cell.itemCheck = 0
             cell.page = page
+            cell.dateLable.text = todate + "일상"
         }else if(indexPath.item == 1){
              let page = pages[1]
              cell.itemCheck = 1
             cell.page = page
+            cell.dateLable.text = todate + "시편"
         }else if(indexPath.item == 2){
              let page = pages[2]
              cell.itemCheck = 2
             cell.page = page
+            cell.dateLable.text = ""
         }
         
         return cell

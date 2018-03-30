@@ -73,7 +73,7 @@ class TalkCell: UITableViewCell {
             
             let starButton = UIButton(type: .system)
             starButton.isHidden = true
-            starButton.setImage(#imageLiteral(resourceName: "ic_comment.png"), for: .normal)
+            //starButton.setImage(#imageLiteral(resourceName: "ic_comment.png"), for: .normal)
             starButton.tintColor = UIColor.lightGray
             starButton.translatesAutoresizingMaskIntoConstraints = false
             return starButton

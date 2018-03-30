@@ -36,7 +36,7 @@ class PageCell: UICollectionViewCell {
             let paragraphStyle = NSMutableParagraphStyle()
             //높이 설정
             paragraphStyle.lineSpacing = 11
-            let attributedText = NSMutableAttributedString(string: unwrappedPage.headerText, attributes: [NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 22.5)])
+            let attributedText = NSMutableAttributedString(string: unwrappedPage.headerText, attributes: [NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 21.5)])
             attributedText.append(NSAttributedString(string: "\n\n\n\(unwrappedPage.bodyText)", attributes: [NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5), NSAttributedStringKey.foregroundColor:UIColor(red:0.17, green:0.17, blue:0.17, alpha:1.0)]))
             //줄간격설정
             attributedText.addAttribute(NSAttributedStringKey.paragraphStyle, value:paragraphStyle, range: NSMakeRange(0, attributedText.length))
@@ -83,7 +83,7 @@ class PageCell: UICollectionViewCell {
     let dateLable: UILabel = {
         let lable = UILabel()
         lable.translatesAutoresizingMaskIntoConstraints = false
-       lable.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 14.5)
+       lable.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 13.5)
         lable.textColor = UIColor.lightGray
         lable.adjustsFontSizeToFitWidth=true
         lable.minimumScaleFactor=0.5;
@@ -104,19 +104,10 @@ class PageCell: UICollectionViewCell {
     //부모 인스턴스를 초기화 해줘야 커스터마이징 해줄 수 있다.
     override init(frame: CGRect) {
         super.init(frame: frame)
-        getSingle()
+        //getSingle()
         setupLayout()
     }
-    //현재 날짜 한글
-    func getSingle(){
-        let date = Date()
-        let calendar = Calendar.current //켈린더 객체 생성
-        let year = calendar.component(.year, from: date)    //년
-        let month = calendar.component(.month, from: date)  //월
-        let day = calendar.component(.day, from: date)      //일
-        dateLable.text = "\(year)년 \(month)월 \(day)일, 시편"
-       
-    }
+
     private func setupLayout() {
 
         

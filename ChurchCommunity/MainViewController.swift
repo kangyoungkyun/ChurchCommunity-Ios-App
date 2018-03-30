@@ -15,22 +15,22 @@ import UIKit
 import Firebase
 class MainViewController: UIViewController {
     
-    let mainTitle : UILabel = {
-        let title =  UILabel()
-        title.text = "일상 시편 로그인"
-        title.font = UIFont.boldSystemFont(ofSize: 18)
-        title.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
-
-        title.translatesAutoresizingMaskIntoConstraints = false
-        return title
-    }()
+//    let mainTitle : UILabel = {
+//        let title =  UILabel()
+//        title.text = "일상 시편 로그인"
+//        title.font = UIFont.boldSystemFont(ofSize: 18)
+//        title.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+//
+//        title.translatesAutoresizingMaskIntoConstraints = false
+//        return title
+//    }()
     
     
     
     //이미지 뷰
     let imageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "main_pick2.png")
+        image.image = UIImage(named: "pencil4.png")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         return image
@@ -39,7 +39,8 @@ class MainViewController: UIViewController {
     //이메일 필드
     let emailTextField: UITextField = {
         let email = UITextField()
-        email.placeholder = "abcnt@naver.com"
+        email.placeholder = "이메일"
+        email.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 16.5)
         email.translatesAutoresizingMaskIntoConstraints = false
         email.autocorrectionType = .no
         email.autocapitalizationType = .none
@@ -51,8 +52,7 @@ class MainViewController: UIViewController {
     //이메일 구분선 만들기
     let emailSeperatorView: UIView = {
         let view = UIView()
-       view.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
-
+       view.backgroundColor = .lightGray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -63,6 +63,7 @@ class MainViewController: UIViewController {
         let password = UITextField()
         password.placeholder = "비밀번호"
         password.isSecureTextEntry = true
+        password.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 16.5)
         password.translatesAutoresizingMaskIntoConstraints = false
         return password
     }()
@@ -70,9 +71,7 @@ class MainViewController: UIViewController {
     //이메일 구분선 만들기
     let passwordSeperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
-
-
+        view.backgroundColor = .lightGray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -80,13 +79,12 @@ class MainViewController: UIViewController {
     //버튼
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
-
-
+        button.backgroundColor = .lightGray
+        
         button.setTitle("로그인", for: UIControlState())
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor.white, for: UIControlState())
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.setTitleColor(UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0), for: UIControlState())
+        button.titleLabel?.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 16.5)
         button.layer.cornerRadius = 10; // this value vary as per your desire
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
@@ -165,10 +163,10 @@ class MainViewController: UIViewController {
     //가입 버튼
     let signButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("처음이세요? 가입하러가기", for: UIControlState())
-      
+        button.setTitle("처음이세요? 간편가입하러가기", for: UIControlState())
+      button.titleLabel?.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 12.5)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
+        button.tintColor = .black
         button.addTarget(self, action: #selector(signAction), for: .touchUpInside)
         return button
     }()
@@ -204,7 +202,7 @@ class MainViewController: UIViewController {
         //바탕화면 누르면 키보드 숨기기
         hideKeyboard()
         self.view.backgroundColor = UIColor.white
-        view.addSubview(mainTitle)
+        //view.addSubview(mainTitle)
         view.addSubview(imageView)
         view.addSubview(emailTextField)
         view.addSubview(passwordTextField)
@@ -254,12 +252,12 @@ class MainViewController: UIViewController {
     
     func setLayout(){
         
-        mainTitle.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100).isActive = true
-        mainTitle.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        //mainTitle.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100).isActive = true
+       // mainTitle.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
     
-        imageView.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: 30).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: mainTitle.leadingAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: mainTitle.trailingAnchor).isActive = true
+        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 80).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         emailTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30).isActive = true
         emailTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
@@ -284,13 +282,14 @@ class MainViewController: UIViewController {
         
         loginButton.topAnchor.constraint(equalTo: passwordSeperatorView.bottomAnchor, constant:30).isActive = true
         loginButton.leadingAnchor.constraint(equalTo: passwordSeperatorView.leadingAnchor).isActive = true
-        loginButton.widthAnchor.constraint(equalTo: passwordSeperatorView.widthAnchor).isActive = true
+        loginButton.trailingAnchor.constraint(equalTo: passwordSeperatorView.trailingAnchor).isActive = true
+        loginButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
         loginButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         signButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant:30).isActive = true
         signButton.leadingAnchor.constraint(equalTo: loginButton.leadingAnchor).isActive = true
         signButton.widthAnchor.constraint(equalTo: loginButton.widthAnchor).isActive = true
-        signButton.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        signButton.heightAnchor.constraint(equalToConstant: 15).isActive = true
         
         
     }

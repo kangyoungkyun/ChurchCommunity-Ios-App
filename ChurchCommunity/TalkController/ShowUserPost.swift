@@ -42,7 +42,7 @@
         var activityIndicatorView: UIActivityIndicatorView!
         
         //글쓰기 플로팅 버튼
-        lazy var writeButton: UIButton = {
+       /* lazy var writeButton: UIButton = {
             let button = UIButton(type: .system)
             button.layer.borderColor = UIColor.lightGray.cgColor
             button.layer.borderWidth = 0.8
@@ -54,7 +54,7 @@
             button.setBackgroundImage(#imageLiteral(resourceName: "pencil.png"), for: UIControlState())
             button.addTarget(self, action: #selector(writeActionFlotingButton), for: .touchUpInside)
             return button
-        }()
+        }()*/
         
         @objc func writeActionFlotingButton(){
             print("바탕화면에서 글쓰기 버튼 클릭!")
@@ -152,6 +152,7 @@
         
         
         //탭바 스크롤 하면 숨기기
+        /*
         override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
             if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
                 changeTabBar(hidden: true, animated: true)
@@ -174,7 +175,7 @@
             }, completion: { (true) in
                 tabBar.isHidden = hidden
             })
-        }
+        }*/
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -211,23 +212,29 @@
             
             searchPosts.removeAll()
             //searchController.searchBar.delegate = self
-            
-            //네비게이션 바 색깔 변경
-            self.navigationController?.navigationBar.barTintColor = .lightGray
+
             self.navigationController?.navigationBar.isTranslucent = false
-            
-            
             navigationController?.navigationBar.prefersLargeTitles = false
             //navigationItem.searchController = searchController
             
             
             // self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "글쓰기", style: .plain, target: self, action:  #selector(writeAction))
             
+            self.view.backgroundColor = UIColor.white
+            
             //네비게이션 바 버튼 아이템 글꼴 바꾸기
             self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([
                 NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14.0)!,
                 NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
             
+            //네비게이션 바 버튼 아이템 글꼴 바꾸기
+            self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([
+                NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14.0)!,
+                NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
+            
+            
+            //취소 바 버튼
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "뒤로", style: .plain, target: self, action: #selector(goTalkViewController))
             
             tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
             tableView.showsHorizontalScrollIndicator = false
@@ -241,15 +248,20 @@
             
             tableView.rowHeight = UITableViewAutomaticDimension
             tableView.estimatedRowHeight = 140
-            tableView.addSubview(writeButton)
+            //tableView.addSubview(writeButton)
+        }
+        
+        @objc func goTalkViewController(){
+            self.dismiss(animated: true, completion: nil)
         }
         
         
         //글쓰기 플로팅 버튼 함수
+        /*
         override func scrollViewDidScroll(_ scrollView: UIScrollView) {
             let  off = self.tableView.contentOffset.y
             writeButton.frame = CGRect(x: view.frame.width - 60, y: off + (view.frame.height - 135), width: writeButton.frame.size.width, height: writeButton.frame.size.height)
-        }
+        }*/
         
         override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             return UITableViewAutomaticDimension
@@ -331,9 +343,9 @@
             cell?.showOrNotButton.setTitle(posts[indexPath.row].show, for: UIControlState())
             
             if(posts[indexPath.row].blessCount == nil){
-                cell?.likesLabel.text = "0 명"
+                cell?.likesLabel.text = "0"
             }else{
-                cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!) 명"
+                cell?.likesLabel.text = "\(posts[indexPath.row].blessCount!)"
             }
             
             /*if(searchController.isActive && searchController.searchBar.text != ""){
@@ -445,9 +457,7 @@
             }
             
             //없으면 임시글 넣어주기
-            
-            
-            
+
             ref.child("posts").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
                 self.posts.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
                 for child in snapshot.children{

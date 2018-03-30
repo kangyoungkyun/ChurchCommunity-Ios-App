@@ -32,23 +32,57 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
         let twoDimenstionArray = [
                 ["공지사항","이용안내","버전정보","오픈소스"],
                 ["로그아웃"],
-                ["개발자에게"]
+                ["문의사항"]
             ]
     
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 17.0
+        
+        let headerHeight: CGFloat
+        
+        switch section {
+        case 0:
+            headerHeight = CGFloat.leastNonzeroMagnitude
+        default:
+            headerHeight = 10.0
+        }
+        
+        return headerHeight
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = tableViewFooterV
-        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+        tableView.tableHeaderView = tableViewFooterV
 
         self.navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.prefersLargeTitles = false
-        let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
-        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
         self.navigationItem.title = "더보기"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
+        
+        self.view.backgroundColor = UIColor.white
+        
+        
+        //네비게이션 바 타이틀 폰트 바꾸기
+        self.navigationController?.navigationBar.titleTextAttributes =
+            [NSAttributedStringKey.foregroundColor: UIColor.lightGray,
+             NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5)!]
+        
+        let navigationTitleFont = UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5)!
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: navigationTitleFont]
+        
+        //네비게이션 바 버튼 아이템 글꼴 바꾸기
+        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([
+            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5)!,
+            NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
+        
+        self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([
+            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5)!,
+            NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
+        
         //firebase 데이터 베이스 초기화
         ref = Database.database().reference()
     }
@@ -64,6 +98,7 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
         //공지사항
         if(section == 0 && row == 0){
            
+            
             ref.child("more").child("notice").observe(.value, with: { (snapshot) in
                 let childSnapshot = snapshot //자식 DataSnapshot 가져오기
                 let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
@@ -148,7 +183,7 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
                 print ("Error signing out: %@", signOutError)
             }
         }else if (section == 2 && row == 0){
-            print("개발자에게")
+            print("문의사항")
             
             let mailComposeViewController = configuredMailComposeViewController()
             if MFMailComposeViewController.canSendMail(){
@@ -180,16 +215,15 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
                 cell.textLabel?.text = name
                 cell.textLabel?.text = "\(name)"
                 cell.textLabel?.textAlignment = .center
-                cell.textLabel?.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
-
-                cell.textLabel?.font = UIFont.systemFont(ofSize: 17)
+                cell.textLabel?.textColor = .lightGray
+                cell.textLabel?.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 16.5)
         
         return cell
     }
  
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
     }
 
     

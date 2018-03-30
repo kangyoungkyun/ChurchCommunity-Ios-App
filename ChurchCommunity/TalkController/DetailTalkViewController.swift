@@ -61,7 +61,7 @@ class DetailTalkViewController: UIViewController {
                 replyHitLabel.text = "\(replyNum) 개 댓글"
                 //replyLine.text = "  \(replyNum)  댓글"
             }
-            
+            likesLabel.text = onePost?.blessCount
             uidLabel.text = onePost?.uid
             showOrNotButton.setTitle(onePost?.show, for: UIControlState())
         }
@@ -82,7 +82,7 @@ class DetailTalkViewController: UIViewController {
     let replyImage: UIButton = {
         let starButton = UIButton(type: .system)
         starButton.isHidden = true
-        starButton.setImage(#imageLiteral(resourceName: "ic_comment.png"), for: .normal)
+       // starButton.setImage(#imageLiteral(resourceName: "ic_comment.png"), for: .normal)
         starButton.tintColor = UIColor.lightGray
         starButton.translatesAutoresizingMaskIntoConstraints = false
         return starButton
@@ -129,10 +129,10 @@ class DetailTalkViewController: UIViewController {
     //likes
     var likesLabel: UILabel = {
         let label = UILabel()
-        label.isHidden = true
-        label.text = "잘읽었어요"
-        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 12.5)
-        label.textColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
+        //label.isHidden = true
+        label.text = "0"
+        label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 8.5)
+        label.textColor = .lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -184,6 +184,7 @@ class DetailTalkViewController: UIViewController {
             viewController.userId = uidLabel.text
             viewController.userName = nameLabel.text
             let navController = UINavigationController(rootViewController: viewController)
+             //self.navigationController?.pushViewController(navController, animated: true)
             self.present(navController, animated: true, completion: nil)
         }
         
@@ -252,7 +253,8 @@ class DetailTalkViewController: UIViewController {
     // =====================      진입점        =================================
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "일기보기"
+        //self.navigationItem.title = "\(String(describing: nameLabel.text!))의 시"
+        
         //취소 바 버튼
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "뒤로", style: .plain, target: self, action: #selector(goTalkViewController))
         //로그인 한 유저의. id와 지금 쓴글의 사람의 uid와 같으면 오른쪽 설정바 보이게
@@ -269,8 +271,6 @@ class DetailTalkViewController: UIViewController {
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         
         
-        self.navigationItem.title = ""
-        
         //네비게이션 바 타이틀 폰트 바꾸기
         self.navigationController?.navigationBar.titleTextAttributes =
             [NSAttributedStringKey.foregroundColor: UIColor.lightGray,
@@ -279,13 +279,12 @@ class DetailTalkViewController: UIViewController {
         
         //네비게이션 바 버튼 아이템 글꼴 바꾸기
         self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([
-            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 13.0)!,
+            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14)!,
             NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
         
         self.navigationItem.leftBarButtonItem?.setTitleTextAttributes([
-            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 13.0)!,
+            NSAttributedStringKey.font: UIFont(name: "NanumMyeongjo-YetHangul", size: 14)!,
             NSAttributedStringKey.foregroundColor: UIColor.lightGray], for: UIControlState())
-        
         
         hideKeyboard()
         setLayout()
@@ -348,8 +347,8 @@ class DetailTalkViewController: UIViewController {
         
         view.addSubview(uiScrollView)
         uiScrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        uiScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        uiScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        uiScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 40).isActive = true
+        uiScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -40).isActive = true
         uiScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         
@@ -368,14 +367,14 @@ class DetailTalkViewController: UIViewController {
 
         myView.addSubview(dateLabel)
         
-        dateLabel.topAnchor.constraint(equalTo: myView.topAnchor,constant: 130).isActive = true
+        dateLabel.topAnchor.constraint(equalTo: myView.topAnchor,constant: 120).isActive = true
         dateLabel.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
         
         
         myView.addSubview(txtLabel)
         txtLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor,constant: 45).isActive = true
-        txtLabel.leadingAnchor.constraint(equalTo: myView.leadingAnchor,constant: 35).isActive = true
-        txtLabel.trailingAnchor.constraint(equalTo: myView.trailingAnchor,constant: -35).isActive = true
+        txtLabel.leadingAnchor.constraint(equalTo: myView.leadingAnchor,constant: 30).isActive = true
+        txtLabel.trailingAnchor.constraint(equalTo: myView.trailingAnchor,constant: -30).isActive = true
         //txtLabel.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 0).isActive = true
         //txtLabel.heightAnchor.constraint(equalTo: myView.heightAnchor).isActive = true
         
@@ -386,26 +385,30 @@ class DetailTalkViewController: UIViewController {
         
         
         myView.addSubview(likeButton)
-        likeButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 35).isActive = true
+        likeButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 45).isActive = true
         likeButton.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
-        likeButton.widthAnchor.constraint(equalToConstant: 18).isActive = true
-        likeButton.heightAnchor.constraint(equalToConstant: 18).isActive = true
+        likeButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        likeButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         //likeButton.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant:-45).isActive = true
         
         
-        myView.addSubview(showOrNotButton)
-        showOrNotButton.topAnchor.constraint(equalTo: likeButton.bottomAnchor, constant: 20).isActive = true
-        showOrNotButton.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
-        showOrNotButton.heightAnchor.constraint(equalToConstant: 12).isActive = true
-        showOrNotButton.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant:-50).isActive = true
+        myView.addSubview(likesLabel)
+        likesLabel.topAnchor.constraint(equalTo: likeButton.bottomAnchor, constant: 5).isActive = true
+        likesLabel.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
+        //likesLabel.heightAnchor.constraint(equalToConstant: 12).isActive = true
+        //likesLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant:-50).isActive = true
+        likesLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant:-90).isActive = true
         
+        //myView.addSubview(showOrNotButton)
+        //showOrNotButton.topAnchor.constraint(equalTo: likesLabel.bottomAnchor, constant: 20).isActive = true
+        //showOrNotButton.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
+        //showOrNotButton.heightAnchor.constraint(equalToConstant: 12).isActive = true
+        //showOrNotButton.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant:-80).isActive = true
+        
+     
+
+         
         /*
-         //likesLabel.leadingAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 2).isActive = true
-         //likesLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
-         //likesLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-         //likesLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:-100).isActive = true
-         
-         
          // seeImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80).isActive = true
          //seeImage.widthAnchor.constraint(equalToConstant: 30).isActive = true
          // seeImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
