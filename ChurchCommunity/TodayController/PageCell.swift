@@ -27,6 +27,7 @@ class PageCell: UICollectionViewCell {
             }else if(itemCheck == 2){
                 writeButton.isHidden = true
                 writeButton.isEnabled = false
+               
             }
             
             //언래핑:널값을 안전하게 처리하기 위해서 언래핑 해준다.
@@ -90,6 +91,16 @@ class PageCell: UICollectionViewCell {
         return lable
     }()
     
+    let pageLable: UILabel = {
+        let lable = UILabel()
+        lable.translatesAutoresizingMaskIntoConstraints = false
+        lable.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 10.5)
+        lable.textColor = UIColor.lightGray
+        lable.adjustsFontSizeToFitWidth=true
+        lable.minimumScaleFactor=0.5;
+        return lable
+    }()
+    
     ////클로저 기능으로 textView객체 만들어주기(내부에서 속성정의)
     let myTextView: UITextView = {
         let textView = UITextView()
@@ -137,6 +148,12 @@ class PageCell: UICollectionViewCell {
        lookButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         lookButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         lookButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        addSubview(pageLable)
+        pageLable.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30).isActive = true
+        pageLable.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        //pageLable.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        //pageLable.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

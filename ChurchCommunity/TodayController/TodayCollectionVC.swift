@@ -53,11 +53,13 @@ class TodayCollectionVC: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     
-    let pages = [
-        Page(imageName: "mypic1", headerText: "피난처", bodyText: ""),
-        Page(imageName: "mypic2", headerText: "", bodyText: "주님 나를 도와주세요\n아무것도 모르고\n아무것도 못해요\n내 생명이 항상 위험하지만\n주님은 나의 피난처에요\n주님 나를 도와주세요.\n\n <도움/송현숙>"),
-        Page(imageName: "mypic3", headerText: "일상\n시편", bodyText: "")
-    ]
+//    let pages = [
+//        Page(headerText: "피난처", bodyText: ""),
+//        Page(headerText: "", bodyText: "주님 나를 도와주세요\n아무것도 모르고\n아무것도 못해요\n내 생명이 항상 위험하지만\n주님은 나의 피난처에요\n주님 나를 도와주세요.\n\n <도움/송현숙>"),
+//        Page(headerText: "일일\n묵상", bodyText: "")
+//    ]
+    
+    var pages = [Page]()
     
     //페이지 컨트롤러
     lazy var pageControl: UIPageControl = {
@@ -66,7 +68,7 @@ class TodayCollectionVC: UICollectionViewController, UICollectionViewDelegateFlo
         pc.currentPage = 0
         pc.numberOfPages = pages.count
         pc.currentPageIndicatorTintColor = .black
-        pc.pageIndicatorTintColor = UIColor.darkGray
+        pc.pageIndicatorTintColor = UIColor.white
         return pc
     }()
     
@@ -94,8 +96,9 @@ class TodayCollectionVC: UICollectionViewController, UICollectionViewDelegateFlo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //SwipingController 객체를 생성하고 최상위 뷰로 설정
         setupBottomControls()
+        //SwipingController 객체를 생성하고 최상위 뷰로 설정
+        
         //배경색을 흰색
         collectionView?.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
 
@@ -108,8 +111,12 @@ class TodayCollectionVC: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView?.isPagingEnabled = true
         
         getSingle()
+        
+        setData()
+        
+        
     }
-
+    var todateCheck = ""
     var todate = ""
     //현재 날짜 한글
     func getSingle(){
@@ -120,10 +127,46 @@ class TodayCollectionVC: UICollectionViewController, UICollectionViewDelegateFlo
         let day = calendar.component(.day, from: date)      //일
         
         todate = "\(year)년 \(month)월 \(day)일,"
-        
+        todateCheck = "\(year)\(month)\(day)"
     }
 
+    
+    func setData(){
+        
+         let ref = Database.database().reference()
+        print("check date ===" , todateCheck)
+        ref.child("front").child(todateCheck).observe(.value) { (snapshot) in
+            
+            for child in snapshot.children{
+               
+                let childSnapshot = child as! DataSnapshot //자식 DataSnapshot 가져오기
+                let childValue = childSnapshot.value as! [String:Any] //자식의 value 값 가져오기
+                var pasge = Page(headerText: "", bodyText: "")
+                print("childvalue: ",childValue)
+                
+                if let a = childValue["a"]{
+                    print("a : ", a)
+                    pasge = Page(headerText: a as! String, bodyText: "")
+                }else if let b = childValue["b"]{
+                    pasge = Page(headerText: "" , bodyText: b as! String)
+                }
+            
+                self.pages.insert(pasge, at: 0)
+        }
+            self.collectionView?.reloadData()
+            
+    }
+        ref.removeAllObservers()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+      
+    }
   
+    override func viewDidLayoutSubviews() {
+          self.setupBottomControls()
+    }
     //스택뷰 객세 생성과 위치 설정 함수
     fileprivate func setupBottomControls() {
         

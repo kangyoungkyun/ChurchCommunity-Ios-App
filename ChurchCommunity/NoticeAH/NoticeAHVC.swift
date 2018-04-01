@@ -435,7 +435,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         var showPostCount = 0
         let myId = Auth.auth().currentUser?.uid
         let myName = Auth.auth().currentUser?.displayName
-        self.nameLable.text = "\(myName!)의 시편"
+        self.nameLable.text = "\(myName!)의 묵상"
         print("start showPost")
         let ref = Database.database().reference()
         

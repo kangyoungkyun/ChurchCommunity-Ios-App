@@ -32,17 +32,20 @@ extension TodayCollectionVC{
             let page = pages[0]
             cell.itemCheck = 0
             cell.page = page
-            cell.dateLable.text = todate + "일상"
+            cell.dateLable.text = todate + "주제"
+             cell.pageLable.text = "1/3 page"
         }else if(indexPath.item == 1){
              let page = pages[1]
              cell.itemCheck = 1
             cell.page = page
-            cell.dateLable.text = todate + "시편"
+            cell.dateLable.text = todate + "묵상"
+           cell.pageLable.text = "2/3 page"
         }else if(indexPath.item == 2){
              let page = pages[2]
              cell.itemCheck = 2
             cell.page = page
             cell.dateLable.text = ""
+            cell.pageLable.text = "3/3 page"
         }
         
         return cell

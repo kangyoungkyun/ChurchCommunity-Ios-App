@@ -11,7 +11,7 @@ import Firebase
 class WriteViewController: UIViewController,UITextViewDelegate {
     var placeholderLabel : UILabel = {
         let ph = UILabel()
-        ph.text = "당신의 생각을 들려주세요. "
+        ph.text = "일상에서 당신의 묵상을 들려주세요. "
         ph.sizeToFit()
         ph.numberOfLines = 2
         ph.minimumScaleFactor = 10
@@ -99,7 +99,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
                     }
                 }
             }
-            self.navigationItem.title = "시편 \(allCount + 1)편"
+            self.navigationItem.title = "묵상 \(allCount + 1)편"
             allCount = 0
         }
          ref.removeAllObservers()

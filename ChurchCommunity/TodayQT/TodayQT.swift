@@ -1,14 +1,7 @@
-//
-//  TalkTableViewController.swift
-//  ChurchCommunity
-//
-//  Created by MacBookPro on 2018. 3. 12..
-//  Copyright © 2018년 MacBookPro. All rights reserved.
-//
 
 import UIKit
 import Firebase
-class TalkViewController: UITableViewController,UISearchBarDelegate {
+class TodayQT: UITableViewController,UISearchBarDelegate {
     var activityIndicatorView: UIActivityIndicatorView!
     //테이블 뷰 셀에서 이름이 클릭되었을 때
     func userClickCell(uid: String) {
@@ -44,7 +37,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     var todayPostsCountLable: UILabel = {
         let label = UILabel()
-        label.text = "사람들의 묵상글"
+        label.text = "오늘의 묵상글"
         label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 21.5)
         label.textColor = UIColor.black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +54,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.lineBreakMode = .byWordWrapping
         //라벨 줄 간격
-        let attributedString = NSMutableAttributedString(string: "하나님은 우리의 피난처시요 힘이시니\n환난 중에 만날 큰 도움이시라.")
+        let attributedString = NSMutableAttributedString(string: "삼가 말씀에 주의하는 자는 좋은 것을 얻나니\n여호와를 의지하는 자가 복이 있느니라.")
         // *** Create instance of `NSMutableParagraphStyle`
         let paragraphStyle = NSMutableParagraphStyle()
         // *** set LineSpacing property in points ***
@@ -78,7 +71,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     //글 개수 / 공개개수
     var countLable: UILabel = {
         let label = UILabel()
-        label.text = "오늘 작성된 묵상글/   편"
+        label.text = "오늘 작성된 묵상/   편"
         label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 11.5)
         label.textColor = UIColor.lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -91,60 +84,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         return header
     }()
     
-    /*
-    //글쓰기 플로팅 버튼
-    lazy var writeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.layer.borderColor = UIColor.lightGray.cgColor
-        button.layer.borderWidth = 0.8
-        //button.setImage(#imageLiteral(resourceName: "pencil.png"), for: UIControlState())
-        button.frame = CGRect(x: view.frame.width - 60, y: view.frame.height - 90 , width: 45, height: 45)
-        button.layer.cornerRadius = button.frame.width/2
-        button.clipsToBounds = true
-        button.layer.masksToBounds = true
-        button.setBackgroundImage(#imageLiteral(resourceName: "pencil.png"), for: UIControlState())
-        button.addTarget(self, action: #selector(writeAction), for: .touchUpInside)
-        return button
-    }()
-    
-    @objc func writeAction(){
-        print("바탕화면에서 글쓰기 버튼 클릭!")
-        let writeView = WriteViewController()
-        //글쓰기 화면을 rootView로 만들어 주기
-        let navController = UINavigationController(rootViewController: writeView)
-        self.present(navController, animated: true, completion: nil)
-    }*/
-    
-    //탭바 스크롤 하면 숨기기
-    /*
-    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
-            changeTabBar(hidden: true, animated: true)
-        }
-        else{
-            changeTabBar(hidden: false, animated: true)
-        }
-    }
-    
-    func changeTabBar(hidden:Bool, animated: Bool){
-        print("changeTabbar")
-        guard let tabBar = self.tabBarController?.tabBar else { return; }
-        if tabBar.isHidden == hidden{ return }
-        let frame = tabBar.frame
-        let offset = hidden ? frame.size.height : -frame.size.height
-        let duration:TimeInterval = (animated ? 0.5 : 0.0)
-        tabBar.isHidden = false
-        
-        UIView.animate(withDuration: duration, animations: {
-            tabBar.frame = frame.offsetBy(dx: 0, dy: offset)
-        }, completion: { (true) in
-            tabBar.isHidden = hidden
-        })
-    }
-    */
-    //override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-     //   cell.backgroundColor = UIColor.white
-   // }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -202,17 +142,10 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
         
-        //테이블 뷰에 플로팅 버튼 추가
-        //tableView.addSubview(writeButton)
         
         
         
     }
-    //플로팅 버튼 관련 함수
-   /* override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let  off = self.tableView.contentOffset.y
-        writeButton.frame = CGRect(x: view.frame.width - 60, y: off + (view.frame.height - 135), width: writeButton.frame.size.width, height: writeButton.frame.size.height)
-    }*/
     
     //동적 테이블 함수
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -237,7 +170,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     //테이블 뷰 셀의 구성 및 데이터 할당 부분
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TalkCell
         //cell?.delegate = self
         //let screenSize = UIScreen.main.bounds
@@ -331,6 +264,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     func showPost(){
         var todayPost = 0
         let ref = Database.database().reference()
+        //T9Hfsjqphlhj2P9Fwp5T2xpLK9A3
         ref.child("posts").queryOrdered(byChild: "date").observe(.value) { (snapshot) in
             self.posts.removeAll() //배열을 안지워 주면 계속 중복해서 쌓이게 된다.
             for child in snapshot.children{
@@ -355,10 +289,10 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
                         print("오늘 작성된 시편의 개수는?  \(todayPost) ")
                     }
                     //공개를 허용한 글만 담벼락에 보이기
-                    if (show as? String == "y"){
+                    if (uid as? String == "i1OyLDOK7zLC6mSt20qOz7vtTQv2"){
                         ref.child("bless").observe(.value, with: { (snapshot) in
                             for (childs ) in snapshot.children{
-
+                                
                                 let childSnapshot = childs as! DataSnapshot
                                 let key = childSnapshot.key
                                 let val = childSnapshot.value as! [String:Any]
@@ -381,7 +315,8 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
                             postToShow.date = dateString
                         }
                         
-                        postToShow.name = name as! String
+                        postToShow.name = ""
+                        //postToShow.name = name as! String
                         postToShow.hit = String(describing: hit)
                         postToShow.pid = pid as! String
                         postToShow.text = text as! String
@@ -393,10 +328,10 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
                     
                 }
             }
-             todayPost = 0
+            todayPost = 0
             print("초기화 됐나요1? \(todayPost)")
         }
-      //print("초기화 됐나요2? \(todayPost)")
+        //print("초기화 됐나요2? \(todayPost)")
         ref.removeAllObservers()
         //print("초기화 됐나요3? \(todayPost)")
     }
