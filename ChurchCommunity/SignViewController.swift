@@ -19,13 +19,16 @@ class SignViewController: UIViewController {
 //        return title
 //    }()
 //
-    //이미지 뷰
-    let imageView: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "login1.png")
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.contentMode = .scaleAspectFit
-        return image
+    let imageView: UILabel = {
+        let lable = UILabel()
+        lable.translatesAutoresizingMaskIntoConstraints = false
+        lable.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 32.0)
+        lable.textColor = .white
+        lable.adjustsFontSizeToFitWidth=true
+        lable.text = "일일\n묵상"
+        lable.numberOfLines = 2
+        lable.minimumScaleFactor=0.5;
+        return lable
     }()
     
     //이름 필드
@@ -80,7 +83,7 @@ class SignViewController: UIViewController {
         return password
     }()
     
-    //이메일 구분선 만들기
+    //비밀번호 구분선 만들기
     let passwordSeperatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
@@ -91,10 +94,10 @@ class SignViewController: UIViewController {
     //버튼
     let signButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = .lightGray
-        button.setTitle("시작", for: UIControlState())
+        button.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.95, alpha:1.0)
+        button.setTitle("시작하기", for: UIControlState())
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0), for: UIControlState())
+        button.setTitleColor(.black, for: UIControlState())
         button.titleLabel?.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 16.5)
         button.layer.cornerRadius = 10; // this value vary as per your desire
         button.clipsToBounds = true
@@ -197,7 +200,7 @@ class SignViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("닫기", for: UIControlState())
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .black
+        button.tintColor = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0)
         button.titleLabel?.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 12.5)
         button.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
         return button
@@ -230,6 +233,8 @@ class SignViewController: UIViewController {
         setLayout()
         //로그인 상태 체크
         sessionCheck()
+        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named:"bac2.jpg")!)
     }
     
     //로그인 상태 체크
@@ -253,14 +258,12 @@ class SignViewController: UIViewController {
     //레이아웃 셋팅
     func setLayout(){
         
-        //mainTitle.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100).isActive = true
-        //mainTitle.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+
         
         imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 80).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        nameTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30).isActive = true
+        nameTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 50).isActive = true
         nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
         nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
         nameTextField.widthAnchor.constraint(equalToConstant: 300).isActive = true

@@ -98,8 +98,8 @@ class ShowUserPostsVC: UITableViewController,UISearchBarDelegate  {
         let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         self.navigationItem.title = "글모음"
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.searchController = searchController
+        //navigationController?.navigationBar.prefersLargeTitles = false
+       // navigationItem.searchController = searchController
         
 
         tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)

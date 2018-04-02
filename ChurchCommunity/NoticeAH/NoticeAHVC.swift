@@ -39,6 +39,24 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
     
     var activityIndicatorView: UIActivityIndicatorView!
     
+    //테이블 뷰 당기면 리프레쉬
+    lazy var freshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor(red:0.59, green:0.28, blue:0.27, alpha:1.0)
+        
+        return refreshControl
+    }()
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.tableView.reloadData()
+        freshControl.endRefreshing()
+    }
+    
+    
+    
     //글쓰기 플로팅 버튼
     lazy var writeButton: UIButton = {
         let button = UIButton(type: .system)
@@ -66,7 +84,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         let label = UILabel()
         label.text = ""
         label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 21.5)
-        label.textColor = UIColor.black
+        label.textColor = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -142,7 +160,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
     
     let headerView : UIView = {
         let header = UIView()
-        header.backgroundColor = UIColor.white
+        header.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         return header
     }()
     
@@ -190,9 +208,12 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height:220)
         tableView.tableHeaderView = headerView
         
+        tableView.addSubview(freshControl)
+        
         setHeaderViewLayout()
         
-        tableView.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
+        tableView.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
+
         activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(activityIndicatorView)
@@ -220,11 +241,13 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         searchPosts.removeAll()
         //searchController.searchBar.delegate = self
         
-        tableView.backgroundColor = .white
-        tableView.backgroundView?.backgroundColor = .white
+        tableView.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
+
+        tableView.backgroundView?.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
+
 
         self.navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.prefersLargeTitles = false
+        //navigationController?.navigationBar.prefersLargeTitles = false
         //navigationItem.searchController = searchController
         
         
@@ -243,7 +266,7 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
         tableView.showsVerticalScrollIndicator = false
         
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         
@@ -303,8 +326,32 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    
+        if posts.count > 0 {
+        
+            return 1
+        }
+        
+        let rect = CGRect(x: 0,
+                          y: 0,
+                          width: self.tableView.bounds.size.width,
+                          height: self.tableView.bounds.size.height)
+        let noDataLabel: UILabel = UILabel(frame: rect)
+        noDataLabel.text = "오늘하루 말씀을 묵상하는 가운데\n떠오르는 생각을 기록해보세요."
+        noDataLabel.numberOfLines = 2
+        noDataLabel.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5)
+        noDataLabel.textColor = UIColor.lightGray
+        noDataLabel.textAlignment = NSTextAlignment.center
+        self.tableView.backgroundView = noDataLabel
+        self.tableView.separatorStyle = .none
+        
+        return 0
+        
     }
+    
+    
+    
+    
     //행 개수
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         /* if(searchController.isActive && searchController.searchBar.text != ""){
@@ -326,8 +373,10 @@ class NoticeAHVC: UITableViewController,UISearchBarDelegate {
        // let buttonTitleStr = NSMutableAttributedString(string:"\(posts[indexPath.row].show!)", attributes:attrs)
        // attributedString.append(buttonTitleStr)
         //cell?.show.setAttributedTitle(attributedString, for: .normal)
+
         
-        
+        cell?.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
+        cell?.containerView.backgroundColor = .white
         
         cell?.txtLabel.text = posts[indexPath.row].text
         cell?.txtLabel.setLineSpacing(lineSpacing: 7)

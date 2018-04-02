@@ -42,11 +42,28 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     //        self.tableView.reloadData()
     //    }
     
+    //테이블 뷰 당기면 리프레쉬
+    lazy var freshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor(red:0.59, green:0.28, blue:0.27, alpha:1.0)
+        
+        return refreshControl
+    }()
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.tableView.reloadData()
+        freshControl.endRefreshing()
+    }
+    
+    
     var todayPostsCountLable: UILabel = {
         let label = UILabel()
         label.text = "사람들의 묵상글"
         label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 21.5)
-        label.textColor = UIColor.black
+        label.textColor = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -87,7 +104,7 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     let headerView : UIView = {
         let header = UIView()
-        header.backgroundColor = UIColor.white
+        header.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         return header
     }()
     
@@ -151,6 +168,8 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         //오늘 날짜 체크
         getSingle()
         
+        tableView.addSubview(freshControl)
+        
         //테이블 뷰 헤더 지정
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height:220)
         tableView.tableHeaderView = headerView
@@ -180,18 +199,18 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         //searchController.searchBar.delegate = self
         
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = .white
+ 
         self.navigationController?.navigationBar.isTranslucent = false
         
         
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         
         //테이블 배경 및 뒷배경 흰색 지정
-        tableView.backgroundColor = .white
-        tableView.backgroundView?.backgroundColor = .white
+        tableView.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
+        tableView.backgroundView?.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         
         //테이블 셀 등록 및 표시줄 제거
         tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
@@ -225,8 +244,27 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if posts.count > 0 {
+            
+            return 1
+        }
+        
+        let rect = CGRect(x: 0,
+                          y: 0,
+                          width: self.tableView.bounds.size.width,
+                          height: self.tableView.bounds.size.height)
+        let noDataLabel: UILabel = UILabel(frame: rect)
+        noDataLabel.text = "우리가 하나되어 함께 함이\n어찌 그리 선하고 아름다운지요"
+        noDataLabel.numberOfLines = 2
+        noDataLabel.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5)
+        noDataLabel.textColor = UIColor.lightGray
+        noDataLabel.textAlignment = NSTextAlignment.center
+        self.tableView.backgroundView = noDataLabel
+        self.tableView.separatorStyle = .none
+        
+        return 0
     }
+    
     //행 개수
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //        if(searchController.isActive && searchController.searchBar.text != ""){
@@ -246,7 +284,9 @@ class TalkViewController: UITableViewController,UISearchBarDelegate {
         // additionalSeparator.backgroundColor = UIColor(red:0.37, green:0.51, blue:0.71, alpha:1.0)
         
         //cell?.addSubview(additionalSeparator)
-        
+        cell?.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
+        cell?.containerView.backgroundColor = .white
+
         cell?.txtLabel.text = posts[indexPath.row].text
         cell?.txtLabel.setLineSpacing(lineSpacing: 7)
         cell?.txtLabel.textAlignment = .center

@@ -67,7 +67,7 @@ class TodayCollectionVC: UICollectionViewController, UICollectionViewDelegateFlo
         pc.translatesAutoresizingMaskIntoConstraints = false
         pc.currentPage = 0
         pc.numberOfPages = pages.count
-        pc.currentPageIndicatorTintColor = .black
+        pc.currentPageIndicatorTintColor = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0)
         pc.pageIndicatorTintColor = UIColor.white
         return pc
     }()
@@ -183,9 +183,9 @@ class TodayCollectionVC: UICollectionViewController, UICollectionViewDelegateFlo
         
         //스택뷰 위치 지정해주기
         NSLayoutConstraint.activate([
-            bottomControlsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            bottomControlsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            bottomControlsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            bottomControlsStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bottomControlsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomControlsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             bottomControlsStackView.heightAnchor.constraint(equalToConstant: 50)
             ])
     }

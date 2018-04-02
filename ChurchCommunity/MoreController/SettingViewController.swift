@@ -44,7 +44,7 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
         case 0:
             headerHeight = CGFloat.leastNonzeroMagnitude
         default:
-            headerHeight = 10.0
+            headerHeight = 5.0
         }
         
         return headerHeight
@@ -57,7 +57,7 @@ class SettingViewController: UITableViewController, MFMailComposeViewControllerD
         tableView.tableHeaderView = tableViewFooterV
 
         self.navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.prefersLargeTitles = false
+        //navigationController?.navigationBar.prefersLargeTitles = false
         
         self.navigationItem.title = "더보기"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")

@@ -20,7 +20,7 @@ class MoreReplyTableViewController: UITableViewController {
         
 fetchReply()
         self.navigationItem.title = "글목록"
-        navigationController?.navigationBar.prefersLargeTitles = false
+        ////navigationController?.navigationBar.prefersLargeTitles = false
         tableView.register(MoreReplyCell.self, forCellReuseIdentifier: cellId)
         self.tableView.estimatedRowHeight = 80
         self.tableView.rowHeight = UITableViewAutomaticDimension

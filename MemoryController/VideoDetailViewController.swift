@@ -98,7 +98,7 @@ class VideoDetailViewController: UIViewController {
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
 
         self.navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.prefersLargeTitles = false
+        //navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationItem.title = "영상방"
         view.addSubview(myView)
         view.addSubview(titleLable)

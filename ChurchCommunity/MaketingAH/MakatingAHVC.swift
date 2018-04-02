@@ -86,8 +86,8 @@ class MakatingAHVC: UITableViewController,UISearchBarDelegate {
         let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         self.navigationItem.title = "동네홍보"
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.searchController = searchController
+        //navigationController?.navigationBar.prefersLargeTitles = false
+        //navigationItem.searchController = searchController
         
         
         

@@ -84,7 +84,7 @@ class PageCell: UICollectionViewCell {
     let dateLable: UILabel = {
         let lable = UILabel()
         lable.translatesAutoresizingMaskIntoConstraints = false
-       lable.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 13.5)
+       lable.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 14.0)
         lable.textColor = UIColor.lightGray
         lable.adjustsFontSizeToFitWidth=true
         lable.minimumScaleFactor=0.5;
@@ -94,7 +94,7 @@ class PageCell: UICollectionViewCell {
     let pageLable: UILabel = {
         let lable = UILabel()
         lable.translatesAutoresizingMaskIntoConstraints = false
-        lable.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 10.5)
+        lable.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 11.5)
         lable.textColor = UIColor.lightGray
         lable.adjustsFontSizeToFitWidth=true
         lable.minimumScaleFactor=0.5;

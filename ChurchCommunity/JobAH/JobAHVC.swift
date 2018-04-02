@@ -86,8 +86,8 @@ class JobAHVC: UITableViewController ,UISearchBarDelegate{
         let textAttributes = [NSAttributedStringKey.foregroundColor:UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         self.navigationItem.title = "동네구인"
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.searchController = searchController
+        //navigationController?.navigationBar.prefersLargeTitles = false
+        //navigationItem.searchController = searchController
         
         
         if let currentEmail = Auth.auth().currentUser?.email {

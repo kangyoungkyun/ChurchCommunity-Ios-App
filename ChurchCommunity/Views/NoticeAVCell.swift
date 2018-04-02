@@ -177,10 +177,10 @@ class NoticeAVCell: UITableViewCell {
     
     func setLayout(){
         
-        containerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 3).isActive = true
+        containerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
         containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
         containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -3).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
         
         
         containerView.addSubview(uidLabel)

@@ -34,10 +34,10 @@ class MoreNoticeViewController: UIViewController {
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.autocorrectionType = .no
         tf.autocapitalizationType = .none
-        tf.tintColor = .black
+        tf.tintColor = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0)
         tf.font = UIFont.systemFont(ofSize: 16)
         //tf.alpha = 0.5
-        tf.textColor = .black
+        tf.textColor = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0)
         
         //키보드 항상 보이게
         //tf.becomeFirstResponder()
@@ -67,7 +67,7 @@ class MoreNoticeViewController: UIViewController {
         
         
         self.navigationItem.title = titleName
-        navigationController?.navigationBar.prefersLargeTitles = false
+        //navigationController?.navigationBar.prefersLargeTitles = false
       view.addSubview(textFiedlView)
         textFiedlView.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
          textFiedlView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5).isActive = true

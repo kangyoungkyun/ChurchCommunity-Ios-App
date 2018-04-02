@@ -69,7 +69,7 @@
             let label = UILabel()
             label.text = ""
             label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 20.5)
-            label.textColor = UIColor.black
+            label.textColor = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0)
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
         }()
@@ -214,7 +214,7 @@
             //searchController.searchBar.delegate = self
 
             self.navigationController?.navigationBar.isTranslucent = false
-            navigationController?.navigationBar.prefersLargeTitles = false
+            ////navigationController?.navigationBar.prefersLargeTitles = false
             //navigationItem.searchController = searchController
             
             

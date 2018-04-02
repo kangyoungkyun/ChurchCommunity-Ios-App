@@ -40,7 +40,7 @@ class MemoryViewController: UITableViewController {
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.13, green:0.30, blue:0.53, alpha:1.0)
 
         self.navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.prefersLargeTitles = true
+        //navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "영상방"
     }
 

@@ -32,7 +32,7 @@ class MoreWriteTableViewController: UITableViewController{
         
         tableView.register(MoreWriteCell.self, forCellReuseIdentifier: cellId)
         self.navigationItem.title = "글목록"
-        navigationController?.navigationBar.prefersLargeTitles = false
+        //navigationController?.navigationBar.prefersLargeTitles = false
     }
 
 

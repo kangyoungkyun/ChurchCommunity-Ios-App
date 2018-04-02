@@ -35,11 +35,29 @@ class TodayQT: UITableViewController,UISearchBarDelegate {
     //        self.tableView.reloadData()
     //    }
     
+    
+     //테이블 뷰 당기면 리프레쉬
+    lazy var freshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor(red:0.59, green:0.28, blue:0.27, alpha:1.0)
+        
+        return refreshControl
+    }()
+    
+   @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        self.tableView.reloadData()
+        freshControl.endRefreshing()
+    }
+    
+    
     var todayPostsCountLable: UILabel = {
         let label = UILabel()
         label.text = "오늘의 묵상글"
         label.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 21.5)
-        label.textColor = UIColor.black
+        label.textColor = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -54,7 +72,7 @@ class TodayQT: UITableViewController,UISearchBarDelegate {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.lineBreakMode = .byWordWrapping
         //라벨 줄 간격
-        let attributedString = NSMutableAttributedString(string: "삼가 말씀에 주의하는 자는 좋은 것을 얻나니\n여호와를 의지하는 자가 복이 있느니라.")
+        let attributedString = NSMutableAttributedString(string: "삼가 말씀에 주의하는 자는 좋은 것을 얻나니 여호와를 의지하는 자가 복이 있느니라.")
         // *** Create instance of `NSMutableParagraphStyle`
         let paragraphStyle = NSMutableParagraphStyle()
         // *** set LineSpacing property in points ***
@@ -80,7 +98,7 @@ class TodayQT: UITableViewController,UISearchBarDelegate {
     
     let headerView : UIView = {
         let header = UIView()
-        header.backgroundColor = UIColor.white
+        header.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         return header
     }()
     
@@ -90,6 +108,9 @@ class TodayQT: UITableViewController,UISearchBarDelegate {
         super.viewDidLoad()
         //오늘 날짜 체크
         getSingle()
+        
+        //테이블 뷰 당기면 리프레쉬
+        self.tableView.addSubview(self.freshControl)
         
         //테이블 뷰 헤더 지정
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height:220)
@@ -120,18 +141,17 @@ class TodayQT: UITableViewController,UISearchBarDelegate {
         //searchController.searchBar.delegate = self
         
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = .white
         self.navigationController?.navigationBar.isTranslucent = false
         
         
         //네비게이션 바 색깔 변경
-        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         
         //테이블 배경 및 뒷배경 흰색 지정
-        tableView.backgroundColor = .white
-        tableView.backgroundView?.backgroundColor = .white
+        tableView.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
+        tableView.backgroundView?.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         
         //테이블 셀 등록 및 표시줄 제거
         tableView.register(TalkCell.self, forCellReuseIdentifier: cellId)
@@ -158,7 +178,25 @@ class TodayQT: UITableViewController,UISearchBarDelegate {
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if posts.count > 0 {
+            
+            return 1
+        }
+        
+        let rect = CGRect(x: 0,
+                          y: 0,
+                          width: self.tableView.bounds.size.width,
+                          height: self.tableView.bounds.size.height)
+        let noDataLabel: UILabel = UILabel(frame: rect)
+        noDataLabel.text = "복있는 사람은 오직 여호와의 율법을 즐거워하여\n그의 율법을 주야로 묵상하는 자로다."
+        noDataLabel.numberOfLines = 2
+        noDataLabel.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 15.5)
+        noDataLabel.textColor = UIColor.lightGray
+        noDataLabel.textAlignment = NSTextAlignment.center
+        self.tableView.backgroundView = noDataLabel
+        self.tableView.separatorStyle = .none
+        
+        return 0
     }
     //행 개수
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -172,6 +210,9 @@ class TodayQT: UITableViewController,UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TalkCell
+        //cell?.backgroundView?.backgroundColor = .blue
+        cell?.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
+        cell?.containerView.backgroundColor = .white
         //cell?.delegate = self
         //let screenSize = UIScreen.main.bounds
         //let separatorHeight = CGFloat(6.0)
@@ -310,7 +351,7 @@ class TodayQT: UITableViewController,UISearchBarDelegate {
                             let date = NSDate(timeIntervalSince1970: t/1000)
                             // print("---------------------\(NSDate(timeIntervalSince1970: t/1000))")
                             let dayTimePeriodFormatter = DateFormatter()
-                            dayTimePeriodFormatter.dateFormat = "M월 d일 hh시"
+                            dayTimePeriodFormatter.dateFormat = "M월 d일"
                             let dateString = dayTimePeriodFormatter.string(from: date as Date)
                             postToShow.date = dateString
                         }

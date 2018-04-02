@@ -28,7 +28,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.autocorrectionType = .no
         tf.autocapitalizationType = .none
-        tf.tintColor = .black
+        tf.tintColor = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0)
         //tf.textAlignment = .center
         tf.font = UIFont(name: "NanumMyeongjo-YetHangul", size: 14.5)
         //키보드 항상 보이게
@@ -51,7 +51,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         
         //계층 구조를 이용해서 텍스트 뷰에 lable을 넣어 주었음
         textFiedlView.addSubview(placeholderLabel)
-        textFiedlView.backgroundColor = UIColor.white
+        textFiedlView.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         //라벨의 위치를 정해 줌
         placeholderLabel.frame.origin = CGPoint(x: 8, y: (textFiedlView.font?.pointSize)! / 2)
         
@@ -60,11 +60,11 @@ class WriteViewController: UIViewController,UITextViewDelegate {
         placeholderLabel.isHidden = !textFiedlView.text.isEmpty
         
         
-        self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         self.navigationController?.navigationBar.tintColor = UIColor.lightGray
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         
         //네비게이션 바 타이틀 폰트 바꾸기
         self.navigationController?.navigationBar.titleTextAttributes =
@@ -99,7 +99,7 @@ class WriteViewController: UIViewController,UITextViewDelegate {
                     }
                 }
             }
-            self.navigationItem.title = "묵상 \(allCount + 1)편"
+            self.navigationItem.title = "묵상 \(allCount + 1)"
             allCount = 0
         }
          ref.removeAllObservers()

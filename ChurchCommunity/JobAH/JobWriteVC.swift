@@ -26,7 +26,7 @@ class JobWriteVC: UIViewController ,UITextViewDelegate{
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.autocorrectionType = .no
         tf.autocapitalizationType = .none
-        tf.tintColor = .black
+        tf.tintColor = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0)
         tf.font = UIFont.systemFont(ofSize: 18)
         //키보드 항상 보이게
         tf.becomeFirstResponder()

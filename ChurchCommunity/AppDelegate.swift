@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             container.frame = window.frame
             container.center = window.center
             container.backgroundColor = UIColor(white:0, alpha:0.2)
-            //actIdc.color = UIColor.black
+            //actIdc.color = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0)
             actIdc.frame = CGRect(x: 0 , y: 0, width:40, height:40)
             actIdc.hidesWhenStopped = true
             actIdc.center = CGPoint(x: container.frame.size.width / 2, y: container.frame.size.height / 2)
@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //로그인 성공 후 기본 레이아웃은 탭바 컨트롤러
         tabBarController = UITabBarController()
         tabBarController?.view.backgroundColor = UIColor.white
-        tabBarController?.view.tintColor = UIColor.black
+        tabBarController?.view.tintColor = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0)
         tabBarController?.tabBar.barTintColor = UIColor(red:1.00, green:1.00, blue:1.00, alpha:1.0)
 
         tabBarController?.tabBar.setValue(true, forKey: "_hidesShadow")
@@ -127,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         settingNavVC.tabBarItem.selectedImage = UIImage(named:"ic_view_headline")?.withRenderingMode(.alwaysOriginal)
        
         todayNavQT.tabBarItem.title = "묵상글"
-        talkNavVC.tabBarItem.title = "우리글"
+        talkNavVC.tabBarItem.title = "글모음"
         noticeNavVC.tabBarItem.title = "나의글"
         //writeNavVC.tabBarItem.title = "시편기록"
         //makatingNavVC.tabBarItem.title = "친구일기"
